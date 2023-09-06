@@ -1,12 +1,16 @@
 import Navbar from "../Navbar";
+import User from "../User";
 
 export default function Header() {
   return (
     <div className="w-100 cursor-default select-none my-6">
-      <h1 className="font-mono text-5xl">
-        <span className="font-light">pulse</span>
-        <span className="font-medium text-secondary">connect</span>
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-mono text-5xl">
+          <span className="font-light">pulse</span>
+          <span className="font-medium text-secondary">connect</span>
+        </h1>
+        <User />
+      </div>
       <Navbar />
     </div>
   );

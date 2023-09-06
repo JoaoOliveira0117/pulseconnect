@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 
 // Styles
 import "./globals.css";
+import "@radix-ui/themes/styles.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const workSans = Work_Sans({
