@@ -1,26 +1,53 @@
+"use client";
 import { ImFire, ImUser } from "react-icons/im";
 import Button from "../Dummies/Button";
+import Tooltip from "../Dummies/Tooltip";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+type items = {
+  Icon: React.FC<any>;
+  href: string;
+  tooltip: JSX.Element;
+};
 
 export default function Navbar() {
-  const navbarItems = [ImFire, ImUser];
+  const pathname = usePathname();
+  const navbarItems: items[] = [
+    { Icon: ImFire, href: "/trending", tooltip: <em>Trending 🔥</em> },
+    { Icon: ImUser, href: "/personal", tooltip: <>Your Profile</> },
+  ];
   return (
     <>
       <div className="my-4">
-        <ul className="text-2xl flex items-center justify-evenly">
-          {navbarItems.map((Component, i) => {
+        <div className="text-2xl flex items-center justify-evenly">
+          {navbarItems.map((item, i) => {
             const hasNextItem = navbarItems.length - 1 !== i;
             return (
               <>
-                <li key={i} className="w-full">
-                  <Button variant="borderless" className="w-full py-2 px-4">
-                    <Component className="m-auto" />
-                  </Button>
-                </li>
-                {hasNextItem && <li className="mx-4 text-secondary">|</li>}
+                <Tooltip
+                  trigger={
+                    <Link key={i} href={item.href} className="w-full">
+                      <Button
+                        variant="borderless"
+                        className="w-full py-2"
+                        active={pathname === item.href}
+                      >
+                        <item.Icon className="m-auto" />
+                      </Button>
+                    </Link>
+                  }
+                  content={item.tooltip}
+                />
+                {hasNextItem && (
+                  <span key={i} className="mx-4 text-secondary">
+                    |
+                  </span>
+                )}
               </>
             );
           })}
-        </ul>
+        </div>
       </div>
       <hr className="w-100 border-bgsecondary border-y-1" />
     </>

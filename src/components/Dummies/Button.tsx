@@ -1,6 +1,7 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   variant: "borderless" | "outline" | "filled";
+  active?: boolean;
 }
 
 export default function Button({ children, ...rest }: ButtonProps) {
@@ -21,7 +22,9 @@ export default function Button({ children, ...rest }: ButtonProps) {
         rest.className
       } outline-none flex-1 rounded-lg text-center cursor-pointer 
       transition ease-out duration-75 ${variants[rest.variant]}
-      active:scale-[0.95] active:opacity-75`}
+      active:scale-[0.95] active:opacity-75 ${
+        rest.active ? "scale-[0.95] opacity-75 bg-bgsecondary" : ""
+      }`}
     >
       {children}
     </button>

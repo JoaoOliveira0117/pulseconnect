@@ -62,7 +62,7 @@ export default function Post() {
                 <li key={i} className="flex-1 ">
                   <Tooltip
                     trigger={
-                      <Button variant="borderless" className="w-full py-2 px-4">
+                      <Button variant="borderless" className="w-full py-2">
                         <interaction.Icon className="m-auto" />
                       </Button>
                     }
