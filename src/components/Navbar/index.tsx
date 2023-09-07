@@ -14,8 +14,8 @@ type items = {
 export default function Navbar() {
   const pathname = usePathname();
   const navbarItems: items[] = [
-    { Icon: ImFire, href: "/trending", tooltip: <em>Trending 🔥</em> },
-    { Icon: ImUser, href: "/personal", tooltip: <>Your Profile</> },
+    { Icon: ImFire, href: "/home/trending", tooltip: <em>Trending 🔥</em> },
+    { Icon: ImUser, href: "/home/personal", tooltip: <>Your Profile</> },
   ];
   return (
     <>

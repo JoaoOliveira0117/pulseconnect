@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Work_Sans } from "next/font/google";
 
-// Components
-import Header from "@/components/Header";
-
 // Styles
 import "./globals.css";
 
@@ -27,10 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br" className={fontVariables}>
-      <body>
-        <Header />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

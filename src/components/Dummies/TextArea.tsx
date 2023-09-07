@@ -1,7 +1,6 @@
-import { LegacyRef, forwardRef } from "react";
+import { forwardRef } from "react";
 
-interface TextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextAreaProps extends InputProps {
   className?: string;
   variant: "transparent" | "outline" | "filled";
   resize?: boolean;

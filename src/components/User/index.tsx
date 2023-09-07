@@ -11,11 +11,11 @@ export default function User({ hasImage = true }) {
   const dropdownItems: dropdownItem[] = [
     {
       Component: () => <span>User Settings</span>,
-      href: "/user-settings",
+      href: "/home/user-settings",
     },
     {
       Component: () => <span>Logout</span>,
-      href: "/logout",
+      href: "/login",
     },
   ];
 
