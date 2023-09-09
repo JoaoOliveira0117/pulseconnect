@@ -3,7 +3,7 @@
 import TextArea from "./TextArea";
 import InputField from "./InputField";
 
-export default function Input(props: InputProps) {
-  const Element = props.multiline ? TextArea : InputField;
-  return <Element {...props} />;
+export default function Input({ multiline, ...rest }: InputProps) {
+  const Element = multiline ? TextArea : InputField;
+  return <Element {...rest} />;
 }

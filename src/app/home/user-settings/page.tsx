@@ -4,7 +4,7 @@ import Input from "@/components/Input";
 export default function UserSettings() {
   return (
     <div className="min-w-[1000px]">
-      <div className="w-full mt-2 flex items-start justify-evenly">
+      <div className="w-full mt-2 mt-16 flex items-start justify-evenly">
         <UserImage size={240} />
         <div className="flex gap-8">
           <div className="flex flex-col gap-2">

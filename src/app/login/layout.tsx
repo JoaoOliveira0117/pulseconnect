@@ -5,7 +5,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <body className="bg-bgsecondary">{children}</body>
+      <body className="bg-bgprimary">{children}</body>
     </>
   );
 }

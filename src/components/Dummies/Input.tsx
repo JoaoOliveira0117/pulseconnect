@@ -1,6 +1,7 @@
 const Input = (props: InputProps) => {
   const vFilled = "px-4 py-2 bg-bgtertiary rounded-2xl rounded-tl-none";
-  const vOutline = "py-2 bg-transparent border-b border-secondary";
+  const vOutline =
+    "py-2 bg-transparent border-b border-primary focus:border-secondary";
   const vTransparent = "bg-transparent";
   const variants = {
     transparent: vTransparent,
@@ -8,15 +9,18 @@ const Input = (props: InputProps) => {
     filled: vFilled,
   };
   return (
-    <div>
+    <div className="group">
       {props.label && (
-        <label htmlFor={props.name} className="block text-secondary text-sm">
+        <label
+          htmlFor={props.name}
+          className="block text-primary group-focus-within:text-secondary text-sm"
+        >
           {props.label}
         </label>
       )}
       <input
         {...props}
-        className={`font-light caret-white outline-none ${
+        className={`font-light caret-white outline-none text-sm ${
           variants[props.variant]
         }
        ${props.className} placeholder:italic placeholder:text-gray-200 `}

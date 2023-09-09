@@ -28,11 +28,21 @@ const config: Config = {
       },
       animation: {
         fadeIn: "fadeIn 0.4s ease-in",
+        scaleYdown: "scaleYdown 1s ease-out",
+        scaleYup: "scaleYup 1s ease-out",
       },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
+        },
+        scaleYup: {
+          "0%": { maxHeight: "0px" },
+          "100%": { maxHeight: "1000px" },
+        },
+        scaleYdown: {
+          "0%": { maxHeight: "1000px" },
+          "100%": { maxHeight: "0px" },
         },
       },
     },

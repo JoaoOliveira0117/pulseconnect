@@ -21,32 +21,23 @@ export default function Navbar() {
     <>
       <div className="my-4">
         <div className="text-2xl flex items-center justify-evenly">
-          {navbarItems.map((item, i) => {
-            const hasNextItem = navbarItems.length - 1 !== i;
-            return (
-              <>
-                <Tooltip
-                  trigger={
-                    <Link key={i} href={item.href} className="w-full">
-                      <Button
-                        variant="borderless"
-                        className="w-full py-2"
-                        active={pathname === item.href}
-                      >
-                        <item.Icon className="m-auto" />
-                      </Button>
-                    </Link>
-                  }
-                  content={item.tooltip}
-                />
-                {hasNextItem && (
-                  <span key={i} className="mx-4 text-secondary">
-                    |
-                  </span>
-                )}
-              </>
-            );
-          })}
+          {navbarItems.map((item, i) => (
+            <Tooltip
+              key={i}
+              trigger={
+                <Link href={item.href} className="w-full">
+                  <Button
+                    variant="borderless"
+                    className="w-full py-2"
+                    active={pathname === item.href}
+                  >
+                    <item.Icon className="m-auto" />
+                  </Button>
+                </Link>
+              }
+              content={item.tooltip}
+            />
+          ))}
         </div>
       </div>
       <hr className="w-100 border-bgsecondary border-y-1" />
