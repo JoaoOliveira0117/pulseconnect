@@ -5,8 +5,10 @@
   "description": "api for pulseconnect website",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "docker-start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migration-generate": "sequelize-cli migration:generate --name",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,6 +21,8 @@
     "sequelize": "^6.33.0"
   },
   "devDependencies": {
-    "@flydotio/dockerfile": "^0.4.9"
+    "@flydotio/dockerfile": "^0.4.9",
+    "eslint": "^8.49.0",
+    "sequelize-cli": "^6.6.1"
   }
 }

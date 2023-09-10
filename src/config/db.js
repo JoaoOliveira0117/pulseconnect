@@ -1,8 +1,16 @@
 import { Sequelize } from "sequelize";
-import { config } from "dotenv";
+import dotenv from "dotenv";
 
-config();
+dotenv.config();
 
-const db = new Sequelize(process.env.DATABASE_URL);
+export const db = new Sequelize(process.env.DB_URL);
 
-export default db;
+export const dbInit = async () => {
+  try {
+    console.log("Connecting Database...🟡");
+    await db.authenticate();
+    console.log("Database connected! ✅");
+  } catch (error) {
+    console.log(error);
+  }
+};
