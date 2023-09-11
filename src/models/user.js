@@ -1,6 +1,6 @@
-import { DataTypes } from 'sequelize';
-import { db } from '../config/db.js';
-import { generateHash, compareHash } from '../config/bcrypt.js';
+import { DataTypes } from 'sequelize'
+import { db } from '../config/db.js'
+import { generateHash, compareHash } from '../config/bcrypt.js'
 
 const User = db.define(
   'user',
@@ -30,21 +30,21 @@ const User = db.define(
     hooks: {
       beforeCreate: async (user) => {
         if (user.password) {
-          user.password = await generateHash(user.password);
+          user.password = await generateHash(user.password)
         }
       },
       beforeUpdate: async (user) => {
         if (user.password) {
-          user.password = await generateHash(user.password);
+          user.password = await generateHash(user.password)
         }
       }
     },
     instanceMethods: {
       validPassword: (password) => {
-        return compareHash(password, this.password);
+        return compareHash(password, this.password)
       }
     }
   }
-);
+)
 
-export default User;
+export default User
