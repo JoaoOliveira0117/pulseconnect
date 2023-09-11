@@ -1,8 +1,9 @@
-import { DataTypes } from "sequelize";
-import { db } from "../config/db.js";
+import { DataTypes } from 'sequelize';
+import { db } from '../config/db.js';
+import { generateHash, compareHash } from '../config/bcrypt.js';
 
 const User = db.define(
-  "user",
+  'user',
   {
     id: {
       type: DataTypes.UUID,
@@ -13,16 +14,36 @@ const User = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    username: { type: DataTypes.STRING },
+    username: { type: DataTypes.STRING,
+      allowNull: false
+    },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
-    timestamps: true,
+    hooks: {
+      beforeCreate: async (user) => {
+        if (user.password) {
+          user.password = await generateHash(user.password);
+        }
+      },
+      beforeUpdate: async (user) => {
+        if (user.password) {
+          user.password = await generateHash(user.password);
+        }
+      }
+    },
+    instanceMethods: {
+      validPassword: (password) => {
+        return compareHash(password, this.password);
+      }
+    }
   }
 );
 

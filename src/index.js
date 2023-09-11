@@ -1,8 +1,7 @@
-import express from "express";
-import { dbInit } from "./config/db.js";
-import dotenv from "dotenv";
-
-import user from "./controllers/user.js";
+import express from 'express';
+import { dbInit } from './config/db.js';
+import dotenv from 'dotenv';
+import router from './routes/index.js';
 
 const app = express();
 app.use(express.json());
@@ -17,4 +16,4 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT} 🔥`);
 });
 
-app.use("/user", user);
+app.use('/', router);
