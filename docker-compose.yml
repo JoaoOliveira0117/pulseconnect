@@ -1,0 +1,10 @@
+version: "1.0"
+services:
+  app:
+    image: "pulseconnect"
+    container_name: "pulseconnect"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
