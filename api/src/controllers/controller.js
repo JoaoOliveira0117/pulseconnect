@@ -1,3 +1,5 @@
+import { validationResult } from 'express-validator'
+
 class Controller {
   constructor(req, res) {
     this.req = req
@@ -13,6 +15,15 @@ class Controller {
   }
 
   response() {}
+
+  async send() {
+    const errors = validationResult(this.req)
+    if (!errors.isEmpty()) {
+      return this.fail({ errors: errors.array() }, 422)
+    }
+
+    await this.response()
+  }
 }
 
 export default Controller
