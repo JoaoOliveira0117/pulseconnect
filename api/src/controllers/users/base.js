@@ -11,6 +11,11 @@ class UserBase extends Controller {
     const user = await this.Model.create(body)
     return user
   }
+
+  async findOne(query) {
+    const user = await this.Model.findOne(query)
+    return user
+  }
 }
 
 export default UserBase

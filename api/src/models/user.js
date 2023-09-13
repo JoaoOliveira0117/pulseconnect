@@ -38,13 +38,13 @@ const User = db.define(
           user.password = await generateHash(user.password)
         }
       }
-    },
-    instanceMethods: {
-      validPassword: (password) => {
-        return compareHash(password, this.password)
-      }
     }
   }
 )
+
+User.prototype.validPassword = async function (password) {
+  const isValid = await compareHash(password, this.password)
+  return isValid
+}
 
 export default User

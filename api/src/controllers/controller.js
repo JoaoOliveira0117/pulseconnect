@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator'
-import error from '../utils/error.js'
+import { data, error} from '../utils/responseHandler.js'
 
 class Controller {
   constructor(req, res) {
@@ -8,23 +8,15 @@ class Controller {
   }
 
   fail(err, statusCode = 400) {
-    const data = {
-      params: this.req.params,
-      query: this.req.query,
-      body: this.req.body
-    }
-    
+    const formattedError = error(this.req, err, statusCode)
     this.res.status(statusCode)
-      .json({
-        data: data, 
-        ...error(err),
-        status: statusCode
-      })
+      .json(formattedError)
   }
   
   success(body, statusCode = 201) {
+    const formattedResponse = data(this.req, body, statusCode)
     this.res.status(statusCode)
-      .json(body)
+      .json(formattedResponse)
   }
 
   response() {}
