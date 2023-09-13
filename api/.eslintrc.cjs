@@ -13,7 +13,13 @@ module.exports = {
     'prettier/prettier': 0,
     'quotes': ['error', 'single'],
     'semi': ['error', 'never'],
-    'indent': ['error', 2],
-    'no-multi-spaces': ['error']
+    'indent': [ 'error', 2, { 'MemberExpression': 1 }],
+    'no-multi-spaces': ['error'],
+    'newline-per-chained-call': [
+      'error',
+      {
+        'ignoreChainWithDepth': 2
+      }
+    ]
   },
 }
