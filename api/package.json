@@ -8,6 +8,7 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:migration-generate": "sequelize-cli migration:generate --name",
     "lint": "eslint --ext .js ./"
   },
@@ -21,7 +22,8 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.9",

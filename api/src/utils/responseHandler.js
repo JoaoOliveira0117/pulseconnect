@@ -13,7 +13,8 @@ export const data = (req, body = {}, statusCode = 200) => {
 }
 
 export const error = (req, err, statusCode = 400) => {
-  const errors = Array.isArray(err.errors) && err.errors.map(( { msg } ) => msg)
+  console.log()
+  const errors = Array.isArray(err.errors) && err.errors.map(( { msg, message } ) => msg || message)
   return {
     ...data(req, {}, statusCode),
     errors: {

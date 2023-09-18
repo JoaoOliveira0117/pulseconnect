@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { db } from '../config/db.js'
 import { generateHash, compareHash } from '../config/bcrypt.js'
+import Post from './post.js'
 
 const User = db.define(
   'user',
@@ -46,5 +47,8 @@ User.prototype.validPassword = async function (password) {
   const isValid = await compareHash(password, this.password)
   return isValid
 }
+
+User.hasMany(Post, { foreignKey: 'userId'})
+Post.belongsTo(User, { foreignKey: { name: 'userId', allowNull: false }})
 
 export default User

@@ -1,20 +1,9 @@
 import User from '../../models/user.js'
-import Controller from '../controller.js'
+import CrudBase from '../crud.js'
 
-class UserBase extends Controller {
+class UserBase extends CrudBase {
   constructor(req, res) {
-    super(req, res)
-    this.Model = User
-  }
-
-  async create(body) {
-    const user = await this.Model.create(body)
-    return user
-  }
-
-  async findOne(query) {
-    const user = await this.Model.findOne(query)
-    return user
+    super(req, res, User)
   }
 }
 

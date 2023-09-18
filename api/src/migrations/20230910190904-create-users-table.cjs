@@ -20,7 +20,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
-      // timestamps: true,
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,
     })
