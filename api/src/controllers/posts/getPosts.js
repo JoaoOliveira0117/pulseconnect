@@ -1,10 +1,9 @@
 import PostBase from './base.js'
-//import validation from '../../validation/users/createPost.js'
 
 class GetPosts extends PostBase {
   async response() {
     try {
-      const posts = await this.findAndCountAll()
+      const posts = await this.getPosts()
       this.success({posts})
     } catch (err) {
       this.fail(err)

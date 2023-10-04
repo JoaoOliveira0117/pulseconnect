@@ -1,5 +1,5 @@
 import PostBase from './base.js'
-//import validation from '../../validation/users/createPost.js'
+import validation from '../../validation/posts/createPost.js'
 
 class CreatePost extends PostBase {
   async response() {
@@ -15,4 +15,4 @@ class CreatePost extends PostBase {
 }
 
 const createPost = (req, res) => new CreatePost(req, res).send()
-export default [createPost]
+export default [validation, createPost]

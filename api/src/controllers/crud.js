@@ -23,10 +23,19 @@ class CrudBase extends Controller {
     return items
   }
 
-  async findAndCountAll(query) {
+  async findAndCountAll(query, include = [], attributes = {}) {
     const items = await this.Model.findAndCountAll({
-      where: {...query},
+      where: query,
+      include,
+      attributes,
       ...this.getPagination()
+    })
+    return items
+  }
+
+  async delete(query) {
+    const items = await this.Model.destroy({
+      where: query
     })
     return items
   }
