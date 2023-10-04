@@ -4,9 +4,8 @@ import validation from '../../validation/posts/deletePost.js'
 class DeletePost extends PostBase {
   async response() {
     try {
-      console.log(this.req)
       const { id } = this.req.params
-      const deleted = await this.delete({ id })
+      const deleted = await this.delete({ id, userId: this.req.user.id })
       this.success({ deleted })
     } catch (err) {
       this.fail(err)

@@ -5,7 +5,6 @@ class CreatePost extends PostBase {
   async response() {
     try {
       const { body, user } = this.req
-      console.log({...body, userId: user.id})
       const post = await this.create({...body, userId: user.id})
       this.success({post})
     } catch (err) {
