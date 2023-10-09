@@ -1,7 +1,7 @@
 "use client";
 
-import TextArea from "./TextArea";
-import InputField from "./InputField";
+import TextArea from "./components/TextArea";
+import InputField from "./components/InputField";
 
 export default function Input({ multiline, ...rest }: InputProps) {
   const Element = multiline ? TextArea : InputField;

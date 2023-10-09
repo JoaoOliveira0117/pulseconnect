@@ -3,6 +3,7 @@ import { Inter, Work_Sans } from "next/font/google";
 
 // Styles
 import "./globals.css";
+import ToastProvider from "@/contexts/ToastContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const workSans = Work_Sans({
@@ -24,7 +25,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br" className={fontVariables}>
-      <body>{children}</body>
+      <body>
+        <ToastProvider>
+          {children}
+        </ToastProvider>
+      </body>
     </html>
   );
 }

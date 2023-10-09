@@ -3,6 +3,8 @@ import AuthOptions from "../AuthOptions";
 import Button from "../Dummies/Button";
 import Input from "../Input";
 import { register } from "@/services/admin";
+import form from "./form";
+import useToast from "@/hooks/useToast";
 
 interface RegisterProps {
   changeLogin: () => void;
@@ -19,34 +21,33 @@ const DEFAULT_FORM_VALUES = {
 export default function RegisterForm({ changeLogin }: RegisterProps) {
   const [formValues, setFormValues] = useState(DEFAULT_FORM_VALUES);
 
+  const toastify = useToast()
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   }
   
-  const handleSubmit = () => {
-    register(formValues)
+  const handleSubmit = async () => {
+    const { data, errors } = await register(formValues)
+
+    if (errors?.msg.length) {
+      return toastify(errors.msg, "error")
+    }
+
   }
 
   return (
     <>
-      <Input variant="outline" name="username" label="Username" onChange={handleChange}/>
-      <Input variant="outline" name="name" label="Name" onChange={handleChange}/>
-      <Input variant="outline" name="email" label="Email" onChange={handleChange}/>
-      <Input
-        variant="outline"
-        name="password"
-        label="Password"
-        type="password"
-        onChange={handleChange}
-      />
-      <Input
-        variant="outline"
-        name="confirmPassword"
-        label="Confirm Password"
-        type="password"
-        onChange={handleChange}
-      />
+      {form.map((input) => (
+        <Input
+          key={input.name}
+          variant={input.variant}
+          name={input.name}
+          label={input.label}
+          type={input.type}
+          onChange={handleChange} />
+      ))}
       <span className="font-light">
         or you can
         <Button

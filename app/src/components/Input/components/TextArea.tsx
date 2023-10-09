@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import TextAreaDummy from "../Dummies/TextArea";
+import TextAreaDummy from "../../Dummies/TextArea";
 import useAutosizeTextArea from "@/hooks/useAutosizeTextArea";
 
 function TextArea(props: InputProps) {

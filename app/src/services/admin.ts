@@ -1,5 +1,10 @@
 import { post } from "./api/config";
 
+interface LoginProps {
+  email: string;
+  password: string;
+}
+
 interface RegisterProps {
   username: string;
   name: string;
@@ -8,13 +13,35 @@ interface RegisterProps {
   confirmPassword: string;
 }
 
-const register = async ({ username, name, email, password, confirmPassword }: RegisterProps) => {
+const login = async ({ email, password }: LoginProps) => {
   try {
-    const response = await post("/users", { username, name, email, password, confirm_password: confirmPassword });
-    console.log(response)
-  } catch (error) {
-    throw new Error(error);
+    const body = {
+      email,
+      password,
+    }
+
+    const response = await post("/users/login", body);
+    return response
+  } catch (error: any) {
+    return error.response.data;
   }
 }
 
-export { register };
+const register = async ({ username, name, email, password, confirmPassword }: RegisterProps) => {
+  try {
+    const body = {
+      username,
+      name,
+      email,
+      password,
+      confirm_password: confirmPassword,
+    }
+
+    const response = await post("/users", body);
+    return response
+  } catch (error: any) {
+    return error.response.data;
+  }
+}
+
+export { login, register };

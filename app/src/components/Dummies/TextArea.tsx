@@ -4,6 +4,7 @@ interface TextAreaProps extends InputProps {
   className?: string;
   variant: "transparent" | "outline" | "filled";
   resize?: boolean;
+  rows?: number;
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(

@@ -10,6 +10,10 @@
   --bg-primary: #172a3a;
   --bg-secondary: #004346;
   --bg-tertiary: #508991;
+  --success: #00d1b2;
+  --error: #ff006e;
+  --info: #3a86ff;
+  --warning: #ffbe0b;
 }
 
 body {
