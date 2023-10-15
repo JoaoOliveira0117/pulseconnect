@@ -5,11 +5,13 @@
   "description": "api for pulseconnect website",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon src/index.js --legacy-watch",
     "start": "node src/index.js",
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:migration-generate": "sequelize-cli migration:generate --name",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
     "lint": "eslint --ext .js ./"
   },
   "author": "",

@@ -1,10 +1,28 @@
 version: "1.0"
 services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"
   app:
-    image: "pulseconnect"
-    container_name: "pulseconnect"
     build:
       context: .
       dockerfile: ./Dockerfile
+    volumes:
+      - ./src:/home/node/api/src
+    container_name: "pulseconnect"
+    expose:
+      - "3000"
     ports:
       - "3000:3000"
+    command: npm run dev
+    links:
+      - db
+    depends_on:
+      - db
+volumes:
+  pgdata: {}
+  nodemodules: {}
