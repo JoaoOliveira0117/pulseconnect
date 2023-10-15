@@ -6,8 +6,7 @@ class CreateUser extends UserBase {
   async response() {
     try {
       const { body } = this.req
-      body.create_password = body.createPassword
-      const user = await this.create({ body })
+      const user = await this.create(body)
       const token = generateToken({ id: user.id })
       this.success({user, token})
     } catch (err) {

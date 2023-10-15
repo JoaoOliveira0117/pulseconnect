@@ -4,13 +4,17 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
     volumes:
       - "pgdata:/var/lib/postgresql/data"
   app:
     build:
       context: .
       dockerfile: ./Dockerfile
+    env_file:
+      - .env
     volumes:
       - ./src:/home/node/api/src
     container_name: "pulseconnect"
@@ -19,10 +23,16 @@ services:
     ports:
       - "3000:3000"
     command: npm run dev
+  db-migrations:
+    build:
+      context: .
+    env_file:
+      - .env
     links:
       - db
     depends_on:
       - db
+    command: npm run db:migrate
 volumes:
   pgdata: {}
   nodemodules: {}

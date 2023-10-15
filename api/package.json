@@ -11,7 +11,7 @@
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:migration-generate": "sequelize-cli migration:generate --name",
     "docker:build": "docker-compose build",
-    "docker:up": "docker-compose up",
+    "docker:up": "docker-compose up --build",
     "lint": "eslint --ext .js ./"
   },
   "author": "",
