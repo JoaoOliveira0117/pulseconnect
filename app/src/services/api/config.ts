@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const {get, post, put, delete: destroy } = axios.create({
+const instance = axios.create({
   baseURL: "http://localhost:3000",
+  params: {},
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -9,11 +10,12 @@ const {get, post, put, delete: destroy } = axios.create({
   }
 });
 
-axios.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  console.log("error")
-  return Promise.reject(error);
+instance.interceptors.response.use(async function (response) {
+  return response.data;
+}, async function (error) {
+  return Promise.reject(error.response.data);
 });
+
+const { get, post, put, delete: destroy } = instance
 
 export { get, post, put, destroy };

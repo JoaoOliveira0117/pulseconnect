@@ -52,7 +52,6 @@ const toast = (message: ToastMessage, type: ToastType = 'success') => {
   if (Array.isArray(message)) {
     return message.map((msg) => toastComponent(msg, type))
   } 
-    
   
   return toastComponent(message, type)
 }

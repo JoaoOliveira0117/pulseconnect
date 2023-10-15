@@ -1,9 +1,13 @@
+import { useState } from "react";
+
+import useToast from "@/hooks/useToast";
+import { login } from "@/services/admin";
+
 import Button from "../Dummies/Button";
 import Input from "../Input";
 import AuthOptions from "../AuthOptions";
-import useToast from "@/hooks/useToast";
-import { useState } from "react";
-import { login } from "@/services/admin";
+
+import Cookies from 'js-cookie'
 
 interface LoginProps {
   changeRegister: () => void;
@@ -31,7 +35,7 @@ export default function LoginForm({ changeRegister }: LoginProps) {
       return toastify(errors.msg, "error")
     }
 
-    console.log(data)
+    Cookies.set("jwt", data.token, { expires: 1 })
   }
 
   return (
