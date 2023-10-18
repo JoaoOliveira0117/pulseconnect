@@ -1,11 +1,12 @@
-export default function RootLayout({
-  children,
-}: {
+import ToastProvider from "@/contexts/ToastContext";
+
+export default function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <body className="bg-bgprimary">{children}</body>
-    </>
+    <body>
+      {children}
+      <ToastProvider />
+    </body>
   );
 }

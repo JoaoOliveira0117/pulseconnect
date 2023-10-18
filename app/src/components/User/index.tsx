@@ -1,13 +1,24 @@
+'use client'
 import Link from "next/link";
 import DropdownMenu from "../DropdownMenu";
 import UserImage from "../Dummies/UserImage";
+import Cookies from 'js-cookie'
+import { useRouter } from "next/navigation";
 
 interface dropdownItem {
   Component: React.FC<any>;
+  onClick?: (...props: any[]) => void;
   href: string;
 }
 
 export default function User({ hasImage = true }) {
+  const router = useRouter()
+
+  const handleLogout = (url: string) => {
+    Cookies.remove("jwt")
+    router.push(url)
+  }
+
   const dropdownItems: dropdownItem[] = [
     {
       Component: () => <span>User Settings</span>,
@@ -15,6 +26,7 @@ export default function User({ hasImage = true }) {
     },
     {
       Component: () => <span>Logout</span>,
+      onClick: () => handleLogout("/login"),
       href: "/login",
     },
   ];
@@ -32,8 +44,12 @@ export default function User({ hasImage = true }) {
           </h2>
         </div>
       }
-      items={dropdownItems.map((item) => (
-        <Link key={item.href} href={item.href} className="w-full py-2 px-2">
+      items={dropdownItems.map((item) => (item.onClick ? 
+        <button key={item.href} onClick={item.onClick} className="w-full py-2 px-2" >
+          <item.Component />
+        </button> 
+       : 
+        <Link key={item.href} href={item.href} className="w-full py-2 px-2" >
           <item.Component />
         </Link>
       ))}

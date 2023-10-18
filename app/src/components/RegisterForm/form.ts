@@ -28,7 +28,7 @@ const form: Form[] =  [
     type: 'password',
   },
   {
-    name: 'confirmPassword',
+    name: 'confirm_password',
     variant: 'outline',
     label: 'Confirm Password',
     type: 'password',
