@@ -1,37 +1,39 @@
-import { forwardRef } from "react";
+/* eslint-disable react/require-default-props */
+import { forwardRef } from 'react';
+import { InputProps } from '../Input/input.types';
 
 interface TextAreaProps extends InputProps {
   className?: string;
-  variant: "transparent" | "outline" | "filled";
+  variant: 'transparent' | 'outline' | 'filled';
   resize?: boolean;
   rows?: number;
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  (props, ref) => {
-    const resize = props.resize ? "resize" : "resize-none";
-    const vFilled = "bg-bgtertiary rounded-full";
-    const vOutline = "py-2 bg-transparent border border-secondary rounded-full";
-    const vTransparent = "bg-transparent";
-    const variants = {
-      transparent: vTransparent,
-      outline: vOutline,
-      filled: vFilled,
-    };
-    return (
-      <textarea
-        {...props}
-        ref={ref}
-        className={`px-6 font-light caret-white outline-none ${
-          variants[props.variant]
-        }
+	(props, ref) => {
+		const resize = props.resize ? 'resize' : 'resize-none';
+		const vFilled = 'bg-bgtertiary rounded-full';
+		const vOutline = 'py-2 bg-transparent border border-secondary rounded-full';
+		const vTransparent = 'bg-transparent';
+		const variants = {
+			transparent: vTransparent,
+			outline: vOutline,
+			filled: vFilled,
+		};
+		return (
+			<textarea
+				{...props}
+				ref={ref}
+				className={`px-6 font-light caret-white outline-none ${
+					variants[props.variant]
+				}
        ${
-         props.className
-       } ${resize} placeholder:italic placeholder:text-gray-200 `}
-      />
-    );
-  }
+			props.className
+			} ${resize} placeholder:italic placeholder:text-gray-200 `}
+			/>
+		);
+	},
 );
 
-TextArea.displayName = "TextArea";
+TextArea.displayName = 'TextArea';
 export default TextArea;

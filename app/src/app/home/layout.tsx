@@ -1,15 +1,17 @@
+import React from 'react';
+
 // Components
-import Header from "@/components/Header";
+import Header from '@/components/Header';
 
 export default function RootLayout({
-  children,
+	children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <Header />
-      {children}
-    </>
-  );
+	return (
+		<>
+			<Header />
+			{children}
+		</>
+	);
 }
