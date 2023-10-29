@@ -1,10 +1,30 @@
+'use client'
+
 import { AiOutlinePlus } from 'react-icons/ai';
+import { useState } from 'react';
 import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
 import UserImage from '../Dummies/UserImage';
 import Input from '../Input';
+import useToast from '@/hooks/useToast';
+import { createPost } from '@/services/posts';
 
 export default function PostComposer() {
+	const [body, setBody] = useState('');
+
+	const toastify = useToast();
+
+	const handleCreatePost = async () => {
+		const { errors } = await createPost({ content: body });
+
+		if (errors?.msg.length) {
+			return toastify(errors.msg, 'error');
+		}
+
+		toastify('Post created successfully', 'success');
+		return window.location.reload();
+	};
+
 	return (
 		<div
 			className="flex mx-auto min-w-[48rem] mt-4 mb-8
@@ -20,12 +40,14 @@ export default function PostComposer() {
 					className="w-full pr-2"
 					placeholder="What are you thinking today? 🔥"
 					multiline
+					onChange={(e) => setBody(e.target.value)}
 				/>
 				<Tooltip
 					trigger={(
 						<Button
 							variant="borderless"
 							className="bg-transparent hover:bg-transparent mr-2 mt-auto"
+							onClick={handleCreatePost}
 						>
 							<AiOutlinePlus
 								className={`text-bgprimary text-4xl bg-secondary

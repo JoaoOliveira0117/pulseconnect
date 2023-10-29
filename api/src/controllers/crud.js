@@ -30,6 +30,7 @@ class CrudBase extends Controller {
       include,
       attributes,
       group,
+      order: [['createdAt', 'DESC']],
       ...this.getPagination()
     })
     return items

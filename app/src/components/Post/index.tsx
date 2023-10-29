@@ -53,7 +53,7 @@ export default function Post({
 						<h2 className="text-sm font-light">
 							{user.name}
 							{' '}
-  | @{user.username}
+  						| @{user.username}
 						</h2>
 						<p className="text-xs font-light text-secondary pt-0.5">
 							{createdAt}

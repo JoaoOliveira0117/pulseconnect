@@ -3,7 +3,7 @@ export type PostType = {
   user: {
     name: string;
     username: string;
-    avatar: string;
+    avatar?: string;
   };
   content: string;
   createdAt: string;
