@@ -3,15 +3,15 @@ import { BiSolidUser } from 'react-icons/bi';
 
 export default function UserImage({
 	className = '',
-	hasImage = false,
+	src = '',
 	size = 24,
 }) {
-	return hasImage ? (
+	return src ? (
 		<Image
 			width={size}
 			height={size}
 			className={`aspect-square object-cover rounded-full ${className}`}
-			src=""
+			src={src}
 			alt="George Beck"
 		/>
 	) : (

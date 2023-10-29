@@ -35,7 +35,7 @@ class PostBase extends CrudBase {
   includeUser() {
     return {
       model: UserModel,
-      attributes: ['name','username']
+      attributes: ['name','username','profilePicture']
     }
   }
 

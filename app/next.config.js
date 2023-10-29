@@ -14,6 +14,11 @@ const nextConfig = {
         port: "",
         pathname: "/random/*",
       },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co",
+        port: ""
+      }
     ],
   },
 };

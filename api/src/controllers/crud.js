@@ -14,7 +14,6 @@ class CrudBase extends Controller {
   }
 
   async create(body) {
-    console.log(body)
     const items = await this.Model.create(body)
     return items
   }

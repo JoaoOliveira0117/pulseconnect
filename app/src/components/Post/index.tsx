@@ -42,11 +42,13 @@ export default function Post({
 		},
 	];
 
+	console.log(user)
+
 	return (
 		<div className="min-w-[700px] max-w-2xl mx-auto">
 			<div className="flex gap-2">
 				<div className="min-w-[4rem] h-full">
-					<UserImage className="m-auto" size={36} />
+					<UserImage src={user.profilePicture} className="m-auto" size={36} />
 				</div>
 				<div>
 					<div className="flex items-center gap-2 h-[30px]">

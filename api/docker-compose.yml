@@ -38,4 +38,3 @@ services:
     command: npm run dev
 volumes:
   pgdata: {}
-  nodemodules: {}
