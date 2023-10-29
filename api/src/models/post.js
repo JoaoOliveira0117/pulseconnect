@@ -1,34 +1,27 @@
 import { db } from '../config/db.js'
 import { DataTypes } from 'sequelize'
+import User from './user.js'
 
 const Post = db.define(
-  'post',
+  'posts',
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
     content: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    likes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    comments: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    reposts: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
     }
   },
 )
 
-Post.hasOne(Post, { foreignKey: 'replyId' })
-
+User.hasMany(Post)
+Post.belongsTo(User, { foreignKey: { name: 'userId', allowNull: false }})
 
 export default Post

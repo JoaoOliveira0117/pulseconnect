@@ -9,20 +9,6 @@ services:
       - "5432:5432"
     volumes:
       - "pgdata:/var/lib/postgresql/data"
-  app:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    env_file:
-      - .env
-    volumes:
-      - ./src:/home/node/api/src
-    container_name: "pulseconnect"
-    expose:
-      - "3000"
-    ports:
-      - "3000:3000"
-    command: npm run dev
   db-migrations:
     build:
       context: .
@@ -33,6 +19,23 @@ services:
     depends_on:
       - db
     command: npm run db:migrate
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./src:/home/node/api/src
+    container_name: "pulseconnect"
+    depends_on:
+      - db
+      - db-migrations
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    command: npm run dev
 volumes:
   pgdata: {}
   nodemodules: {}

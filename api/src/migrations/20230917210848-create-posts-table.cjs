@@ -13,20 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      likes: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      comments: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      reposts: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-    }).then(()=>{
-      return queryInterface.addColumn('posts','userId', {
+      userId: {
         type: Sequelize.UUID,
         references: {
           model: 'users',
@@ -34,20 +21,11 @@ module.exports = {
           allowNull: false
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      })
+        onDelete: 'CASCADE',
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE,
     })
-      .then(()=>{
-        return queryInterface.addColumn('posts', 'reply_to_post_id', {
-          type: Sequelize.UUID,
-          references: {
-            model: 'posts',
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL'
-        })
-      })
   },
 
   async down (queryInterface) {

@@ -24,11 +24,12 @@ class CrudBase extends Controller {
     return items
   }
 
-  async findAndCountAll(query, include = [], attributes = {}) {
-    const items = await this.Model.findAndCountAll({
+  async findAndCountAll(query, include, attributes, group) {
+    const items = await this.Model.findAll({
       where: query,
       include,
       attributes,
+      group,
       ...this.getPagination()
     })
     return items
