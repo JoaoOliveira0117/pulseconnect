@@ -70,7 +70,7 @@ export default function LoginForm({ changeRegister }: LoginProps) {
 			</span>
 			<AuthOptions />
 			<hr className="w-[75%] border-bgsecondary border-y-1" />
-			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2">
+			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2" onClick={handleSubmit}>
   Login
 			</Button>
 		</form>

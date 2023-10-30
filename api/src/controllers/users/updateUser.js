@@ -1,11 +1,7 @@
 import UserBase from './base.js'
-// import validation from '../../validation/users/updateUser.js'
+import validation from '../../validation/users/updateUser.js'
 import uploadImage from '../../services/imgBB.js'
-
-import multer from 'multer'
-
-const storage = multer.memoryStorage()
-const upload = multer({ storage: storage })
+import initMulter from '../../config/multer.js'
 
 class UpdateUser extends UserBase {
   async response() {
@@ -26,4 +22,4 @@ class UpdateUser extends UserBase {
 }
 
 const updateUser = (req, res) => new UpdateUser(req, res).send()
-export default [upload.single('file'), updateUser]
+export default [validation, initMulter, updateUser]

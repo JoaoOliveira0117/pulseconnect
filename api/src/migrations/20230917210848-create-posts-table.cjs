@@ -23,6 +23,16 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      replyTo: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'posts',
+          key: 'id',
+          allowNull: true
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,
     })

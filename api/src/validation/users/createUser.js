@@ -1,4 +1,4 @@
-import { stringExists, emailExists, passwordExists } from '../index.js'
+import { stringExists, emailExists, passwordExists, validateExact } from '../index.js'
 import User from '../../models/user.js'
 
 export default [
@@ -23,5 +23,6 @@ export default [
       if (user) {
         throw new Error('email already in use')
       }
-    })
+    }),
+  validateExact()
 ]

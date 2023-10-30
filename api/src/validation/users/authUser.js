@@ -1,4 +1,4 @@
-import { emailExists, passwordExists } from '../index.js'
+import { emailExists, passwordExists, validateExact } from '../index.js'
 import User from '../../models/user.js'
 
 export default [
@@ -8,7 +8,8 @@ export default [
       const user = await User.findOne({ where: { email } })
 
       if (!user) {
-        throw new Error('no user found for email: ' + email)
+        throw new Error('No such user found')
       }
-    })
+    }),
+  validateExact()
 ]

@@ -23,15 +23,8 @@ class CrudBase extends Controller {
     return items
   }
 
-  async findAndCountAll(query, include, attributes, group) {
-    const items = await this.Model.findAll({
-      where: query,
-      include,
-      attributes,
-      group,
-      order: [['createdAt', 'DESC']],
-      ...this.getPagination()
-    })
+  async findAndCountAll(query) {
+    const items = await this.Model.findAll(query)
     return items
   }
 
