@@ -1,64 +1,36 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import DropdownItem from '../DropdownMenu/dropdownItem';
 import DropdownMenu from '../DropdownMenu';
-import UserImage from '../Dummies/UserImage';
+import UserPill from '../UserPill';
 
-interface dropdownItem {
-  Component: React.FC<any>;
-  // eslint-disable-next-line no-unused-vars
-  onClick?: (...props: any[]) => void;
-  href: string;
+interface UserProps {
+	userToken?: string;
 }
 
-export default function User({ hasImage = true }) {
+export default function User({ userToken = '' }: UserProps) {
 	const router = useRouter();
 
-	const handleLogout = (url: string) => {
+	const handleLogout = () => {
 		Cookies.remove('jwt');
-		router.push(url);
+		router.replace('/login');
 	};
 
-	const dropdownItems: dropdownItem[] = [
-		{
-			Component: () => <span>User Settings</span>,
-			href: '/home/user-settings',
-		},
-		{
-			Component: () => <span>Logout</span>,
-			onClick: () => handleLogout('/login'),
-			href: '/login',
-		},
-	];
-
 	return (
-		<DropdownMenu
-			trigger={(
-				<div
-					className="flex items-center justify-between cursor-pointer gap-2 p-2 px-4
-          hover:bg-bgsecondary rounded-full transition ease-out bg-bgprimary duration-200"
-				>
-					<UserImage hasImage={hasImage} size={24}/>
-					<h2 className="block w-full max-w-[8rem] overflow-hidden whitespace-nowrap text-sm font-light text-end ">
-    George Beck
-					</h2>
-				</div>
-			)}
-			items={dropdownItems.map((item) => (item.onClick
-				? (
-					<button type="button" key={item.href} onClick={item.onClick} className="w-full py-2 px-2">
-						<item.Component />
-					</button>
-				)
-				: (
-					<Link key={item.href} href={item.href} className="w-full py-2 px-2">
-						<item.Component />
-					</Link>
-				)
-			))}
-		/>
+		<DropdownMenu trigger={(<UserPill userToken={userToken} />)}>
+			<DropdownItem>
+				<Link href="/home/user-settings" className="block w-full p-2 px-4 hover:bg-bgsecondary">
+						User Settings
+				</Link>
+			</DropdownItem>
+			<DropdownItem>
+				<button type='button' className="block w-full p-2 px-4 hover:bg-bgsecondary" onClick={handleLogout} >
+						Logout
+				</button>
+			</DropdownItem>
+		</DropdownMenu>
 	);
 }

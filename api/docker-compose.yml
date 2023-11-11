@@ -9,16 +9,6 @@ services:
       - "5432:5432"
     volumes:
       - "pgdata:/var/lib/postgresql/data"
-  db-migrations:
-    build:
-      context: .
-    env_file:
-      - .env
-    links:
-      - db
-    depends_on:
-      - db
-    command: npm run db:migrate
   app:
     build:
       context: .
@@ -30,7 +20,6 @@ services:
     container_name: "pulseconnect"
     depends_on:
       - db
-      - db-migrations
     expose:
       - "3000"
     ports:

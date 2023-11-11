@@ -1,20 +1,10 @@
 import getAuth from "./getAuth";
 
-export default function getHeaders(auth = false) {
-	const headers = {
+export default function getHeaders(cookie?: string) {
+	const token = getAuth(cookie);
+
+	return {
 		'Content-Type': 'application/json',
-		Authorization: '',
+		Authorization: `Bearer ${token}`,
 	};
-
-	if (!auth) {
-		return headers;
-	}
-
-	const token = getAuth();
-
-	if (token) {
-		headers.Authorization = `Bearer ${token}`;
-	}
-
-	return headers;
 }

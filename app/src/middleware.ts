@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import getAuth from './utils/getAuth';
 
 // This function can be marked `async` if using `await` inside
 // eslint-disable-next-line consistent-return
 export function middleware(request: NextRequest) {
-	const cookie = getAuth(request);
+	const cookie = request.cookies.get('jwt');
 
 	if (!cookie) {
 		return NextResponse.redirect(new URL('/login', request.url));

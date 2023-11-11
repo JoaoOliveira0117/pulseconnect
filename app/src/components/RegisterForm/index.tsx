@@ -19,7 +19,7 @@ const DEFAULT_FORM_VALUES = {
 	username: '',
 	email: '',
 	password: '',
-	confirmPassword: '',
+	confirm_password: ''
 };
 
 export default function RegisterForm({ changeLogin }: RegisterProps) {
@@ -63,21 +63,21 @@ export default function RegisterForm({ changeLogin }: RegisterProps) {
 				/>
 			))}
 			<span className="font-light">
-  or you can
+  			or you can
 				<Button
 					type="button"
 					variant="borderless"
 					className="font-bold text-secondary cursor-pointer px-2"
 					onClick={changeLogin}
 				>
-  login
+  				login
 				</Button>
-  instead
+  			instead
 			</span>
 			<AuthOptions />
 			<hr className="w-[75%] border-bgsecondary border-y-1" />
 			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2" onClick={handleSubmit}>
-  Register
+  			Register
 			</Button>
 		</form>
 	);

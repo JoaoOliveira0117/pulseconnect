@@ -1,3 +1,16 @@
+export type InitialStateType<T> = {
+  loading: boolean
+  data: T
+}
+
+export type UserType = {
+  id: string,
+	name: string,
+	username: string,
+	email: string,
+	profilePicture: string | null
+}
+
 export type PostType = {
   id: string;
   user: {

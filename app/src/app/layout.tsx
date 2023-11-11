@@ -4,6 +4,7 @@ import { Inter, Work_Sans as WorkSans } from 'next/font/google';
 
 // Styles
 import './globals.css';
+import Providers from '@/contexts/ReduxContext';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const workSans = WorkSans({
@@ -26,7 +27,9 @@ export default function RootLayout({
 	return (
 		<html lang="pt-br" className={fontVariables}>
 			<body>
-				{children}
+				<Providers>
+					{children}
+				</Providers>
 			</body>
 		</html>
 	);

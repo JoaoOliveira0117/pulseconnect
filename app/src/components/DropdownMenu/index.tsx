@@ -1,30 +1,24 @@
-'use client';
-
-import React from 'react';
+import { ReactNode } from 'react';
 
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 import './style.css';
 
 interface DropdownMenuProps {
-  trigger: React.ReactNode;
-  items: React.ReactNode[];
+  trigger: ReactNode;
+  children: ReactNode;
 }
 
-export default function DropdownMenu({ trigger, items }: DropdownMenuProps) {
+export default function DropdownMenu({ trigger, children }: DropdownMenuProps) {
 	return (
 		<RadixDropdownMenu.Root>
-			<RadixDropdownMenu.Trigger asChild>{trigger}</RadixDropdownMenu.Trigger>
+			<RadixDropdownMenu.Trigger>{trigger}</RadixDropdownMenu.Trigger>
 
 			<RadixDropdownMenu.Portal>
 				<RadixDropdownMenu.Content
 					className="RadixDropdownMenuContent"
 					sideOffset={5}
 				>
-					{items.map((item, i) => (
-						<RadixDropdownMenu.Item key={i} className="RadixDropdownMenuItem">
-							{item}
-						</RadixDropdownMenu.Item>
-					))}
+					{children}
 				</RadixDropdownMenu.Content>
 			</RadixDropdownMenu.Portal>
 		</RadixDropdownMenu.Root>

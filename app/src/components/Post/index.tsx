@@ -42,8 +42,6 @@ export default function Post({
 		},
 	];
 
-	console.log(user)
-
 	return (
 		<div className="min-w-[700px] max-w-2xl mx-auto">
 			<div className="flex gap-2">

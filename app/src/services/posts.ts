@@ -6,7 +6,7 @@ const endpoint = '/posts';
 
 export const getPosts = async () => {
 	try {
-		const headers = await getHeaders(true)
+		const headers = await getHeaders()
 		return await get(`${endpoint}`, { headers });
 	} catch (error: any) {
 		return error;
@@ -15,7 +15,7 @@ export const getPosts = async () => {
 
 export const createPost = async (body: CreatePostProps) => {
 	try {
-		const headers = await getHeaders(true)
+		const headers = await getHeaders()
 		return await post(`${endpoint}/create`, body, { headers });
 	} catch (error: any) {
 		return error;
