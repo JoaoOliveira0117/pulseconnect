@@ -1,19 +1,18 @@
-import { buildInteractionsQuery, buildUserQuery, buildReplyToQuery } from './base.js'
+import { buildInteractionsQuery, buildUserQuery, buildReplyToQuery, buildCurrentUserMetadataQuery } from './base.js'
 
-function buildGetPostsQuery(query, pagination) {
+function buildGetPostsQuery(query, userId, pagination) {
   const { limit, offset } = pagination
   const include = [
-    ...buildUserQuery().query,
-    ...buildInteractionsQuery().query,
+    ...buildUserQuery()
   ]
 
   const attributes = [
     'id',
     'content',
     'replyTo',
-    ...buildUserQuery().attributes,
-    ...buildInteractionsQuery().attributes,
-    ...buildReplyToQuery().attributes
+    ...buildInteractionsQuery(),
+    ...buildReplyToQuery(),
+    ...buildCurrentUserMetadataQuery(userId)
   ]
 
   const order = [['createdAt', 'DESC']]

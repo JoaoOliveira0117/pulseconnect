@@ -9,7 +9,7 @@ class PostBase extends CrudBase {
   }
   
   async getPosts(query) {
-    return await this.findAndCountAll(getPostsQuery(query, this.getPagination()))
+    return await this.findAndCountAll(getPostsQuery(query, this.req.user.id, this.getPagination()))
   }
 
   async getPostReplies(query) {

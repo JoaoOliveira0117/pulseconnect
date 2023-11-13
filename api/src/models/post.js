@@ -21,7 +21,7 @@ const Post = db.define(
     replyTo: {
       type: DataTypes.UUID,
       allowNull: true,
-    },
+    }
   },
 )
 

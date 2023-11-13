@@ -1,6 +1,5 @@
-import { fn, col, literal } from 'sequelize'
+import { literal } from 'sequelize'
 import User from '../../../models/user.js'
-import Interactions from '../../../models/interactions_posts_X_users.js'
 
 export function buildReplyToQuery() {
   const attributes = [
@@ -14,44 +13,57 @@ export function buildReplyToQuery() {
     ]
   ]
 
-  return { attributes }
+  return attributes
 }
 
 export function buildInteractionsQuery() {
   const attributes = [
-    [fn('COUNT', col('like_count')), 'likes'],
-    [fn('COUNT', col('repost_count')), 'reposts']
+    [literal(`(
+      SELECT COUNT(*)
+      FROM interactions_posts_x_users AS i
+      WHERE i."postId" = posts.id
+      AND i."type" = 'like'
+    )`),
+    'likes'],
+    [literal(`(
+      SELECT COUNT(*)
+      FROM interactions_posts_x_users AS i
+      WHERE i."postId" = posts.id
+      AND i."type" = 'repost'
+    )`),
+    'reposts']
   ]
 
-  const query =[{
-    as: 'like_count',
-    model: Interactions,
-    where: {
-      type: 'like'
-    },
-    attributes: [],
-    duplicating: false,
-    required: false
-  },
-  {
-    as: 'repost_count',
-    model: Interactions,
-    where: {
-      type: 'repost'
-    },
-    attributes: [],
-    duplicating: false,
-    required: false
-  }]
+  return attributes
+}
 
-  return { attributes, query }
+export function buildCurrentUserMetadataQuery(userId) {
+  const attributes = [
+    [literal(`(
+    SELECT (COUNT(*) != 0)
+    FROM interactions_posts_x_users AS i
+    WHERE i."postId" = posts.id
+    AND i."type" = 'like'
+    AND i."userId" = '${userId}'
+  )`),
+    'currentUserHasLiked'],
+    [literal(`(
+      SELECT (COUNT(*) != 0)
+      FROM interactions_posts_x_users AS i
+      WHERE i."postId" = posts.id
+      AND i."type" = 'repost'
+      AND i."userId" = '${userId}'
+    )`),
+    'currentUserHasReposted']
+  ]
+
+  return attributes
 }
 
 export function buildUserQuery() {
-  const attributes = []
   const query = [{
     model: User,
     attributes: ['id', 'name','username','profilePicture']
   }]
-  return { attributes, query }
+  return query
 }
