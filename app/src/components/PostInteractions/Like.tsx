@@ -8,16 +8,24 @@ interface LikeProps {
 	userToken?: string;
   id: string;
   count: number
+	liked: boolean
 }
 
-export default function Like({ userToken, id, count }: LikeProps) {
+export default function Like({ userToken, id, count, liked }: LikeProps) {
 	const dispatch = useAppDispatch()
+
 	const handleClick = () => {
 		dispatch(likePostAction({ id }, userToken))
 	}
+	
 	return <Tooltip content="Like">
 		<div className='w-full'>
-			<Button variant="borderless" className="w-full py-2 m-auto flex items-center justify-center gap-2" onClick={handleClick}>
+			<Button 
+				variant="borderless" 
+				className="w-full py-2 m-auto flex items-center justify-center gap-2"
+				onClick={handleClick}
+				active={liked}
+			>
 				<SlLike />
 				{count}
 			</Button>

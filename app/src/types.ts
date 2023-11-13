@@ -19,8 +19,8 @@ export type PostType = {
   likes: number;
   comments: number;
   reposts: number;
-  liked: boolean;
-  reposted: boolean;
+  currentUserHasLiked: boolean;
+  currentUserHasReposted: boolean;
   image?: string;
   video?: string;
   replyTo?: {

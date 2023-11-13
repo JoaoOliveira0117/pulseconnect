@@ -8,16 +8,24 @@ interface RepostProps {
 	userToken?: string;
   id: string;
   count: number
+	reposted: boolean
 }
 
-export default function Repost({ userToken, id, count }: RepostProps) {
+export default function Repost({ userToken, id, count, reposted }: RepostProps) {
 	const dispatch = useAppDispatch()
+	
 	const handleClick = () => {
 		dispatch(repostPostAction({ id }, userToken))
 	}
+
 	return <Tooltip content="Repost">
 		<div className='w-full'>
-			<Button variant="borderless" className="w-full py-2 m-auto flex items-center justify-center gap-2" onClick={handleClick}>
+			<Button 
+				variant="borderless" 
+				className="w-full py-2 m-auto flex items-center justify-center gap-2"
+				onClick={handleClick}
+				active={reposted}
+			>
 				<AiOutlineRetweet />
 				{count}
 			</Button>

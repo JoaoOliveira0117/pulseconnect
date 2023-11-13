@@ -7,13 +7,15 @@ interface InteractionsProps {
   id: string,
   likes: number,
   reposts: number,
-  comments: number
+  comments: number,
+  liked: boolean,
+  reposted: boolean
 }
 
-export default function Interactions({ userToken, id, likes, reposts, comments }: InteractionsProps) {
+export default function Interactions({ userToken, id, likes, reposts, comments, liked, reposted }: InteractionsProps) {
 	return <div className="flex items-center justify-evenly">
-		<Like userToken={userToken} id={id} count={likes}/>
-		<Repost userToken={userToken} id={id} count={reposts}/>
+		<Like userToken={userToken} id={id} count={likes} liked={liked}/>
+		<Repost userToken={userToken} id={id} count={reposts} reposted={reposted}/>
 		<Comment count={comments}/>
 	</div>
 }

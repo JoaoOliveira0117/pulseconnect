@@ -18,6 +18,6 @@ export default function PostContainer({ userToken }: PostContainerProps) {
 	}, [dispatch, userToken])
 
 	return posts.map((post) => (
-		<Post key={post.id} userToken={userToken} {...post} />
+		<Post key={post.id} userToken={userToken} post={post} />
 	))
 }
