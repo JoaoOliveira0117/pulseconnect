@@ -37,8 +37,8 @@ Post.belongsToMany(User, { through: Interactions })
 
 User.hasMany(Interactions)
 
-Post.hasMany(Interactions, { as: 'like_count'})
-Post.hasMany(Interactions, { as: 'repost_count'})
+Post.hasMany(Interactions, { as: 'like_count', foreignKey: { defaultValue: 0 } })
+Post.hasMany(Interactions, { as: 'repost_count', foreignKey: { defaultValue: 0 }})
 
 
 export default Interactions

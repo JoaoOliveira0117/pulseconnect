@@ -4,3 +4,7 @@ export interface CreatePostProps {
   // video?: string;
   // replyTo?: string;
 }
+
+export interface PostInteractionProps {
+  id: string;
+}

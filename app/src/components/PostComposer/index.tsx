@@ -6,23 +6,21 @@ import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
 import UserImage from '../Dummies/UserImage';
 import Input from '../Input';
-import useToast from '@/hooks/useToast';
-import { createPost } from '@/services/posts';
+import { useAppDispatch } from '@/hooks/useRedux';
+import { createPostAction } from '@/store/thunks/posts.thunk';
 
-export default function PostComposer() {
-	const [body, setBody] = useState('');
+interface PostComposerProps {
+	userToken?: string
+}
 
-	const toastify = useToast();
+export default function PostComposer({ userToken }: PostComposerProps) {
+	const [content, setContent] = useState('');
+
+	const dispatch = useAppDispatch()
 
 	const handleCreatePost = async () => {
-		const { errors } = await createPost({ content: body });
-
-		if (errors?.msg.length) {
-			return toastify(errors.msg, 'error');
-		}
-
-		toastify('Post created successfully', 'success');
-		return window.location.reload();
+		setContent('')
+		await dispatch(createPostAction({ content }, userToken))
 	};
 
 	return (
@@ -40,24 +38,22 @@ export default function PostComposer() {
 					className="w-full pr-2"
 					placeholder="What are you thinking today? 🔥"
 					multiline
-					onChange={(e) => setBody(e.target.value)}
+					value={content}
+					onChange={(e) => setContent(e.target.value)}
 				/>
-				<Tooltip
-					trigger={(
-						<Button
-							variant="borderless"
-							className="bg-transparent hover:bg-transparent mr-2 mt-auto"
-							onClick={handleCreatePost}
-						>
-							<AiOutlinePlus
-								className={`text-bgprimary text-4xl bg-secondary
+				<Tooltip content="Create a new post">
+					<Button
+						variant="borderless"
+						className="bg-transparent hover:bg-transparent mr-2 mt-auto"
+						onClick={handleCreatePost}
+					>
+						<AiOutlinePlus
+							className={`text-bgprimary text-4xl bg-secondary
           px-[0.5rem] hover:text-white transition-all 
          duration-150 rounded-full`}
-							/>
-						</Button>
-					)}
-					content="Create a new post"
-				/>
+						/>
+					</Button>
+				</Tooltip>
 			</div>
 		</div>
 	);

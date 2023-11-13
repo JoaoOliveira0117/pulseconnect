@@ -16,10 +16,10 @@ function TextArea(props: InputProps) {
 
 	return (
 		<TextAreaDummy
+			{...props}
 			ref={ref}
 			onChange={handleChange}
 			rows={1}
-			{...props}
 			maxLength={300}
 		/>
 	);

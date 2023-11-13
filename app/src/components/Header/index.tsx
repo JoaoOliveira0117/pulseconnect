@@ -13,6 +13,7 @@ export default function Header() {
 				<User userToken={userToken} />
 			</div>
 			<Navbar />
+			<hr className="w-100 border-bgsecondary border-y-1" />
 		</div>
 	);
 }

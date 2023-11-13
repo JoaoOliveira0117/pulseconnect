@@ -3,7 +3,7 @@ import {error} from '../utils/responseHandler.js'
 
 export default (req, res, next) => {
   const token = req.headers['authorization']
-
+  
   if (!token) {
     return res.status(401).json(error(req, 'Authentication required', 401))
   }

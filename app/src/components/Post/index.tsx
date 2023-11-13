@@ -1,20 +1,10 @@
-import React from 'react';
-import { SlLike } from 'react-icons/sl';
-import { FaRegComments } from 'react-icons/fa';
-import { AiOutlineRetweet } from 'react-icons/ai';
-
 import { PostType } from '@/types';
 import UserImage from '../Dummies/UserImage';
-import Button from '../Dummies/Button';
-import Tooltip from '../Dummies/Tooltip';
-
-type Interaction = {
-  Icon: React.FC<any>;
-  count: number;
-  tooltip: string;
-};
+import Interactions from '../PostInteractions';
 
 export default function Post({
+	userToken,
+	id,
 	user,
 	content,
 	createdAt,
@@ -23,37 +13,19 @@ export default function Post({
 	reposts,
 	// liked,
 	// reposted,
-}: PostType) {
-	const interactions: Interaction[] = [
-		{
-			Icon: SlLike,
-			count: likes,
-			tooltip: 'Like',
-		},
-		{
-			Icon: AiOutlineRetweet,
-			count: reposts,
-			tooltip: 'Repost',
-		},
-		{
-			Icon: FaRegComments,
-			count: comments,
-			tooltip: 'Comment',
-		},
-	];
-
+}: PostType & { userToken?: string }) {
 	return (
 		<div className="min-w-[700px] max-w-2xl mx-auto">
 			<div className="flex gap-2">
 				<div className="min-w-[4rem] h-full">
-					<UserImage src={user.profilePicture} className="m-auto" size={36} />
+					<UserImage src={user?.profilePicture} className="m-auto" size={36} />
 				</div>
 				<div>
 					<div className="flex items-center gap-2 h-[30px]">
 						<h2 className="text-sm font-light">
-							{user.name}
+							{user?.name}
 							{' '}
-  						| @{user.username}
+  						| @{user?.username}
 						</h2>
 						<p className="text-xs font-light text-secondary pt-0.5">
 							{createdAt}
@@ -65,22 +37,7 @@ export default function Post({
 				</div>
 			</div>
 			<div className="my-2 cursor-default select-none">
-				<div className="flex items-center justify-evenly">
-					{interactions.map((interaction, i) => (
-						<Tooltip
-							key={i}
-							trigger={(
-								<Button variant="borderless" className="w-full py-2 ">
-									<div className="m-auto flex items-center justify-center gap-2">
-										<interaction.Icon />
-										{interaction.count}
-									</div>
-								</Button>
-							)}
-							content={interaction.tooltip}
-						/>
-					))}
-				</div>
+				<Interactions userToken={userToken} id={id} likes={likes} reposts={reposts} comments={comments}/>
 			</div>
 			<hr className="border-bgsecondary border-y-1" />
 		</div>

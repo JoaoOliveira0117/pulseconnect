@@ -1,37 +1,13 @@
-'use client';
-
-import { useCallback, useEffect, useState } from 'react';
-import Post from '@/components/Post';
+import { cookies } from 'next/headers';
 import PostComposer from '@/components/PostComposer';
-import { PostType } from '@/types';
-import { getPosts } from '@/services/posts';
-import useToast from '@/hooks/useToast';
+import PostContainer from '@/components/PostContainer';
 
 export default function Trending() {
-	const [posts,setPosts] = useState<PostType[]>([]);
-
-	const toastify = useToast();
-
-	const handleGetPosts = useCallback(async () => {
-		const { data, errors } = await getPosts();
-
-		if (errors?.msg.length) {
-			return toastify(errors.msg, 'error');
-		}
-
-		return setPosts(data.posts);
-	}, [toastify] );
-
-	useEffect(()=>{
-		handleGetPosts();
-	},[handleGetPosts])
-
+	const userToken = cookies().get('jwt')?.value;
 	return (
 		<div className="min-w-[1000px] flex flex-col gap-8">
-			<PostComposer />
-			{posts.map((post) => (
-				<Post key={post.id} {...post} />
-			))}
+			<PostComposer userToken={userToken} />
+			<PostContainer userToken={userToken}/>
 		</div>
 	);
 }

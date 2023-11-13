@@ -1,49 +1,13 @@
-'use client';
-
-import React, { JSX } from 'react';
-
 import { ImFire, ImUser } from 'react-icons/im';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import Button from '../Dummies/Button';
-import Tooltip from '../Dummies/Tooltip';
-
-type items = {
-  Icon: React.FC<any>;
-  href: string;
-  tooltip: JSX.Element;
-};
+import NavbarItem from '../NavbarItem';
 
 export default function Navbar() {
-	const pathname = usePathname();
-	const navbarItems: items[] = [
-		{ Icon: ImFire, href: '/home/trending', tooltip: <em>Trending 🔥</em> },
-		{ Icon: ImUser, href: '/home/personal', tooltip: <>Your Profile</> },
-	];
 	return (
-		<>
-			<div className="my-4">
-				<div className="text-2xl flex items-center justify-evenly">
-					{navbarItems.map((item, i) => (
-						<Tooltip
-							key={i}
-							trigger={(
-								<Link href={item.href} className="w-full">
-									<Button
-										variant="borderless"
-										className="w-full py-2"
-										active={pathname === item.href}
-									>
-										<item.Icon className="m-auto" />
-									</Button>
-								</Link>
-							)}
-							content={item.tooltip}
-						/>
-					))}
-				</div>
+		<div className="my-4">
+			<div className="text-2xl flex items-center justify-evenly">
+				<NavbarItem tooltip='Trending 🔥' href='/home/trending'><ImFire/></NavbarItem>
+				<NavbarItem tooltip='Your Profile' href='/home/personal'><ImUser/></NavbarItem>
 			</div>
-			<hr className="w-100 border-bgsecondary border-y-1" />
-		</>
+		</div>
 	);
 }

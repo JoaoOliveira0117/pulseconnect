@@ -8,16 +8,12 @@ export type UserType = {
 	name: string,
 	username: string,
 	email: string,
-	profilePicture: string | null
+	profilePicture?: string
 }
 
 export type PostType = {
   id: string;
-  user: {
-    name: string;
-    username: string;
-    avatar?: string;
-  };
+  user: UserType;
   content: string;
   createdAt: string;
   likes: number;
@@ -29,9 +25,6 @@ export type PostType = {
   video?: string;
   replyTo?: {
     id: string;
-    user: {
-      name: string;
-      username: string;
-    };
+    user: UserType;
   };
 };
