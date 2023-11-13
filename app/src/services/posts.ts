@@ -1,4 +1,4 @@
-import { get, post } from './api/config';
+import { destroy, get, post } from './api/config';
 import { CreatePostProps, PostInteractionProps } from './types/posts.types';
 import getHeaders from '@/utils/getHeaders';
 
@@ -35,6 +35,24 @@ export const repostPost = async (query: PostInteractionProps, cookie?: string) =
 	try {
 		const headers = await getHeaders(cookie)
 		return await post(`${endpoint}/repost?id=${query.id}`, {}, { headers });
+	} catch (error: any) {
+		return error;
+	}
+}
+
+export const removeLikePost = async (query: PostInteractionProps, cookie?: string) => {
+	try {
+		const headers = await getHeaders(cookie)
+		return await destroy(`${endpoint}/like?id=${query.id}`, { headers });
+	} catch (error: any) {
+		return error;
+	}
+}
+
+export const removeRepostPost = async (query: PostInteractionProps, cookie?: string) => {
+	try {
+		const headers = await getHeaders(cookie)
+		return await destroy(`${endpoint}/repost?id=${query.id}`, { headers });
 	} catch (error: any) {
 		return error;
 	}
