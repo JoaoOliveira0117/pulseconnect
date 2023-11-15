@@ -12,7 +12,6 @@ import deleteRepostInteraction from '../controllers/interactions/deleteRepostInt
 const router = Router()
 
 router.get('/', ...getPosts)
-router.get('/:id', ...getPostReplies)
 router.post('/create', ...createPost)
 router.post('/create/:id', ...createReply)
 router.delete('/delete/:id', ...deletePost)
@@ -22,5 +21,7 @@ router.post('/repost', ...createRepostInteraction)
 
 router.delete('/like', ...deleteLikeInteraction)
 router.delete('/repost', ...deleteRepostInteraction)
+
+router.get('/:id', ...getPostReplies)
 
 export default router

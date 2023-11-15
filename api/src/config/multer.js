@@ -1,10 +1,6 @@
 import multer from 'multer'
 
-function initMulter (req, _, next) {
-  if (!req.file) {
-    next()
-  }
-
+function initMulter () {
   const storage = multer.memoryStorage()
   const upload = multer({ storage: storage })
   return upload.single('file')
