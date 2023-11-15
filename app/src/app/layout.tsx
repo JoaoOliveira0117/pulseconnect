@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 	return (
-		<html lang="pt-br" className={fontVariables}>
+		<html lang="pt-br" className={`${fontVariables}`}>
 			<body>
 				<Providers>
 					{children}

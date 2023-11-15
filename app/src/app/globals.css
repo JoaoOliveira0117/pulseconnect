@@ -16,6 +16,10 @@
   --warning: #ffbe0b;
 }
 
+html {
+  max-width: calc(100vw - 16px);
+}
+
 body {
   max-width: 1000px;
   margin: auto;
