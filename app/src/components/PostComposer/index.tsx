@@ -6,7 +6,7 @@ import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
 import UserImage from '../Dummies/UserImage';
 import Input from '../Input';
-import { useAppDispatch } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { createPostAction } from '@/store/thunks/posts.thunk';
 
 interface PostComposerProps {
@@ -14,6 +14,7 @@ interface PostComposerProps {
 }
 
 export default function PostComposer({ userToken }: PostComposerProps) {
+	const userMe = useAppSelector(state => state.userMe?.data)
 	const [content, setContent] = useState('');
 
 	const dispatch = useAppDispatch()
@@ -26,9 +27,9 @@ export default function PostComposer({ userToken }: PostComposerProps) {
 	return (
 		<div
 			className="flex mx-auto min-w-[48rem] mt-4 mb-8
-      items-start justify-evenly gap-4"
+      justify-evenly items-center gap-4"
 		>
-			<UserImage size={52} />
+			<UserImage src={userMe.profilePicture} size={64}/>
 			<div
 				className={`w-full bg-bgtertiary rounded-tl-lg rounded-3xl 
       flex items-center justify-between py-2 `}
@@ -36,7 +37,7 @@ export default function PostComposer({ userToken }: PostComposerProps) {
 				<Input
 					variant="transparent"
 					className="w-full pr-2"
-					placeholder="What are you thinking today? 🔥"
+					placeholder={`What are you thinking today ${userMe.name}?`}
 					multiline
 					value={content}
 					onChange={(e) => setContent(e.target.value)}

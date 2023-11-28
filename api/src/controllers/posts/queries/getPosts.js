@@ -10,6 +10,8 @@ function buildGetPostsQuery(query, userId, pagination) {
     'id',
     'content',
     'replyTo',
+    'createdAt',
+    'updatedAt',
     ...buildInteractionsQuery(),
     ...buildReplyToQuery(),
     ...buildCurrentUserMetadataQuery(userId)
