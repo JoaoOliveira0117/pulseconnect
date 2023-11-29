@@ -39,9 +39,9 @@ export default function RegisterForm({ changeLogin }: RegisterProps) {
 		const { data, errors } = await register(formValues);
 
 		if (errors?.msg.length) {
-			return toastify(errors.msg, 'error');
+			return toastify(errors.msg[0].map(({msg}: {msg: string}) => msg), 'error');
 		}
-
+		
 		toastify('Login success', 'success');
 		Cookies.set('jwt', data.token, { expires: 1 });
 		return router.push('/home');

@@ -2,7 +2,7 @@ import { SlLike } from 'react-icons/sl';
 import Button from "../Dummies/Button";
 import Tooltip from "../Dummies/Tooltip";
 import { useAppDispatch } from '@/hooks/useRedux';
-import { getPostsAction, likePostAction, removeLikePostAction } from '@/store/thunks/posts.thunk';
+import { likePostAction, removeLikePostAction } from '@/store/thunks/posts.thunk';
 
 interface LikeProps {
 	userToken?: string;
@@ -14,14 +14,9 @@ interface LikeProps {
 export default function Like({ userToken, id, count, liked }: LikeProps) {
 	const dispatch = useAppDispatch()
 
-	const handleClick = () => {
-		if (liked) {
-			dispatch(removeLikePostAction({ id }, userToken))
-			return dispatch(getPostsAction(userToken))
-		}
-		
-		dispatch(likePostAction({ id }, userToken))
-		return dispatch(getPostsAction(userToken))
+	const handleClick = () => { 
+		if(liked) return dispatch(removeLikePostAction({ id }, userToken))
+		return dispatch(likePostAction({ id }, userToken))
 	}
 	
 	return <Tooltip content="Like">

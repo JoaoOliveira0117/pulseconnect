@@ -10,9 +10,12 @@ const reducers = {
 	setUserMe: (state: InitialStateType<UserType>, action: any) => {
 		state.data = action.payload
 	},
+	setProfilePicture: (state: InitialStateType<UserType>, action: any) => {
+		state.data.profilePicture = action.payload
+	},
 	setLoadingUserMe: (state: InitialStateType<boolean>, action: any) => {
 		state.loading = action.payload
-	}
+	},
 }
 
 const userMeSlice = createSlice({
@@ -21,6 +24,6 @@ const userMeSlice = createSlice({
 	reducers
 })
 
-export const { setUserMe, setLoadingUserMe } = userMeSlice.actions
+export const { setUserMe, setLoadingUserMe, setProfilePicture } = userMeSlice.actions
 
 export default userMeSlice.reducer

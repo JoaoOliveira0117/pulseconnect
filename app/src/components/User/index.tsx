@@ -16,7 +16,7 @@ export default function User({ userToken = '' }: UserProps) {
 
 	const handleLogout = () => {
 		Cookies.remove('jwt');
-		router.replace('/login');
+		router.replace('/auth');
 	};
 
 	return (

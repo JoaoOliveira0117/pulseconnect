@@ -1,3 +1,5 @@
+'use client'
+
 import React, { FormEvent, useState } from 'react';
 
 import Cookies from 'js-cookie';
@@ -35,7 +37,7 @@ export default function LoginForm({ changeRegister }: LoginProps) {
 		const { data, errors } = await login(formValues);
 
 		if (errors?.msg.length) {
-			return toastify(errors.msg, 'error');
+			return toastify(errors.msg[0].map(({msg}: {msg: string}) => msg), 'error');
 		}
 
 		toastify('Login success', 'success');

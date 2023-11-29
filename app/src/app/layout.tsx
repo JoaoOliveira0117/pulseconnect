@@ -1,10 +1,12 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Inter, Work_Sans as WorkSans } from 'next/font/google';
 
+import ToastProvider from '@/contexts/ToastContext';
+import Providers from '@/contexts/ReduxContext';
+
 // Styles
 import './globals.css';
-import Providers from '@/contexts/ReduxContext';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const workSans = WorkSans({
@@ -22,15 +24,17 @@ const fontVariables = [inter.variable, workSans.variable].join(' ');
 export default function RootLayout({
 	children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
 	return (
-		<html lang="pt-br" className={`${fontVariables}`}>
-			<body>
-				<Providers>
+		
+		<Providers>
+			<html lang="pt-br" className={`${fontVariables}`}>
+				<body>
 					{children}
-				</Providers>
-			</body>
-		</html>
+					<ToastProvider />
+				</body>
+			</html>
+		</Providers>
 	);
 }

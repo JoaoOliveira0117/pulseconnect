@@ -16,9 +16,9 @@ export type PostType = {
   user: UserType;
   content: string;
   createdAt: string;
-  likes: number;
+  likes: string | number;
   comments: number;
-  reposts: number;
+  reposts: string | number;
   currentUserHasLiked: boolean;
   currentUserHasReposted: boolean;
   image?: string;

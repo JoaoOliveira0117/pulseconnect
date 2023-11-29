@@ -1,6 +1,6 @@
 import {  Dispatch } from "@reduxjs/toolkit";
-import { setLoadingPosts, setPosts } from "../reducers/posts.reducer";
-import { createPost, getPosts, likePost, removeLikePost, removeRepostPost, repostPost } from "@/services/posts";
+import { dislikePost, likePost, repostPost, setLoadingPosts, setPosts, unrepostPost } from "../reducers/posts.reducer";
+import { createPost, getPosts, likePost as likePostAPI, repostPost as repostPostAPI, removeLikePost, removeRepostPost } from "@/services/posts";
 import { CreatePostProps, PostInteractionProps } from "@/services/types/posts.types";
 
 const getPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
@@ -46,18 +46,13 @@ const createPostAction = (body: CreatePostProps, cookie?: string) => async (disp
 const likePostAction = (query: PostInteractionProps, cookie?: string) => async (dispatch: Dispatch) => {
 	dispatch(setLoadingPosts(true))
 	try {
-		const { likeErrors } = await likePost(query, cookie);
-		if (likeErrors) {
-			throw likeErrors;
-		}
+		const { errors } = await likePostAPI(query, cookie);
 		
-		const { data, getErrors } = await getPosts(cookie);
-
-		if (getErrors) {
-			throw getErrors;
+		if (errors) {
+			throw errors;
 		}
 
-		return await dispatch(setPosts(data.posts));
+		return await dispatch(likePost(query.id));
 	} catch (err) {
 		return err
 	} finally {
@@ -68,20 +63,13 @@ const likePostAction = (query: PostInteractionProps, cookie?: string) => async (
 const repostPostAction = (query: PostInteractionProps, cookie?: string) => async(dispatch: Dispatch) => {
 	dispatch(setLoadingPosts(true))
 	try {
-		const { repostErrors } = await repostPost(query, cookie);
-		if (repostErrors) {
-			throw repostErrors;
-		}
-		
-		const { data, getErrors } = await getPosts(cookie);
-
-		if (getErrors) {
-			throw getErrors;
+		const { errors } = await repostPostAPI(query, cookie);
+		if (errors) {
+			throw errors;
 		}
 
-		return await dispatch(setPosts(data.posts));
+		return await dispatch(repostPost(query.id));
 	} catch (err) {
-		dispatch(setPosts([]));
 		return err
 	} finally {
 		dispatch(setLoadingPosts(false));
@@ -91,18 +79,13 @@ const repostPostAction = (query: PostInteractionProps, cookie?: string) => async
 const removeLikePostAction = (query: PostInteractionProps, cookie?: string) => async (dispatch: Dispatch) => {
 	dispatch(setLoadingPosts(true))
 	try {
-		const { likeErrors } = await removeLikePost(query, cookie);
-		if (likeErrors) {
-			throw likeErrors;
-		}
+		const { errors } = await removeLikePost(query, cookie);
 		
-		const { data, getErrors } = await getPosts(cookie);
-
-		if (getErrors) {
-			throw getErrors;
+		if (errors) {
+			throw errors;
 		}
 
-		return await dispatch(setPosts(data.posts));
+		return await dispatch(dislikePost(query.id));
 	} catch (err) {
 		return err
 	} finally {
@@ -113,20 +96,14 @@ const removeLikePostAction = (query: PostInteractionProps, cookie?: string) => a
 const removeRepostPostAction = (query: PostInteractionProps, cookie?: string) => async(dispatch: Dispatch) => {
 	dispatch(setLoadingPosts(true))
 	try {
-		const { repostErrors } = await removeRepostPost(query, cookie);
-		if (repostErrors) {
-			throw repostErrors;
-		}
+		const { errors } = await removeRepostPost(query, cookie);
 		
-		const { data, getErrors } = await getPosts(cookie);
-
-		if (getErrors) {
-			throw getErrors;
+		if (errors) {
+			throw errors;
 		}
 
-		return await dispatch(setPosts(data.posts));
+		return await dispatch(unrepostPost(query.id));
 	} catch (err) {
-		dispatch(setPosts([]));
 		return err
 	} finally {
 		dispatch(setLoadingPosts(false));

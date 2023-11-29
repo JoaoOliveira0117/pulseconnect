@@ -1,6 +1,6 @@
 import {  Dispatch } from "@reduxjs/toolkit";
 import { getUserMe, postUserProfilePicture } from "@/services/user";
-import { setLoadingUserMe, setUserMe } from "../reducers/userMe.reducer";
+import { setLoadingUserMe, setProfilePicture, setUserMe } from "../reducers/userMe.reducer";
 import { UserType } from "@/types";
 
 const getUserMeAction = (cookie?: string) => async (dispatch: Dispatch) => {
@@ -30,20 +30,13 @@ const removeUserMeAction = () => async (dispatch: Dispatch) => {
 const updateUserMeProfilePictureAction = (file: FormData,cookie?: string) => async (dispatch: Dispatch) => {
 	dispatch(setLoadingUserMe(true));
 	try {
-		const { errors } = await postUserProfilePicture(file, cookie);
+		const { body, errors } = await postUserProfilePicture(file, cookie);
 		if (errors) {
 			throw errors;
 		}
 
-		const { data, getUserErrors } = await getUserMe(cookie);
-
-		if (getUserErrors) {
-			throw getUserErrors;
-		}
-
-		return await dispatch(setUserMe(data.user));
+		return await dispatch(setProfilePicture(body.profilePicture));
 	} catch (err) {
-		dispatch(setUserMe({} as UserType & void));
 		return err
 	} finally {
 		dispatch(setLoadingUserMe(false));

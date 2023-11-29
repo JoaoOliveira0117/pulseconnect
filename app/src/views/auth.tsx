@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState } from 'react';
 import { animated, useTransition } from '@react-spring/web';
@@ -6,7 +6,7 @@ import Logo from '@/components/Dummies/Logo';
 import LoginForm from '@/components/LoginForm';
 import RegisterForm from '@/components/RegisterForm';
 
-export default function Login() {
+export default function Auth() {
 	const [isLogin, setIsLogin] = useState(true);
 	const transition = useTransition(isLogin, {
 		from: { opacity: 0, transform: 'translateX(-100%)' },

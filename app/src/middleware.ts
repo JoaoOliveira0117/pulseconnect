@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
 	const cookie = request.cookies.get('jwt');
 
 	if (!cookie) {
-		return NextResponse.redirect(new URL('/login', request.url));
+		return NextResponse.redirect(new URL('/auth', request.url));
 	}
 }
 
