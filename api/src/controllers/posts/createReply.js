@@ -5,8 +5,8 @@ class CreateReply extends PostBase {
   async response() {
     try {
       const { body, params, user } = this.req
-      const post = await this.create({ ...body, userId: user.id, replyTo: params.id })
-      this.success({post})
+      const result = await this.createPost({ ...body, userId: user.id, replyTo: params.id })
+      this.success(result)
     } catch (err) {
       this.fail(err)
     }

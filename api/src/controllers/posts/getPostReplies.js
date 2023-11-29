@@ -5,8 +5,8 @@ class GetPosts extends PostBase {
   async response() {
     try {
       const { id } = this.req.params
-      const posts = await this.getPostReplies({ id })
-      this.success({posts})
+      const result = await this.getPostReplies({ id })
+      this.success(result)
     } catch (err) {
       this.fail(err)
     }
