@@ -1,5 +1,5 @@
-import Trending from "@/views/trending";
+import Trending from '@/views/trending'
 
 export default function Page() {
-	return <Trending />;
+  return <Trending />
 }
