@@ -12,7 +12,7 @@ type AuthType = {
 export const login = async (body: LoginProps): Promise<APIResponse<AuthType>> => {
   try {
     return await post(`${endpoint}/login`, body)
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }
@@ -20,7 +20,7 @@ export const login = async (body: LoginProps): Promise<APIResponse<AuthType>> =>
 export const register = async (body: RegisterProps): Promise<APIResponse<AuthType>> => {
   try {
     return await post(`${endpoint}`, body)
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }

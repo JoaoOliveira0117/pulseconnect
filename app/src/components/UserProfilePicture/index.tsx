@@ -27,7 +27,8 @@ function UserProfilePicture({ userToken, profilePicture}: UserProfilePictureProp
       formData.append('file', file)
 
 		  dispatch(updateUserMeProfilePictureAction(formData, userToken))
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as Error
       toastify(error.message, 'error')
     }
   }

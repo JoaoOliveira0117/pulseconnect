@@ -8,11 +8,11 @@ export type Params = {
 }
 
 export type Query = {
-  [key: string]: any
+  [key: string]: string | number
 }
 
 export type Body = {
-  [key: string]: any
+  [key: string]: unknown;
 }
 
 export type Errors = {
@@ -26,7 +26,7 @@ export type APIResponse<T> = {
   data: T,
   errors?: Errors,
   statusCode?: number
-}
+} | unknown
 
 export type UserType = {
   id: string,

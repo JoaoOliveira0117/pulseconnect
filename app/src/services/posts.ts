@@ -9,7 +9,7 @@ export const getPosts = async (cookie?: string): Promise<APIResponse<PostType[]>
   try {
     const headers = await getHeaders(cookie)
     return await get(`${endpoint}`, { headers })
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }
@@ -18,7 +18,7 @@ export const createPost = async (body: CreatePostProps, cookie?: string): Promis
   try {
     const headers = await getHeaders(cookie)
     return await post(`${endpoint}/create`, body, { headers })
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }
@@ -27,7 +27,7 @@ export const likePost = async (query: PostInteractionProps, cookie?: string): Pr
   try {
     const headers = await getHeaders(cookie)
     return await post(`${endpoint}/like?id=${query.id}`, {}, { headers })
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }
@@ -36,7 +36,7 @@ export const repostPost = async (query: PostInteractionProps, cookie?: string): 
   try {
     const headers = await getHeaders(cookie)
     return await post(`${endpoint}/repost?id=${query.id}`, {}, { headers })
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }
@@ -45,7 +45,7 @@ export const removeLikePost = async (query: PostInteractionProps, cookie?: strin
   try {
     const headers = await getHeaders(cookie)
     return await destroy(`${endpoint}/like?id=${query.id}`, { headers })
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }
@@ -54,7 +54,7 @@ export const removeRepostPost = async (query: PostInteractionProps, cookie?: str
   try {
     const headers = await getHeaders(cookie)
     return await destroy(`${endpoint}/repost?id=${query.id}`, { headers })
-  } catch (error: any) {
+  } catch (error) {
     return error
   }
 }

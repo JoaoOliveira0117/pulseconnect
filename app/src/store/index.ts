@@ -11,7 +11,6 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
-// eslint-ignore @typescript-eslint/ban-types
-export type AppThunkDispatch = ThunkAction<void, {}, {}, AnyAction>
+export type AppThunkDispatch = ThunkAction<void, object, object, AnyAction>
 
 export default store
