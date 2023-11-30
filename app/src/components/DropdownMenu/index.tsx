@@ -1,26 +1,23 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
-import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
-import './style.css'
+import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
+import './style.css';
 
 interface DropdownMenuProps {
-  trigger: ReactNode;
-  children: ReactNode;
+	trigger: ReactNode;
+	children: ReactNode;
 }
 
 export default function DropdownMenu({ trigger, children }: DropdownMenuProps) {
-  return (
-    <RadixDropdownMenu.Root>
-      <RadixDropdownMenu.Trigger>{trigger}</RadixDropdownMenu.Trigger>
+	return (
+		<RadixDropdownMenu.Root>
+			<RadixDropdownMenu.Trigger>{trigger}</RadixDropdownMenu.Trigger>
 
-      <RadixDropdownMenu.Portal>
-        <RadixDropdownMenu.Content
-          className="RadixDropdownMenuContent"
-          sideOffset={5}
-        >
-          {children}
-        </RadixDropdownMenu.Content>
-      </RadixDropdownMenu.Portal>
-    </RadixDropdownMenu.Root>
-  )
+			<RadixDropdownMenu.Portal>
+				<RadixDropdownMenu.Content className="RadixDropdownMenuContent" sideOffset={5}>
+					{children}
+				</RadixDropdownMenu.Content>
+			</RadixDropdownMenu.Portal>
+		</RadixDropdownMenu.Root>
+	);
 }

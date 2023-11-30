@@ -1,13 +1,13 @@
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 const getAuth = (jwt?: string) => {
-  let cookie: string | undefined = jwt
+	let cookie: string | undefined = jwt;
 
-  if (!cookie) {
-    cookie = Cookies.get('jwt')
-  }
+	if (!cookie) {
+		cookie = Cookies.get('jwt');
+	}
 
-  return cookie
-}
+	return cookie;
+};
 
-export default getAuth
+export default getAuth;

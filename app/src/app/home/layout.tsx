@@ -1,17 +1,13 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 // Components
-import Header from '@/components/Header'
+import Header from '@/components/Header';
 
-export default async function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  return (
-    <>
-      <Header />
-      {children}
-    </>
-  )
+export default async function RootLayout({ children }: { children: ReactNode }) {
+	return (
+		<>
+			<Header />
+			{children}
+		</>
+	);
 }
