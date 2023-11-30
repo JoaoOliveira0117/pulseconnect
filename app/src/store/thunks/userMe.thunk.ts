@@ -12,7 +12,7 @@ const getUserMeAction = (cookie?: string) => async (dispatch: Dispatch) => {
 			throw errors;
 		}
 
-		return await dispatch(setUserMe(data.user));
+		return await dispatch(setUserMe(data));
 	} catch (err) {
 		dispatch(setUserMe({} as UserType & void));
 		return err

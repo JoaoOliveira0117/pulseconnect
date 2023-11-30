@@ -3,6 +3,31 @@ export type InitialStateType<T> = {
   data: T
 }
 
+export type Params = {
+  [key: string]: string | number
+}
+
+export type Query = {
+  [key: string]: any
+}
+
+export type Body = {
+  [key: string]: any
+}
+
+export type Errors = {
+  msg?: string[]
+}
+
+export type APIResponse<T> = {
+  params: Params,
+  query: Query,
+  body: Body,
+  data: T,
+  errors?: Errors,
+  statusCode?: number
+}
+
 export type UserType = {
   id: string,
 	name: string,

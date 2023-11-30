@@ -1,10 +1,11 @@
+import { APIResponse, PostType } from '@/types';
 import { destroy, get, post } from './api/config';
 import { CreatePostProps, PostInteractionProps } from './types/posts.types';
 import getHeaders from '@/utils/getHeaders';
 
 const endpoint = '/posts';
 
-export const getPosts = async (cookie?: string) => {
+export const getPosts = async (cookie?: string): Promise<APIResponse<PostType[]>> => {
 	try {
 		const headers = await getHeaders(cookie)
 		return await get(`${endpoint}`, { headers });
@@ -13,7 +14,7 @@ export const getPosts = async (cookie?: string) => {
 	}
 };
 
-export const createPost = async (body: CreatePostProps, cookie?: string) => {
+export const createPost = async (body: CreatePostProps, cookie?: string): Promise<APIResponse<PostType>> => {
 	try {
 		const headers = await getHeaders(cookie)
 		return await post(`${endpoint}/create`, body, { headers });
@@ -22,7 +23,7 @@ export const createPost = async (body: CreatePostProps, cookie?: string) => {
 	}
 };
 
-export const likePost = async (query: PostInteractionProps, cookie?: string) => {
+export const likePost = async (query: PostInteractionProps, cookie?: string): Promise<APIResponse<PostType>> => {
 	try {
 		const headers = await getHeaders(cookie)
 		return await post(`${endpoint}/like?id=${query.id}`, {}, { headers });
@@ -31,7 +32,7 @@ export const likePost = async (query: PostInteractionProps, cookie?: string) => 
 	}
 }
 
-export const repostPost = async (query: PostInteractionProps, cookie?: string) => {
+export const repostPost = async (query: PostInteractionProps, cookie?: string): Promise<APIResponse<PostType>> => {
 	try {
 		const headers = await getHeaders(cookie)
 		return await post(`${endpoint}/repost?id=${query.id}`, {}, { headers });
@@ -40,7 +41,7 @@ export const repostPost = async (query: PostInteractionProps, cookie?: string) =
 	}
 }
 
-export const removeLikePost = async (query: PostInteractionProps, cookie?: string) => {
+export const removeLikePost = async (query: PostInteractionProps, cookie?: string): Promise<APIResponse<{ deleted: number }>> => {
 	try {
 		const headers = await getHeaders(cookie)
 		return await destroy(`${endpoint}/like?id=${query.id}`, { headers });
@@ -49,7 +50,7 @@ export const removeLikePost = async (query: PostInteractionProps, cookie?: strin
 	}
 }
 
-export const removeRepostPost = async (query: PostInteractionProps, cookie?: string) => {
+export const removeRepostPost = async (query: PostInteractionProps, cookie?: string): Promise<APIResponse<{ deleted: number }>> => {
 	try {
 		const headers = await getHeaders(cookie)
 		return await destroy(`${endpoint}/repost?id=${query.id}`, { headers });

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { InitialStateType, PostType } from "@/types";
 
 const initialState: InitialStateType<PostType[]> = {
@@ -7,33 +7,36 @@ const initialState: InitialStateType<PostType[]> = {
 }
 
 const reducers = {
-	setPosts: (state: InitialStateType<PostType[]>, action: any) => {
+	setPosts: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType[]>) => {
 		state.data = action.payload
 	},
-	addPost: (state: InitialStateType<PostType[]>, action: any) => {
+	addPost: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType>) => {
 		state.data = [action.payload, ...state.data]
 	},
-	likePost: (state: InitialStateType<PostType[]>, action: any) => {
+	createPost: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType>) => {
+		state.data = [action.payload, ...state.data]
+	},
+	likePost: (state: InitialStateType<PostType[]>, action: PayloadAction<string>) => {
 		const postIndex = state.data.findIndex(p => p.id === action.payload);
 		state.data[postIndex].currentUserHasLiked = true;
 		state.data[postIndex].likes = Number(state.data[postIndex].likes) + 1;
 	},
-	repostPost: (state: InitialStateType<PostType[]>, action: any) => {
+	dislikePost: (state: InitialStateType<PostType[]>, action: PayloadAction<string>) => {
+		const postIndex = state.data.findIndex(p => p.id === action.payload);
+		state.data[postIndex].currentUserHasLiked = false;
+		state.data[postIndex].likes = Number(state.data[postIndex].likes) - 1;
+	},
+	repostPost: (state: InitialStateType<PostType[]>, action: PayloadAction<string>) => {
 		const postIndex = state.data.findIndex(p => p.id === action.payload);
 		state.data[postIndex].currentUserHasReposted = true;
 		state.data[postIndex].reposts = Number(state.data[postIndex].reposts) + 1;
 	},
-	dislikePost: (state: InitialStateType<PostType[]>, action: any) => {
-		const postIndex = state.data.findIndex(p => p.id === action.payload);
-		state.data[postIndex].currentUserHasLiked = false;
-		state.data[postIndex].likes = Number(state.data[postIndex].reposts) - 1;
-	},
-	unrepostPost: (state: InitialStateType<PostType[]>, action: any) => {
+	unrepostPost: (state: InitialStateType<PostType[]>, action: PayloadAction<string>) => {
 		const postIndex = state.data.findIndex(p => p.id === action.payload);
 		state.data[postIndex].currentUserHasReposted = false;
 		state.data[postIndex].reposts = Number(state.data[postIndex].reposts) - 1;
 	},
-	setLoadingPosts: (state: InitialStateType<boolean>, action: any) => {
+	setLoadingPosts: (state: InitialStateType<PostType[]>, action: PayloadAction<boolean>) => {
 		state.loading = action.payload
 	}
 }
@@ -44,6 +47,15 @@ const postsSlice = createSlice({
 	reducers
 })
 
-export const { setPosts, addPost, setLoadingPosts, likePost, repostPost, dislikePost, unrepostPost } = postsSlice.actions
+export const { 
+	setPosts, 
+	addPost, 
+	setLoadingPosts, 
+	likePost, 
+	repostPost, 
+	dislikePost, 
+	unrepostPost, 
+	createPost 
+} = postsSlice.actions
 
 export default postsSlice.reducer

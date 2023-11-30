@@ -1,6 +1,6 @@
 import {  Dispatch } from "@reduxjs/toolkit";
-import { dislikePost, likePost, repostPost, setLoadingPosts, setPosts, unrepostPost } from "../reducers/posts.reducer";
-import { createPost, getPosts, likePost as likePostAPI, repostPost as repostPostAPI, removeLikePost, removeRepostPost } from "@/services/posts";
+import { createPost, dislikePost, likePost, repostPost, setLoadingPosts, setPosts, unrepostPost } from "../reducers/posts.reducer";
+import { createPost as createPostAPI, getPosts, likePost as likePostAPI, repostPost as repostPostAPI, removeLikePost, removeRepostPost } from "@/services/posts";
 import { CreatePostProps, PostInteractionProps } from "@/services/types/posts.types";
 
 const getPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
@@ -10,7 +10,7 @@ const getPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
 		if (errors) {
 			throw errors;
 		}
-		return await dispatch(setPosts(data.posts));
+		return await dispatch(setPosts(data));
 	} catch (err) {
 		dispatch(setPosts([]));
 		return err
@@ -22,21 +22,14 @@ const getPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
 const createPostAction = (body: CreatePostProps, cookie?: string) => async (dispatch: Dispatch) => {
 	dispatch(setLoadingPosts(true))
 	try {
-		const { createErrors } = await createPost(body, cookie);
+		const { data, errors } = await createPostAPI(body, cookie);
 
-		if (createErrors) {
-			throw createErrors;
-		}
-		
-		const { data, getErrors } = await getPosts(cookie);
-
-		if (getErrors) {
-			throw getErrors;
+		if (errors) {
+			throw errors;
 		}
 
-		return await dispatch(setPosts(data.posts));
+		return await dispatch(createPost(data));
 	} catch (err) {
-		dispatch(setPosts([]));
 		return err
 	} finally {
 		dispatch(setLoadingPosts(false));

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { InitialStateType, UserType } from "@/types";
 
 const initialState: InitialStateType<UserType> = {
@@ -7,13 +7,13 @@ const initialState: InitialStateType<UserType> = {
 }
 
 const reducers = {
-	setUserMe: (state: InitialStateType<UserType>, action: any) => {
+	setUserMe: (state: InitialStateType<UserType>, action: PayloadAction<UserType>) => {
 		state.data = action.payload
 	},
-	setProfilePicture: (state: InitialStateType<UserType>, action: any) => {
+	setProfilePicture: (state: InitialStateType<UserType>, action: PayloadAction<string>) => {
 		state.data.profilePicture = action.payload
 	},
-	setLoadingUserMe: (state: InitialStateType<boolean>, action: any) => {
+	setLoadingUserMe: (state: InitialStateType<UserType>, action: PayloadAction<boolean>) => {
 		state.loading = action.payload
 	},
 }
