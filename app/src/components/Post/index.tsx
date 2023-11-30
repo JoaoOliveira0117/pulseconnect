@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import { PostType } from '@/types';
 import UserImage from '../Dummies/UserImage';
 import Interactions from '../PostInteractions';
+import Link from 'next/link';
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface PostProps {
 	post: PostType;
@@ -10,6 +12,8 @@ interface PostProps {
 
 export default function Post({ userToken, post }: PostProps) {
 	const { user, id, likes, reposts, comments, content, createdAt, currentUserHasLiked, currentUserHasReposted } = post;
+	const userMe = useAppSelector((state) => state.userMe.data);
+	const usernameLink = userMe?.id === user.id ? '/home/user/me' : `/home/user/${user.id}`;
 	return (
 		<div className="min-w-[700px] max-w-2xl mx-auto">
 			<div className="flex gap-2">
@@ -19,7 +23,10 @@ export default function Post({ userToken, post }: PostProps) {
 				<div className="w-full">
 					<div className="flex justify-between items-center h-[30px]">
 						<h2 className="text-md font-bold">
-							{user.name} <span className="ml-2 font-light text-secondary">@{user.username}</span>
+							<Link className="hover:underline" href={usernameLink}>
+								{user.name}
+								<span className="ml-2 font-light text-secondary">@{user.username}</span>
+							</Link>
 						</h2>
 						<p className="text-xs font-light text-secondary pt-0.5">{dayjs(createdAt).format('DD MMM YY')}</p>
 					</div>

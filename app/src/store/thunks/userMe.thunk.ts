@@ -35,7 +35,7 @@ const updateUserMeProfilePictureAction = (file: FormData, cookie?: string) => as
 			throw errors;
 		}
 
-		return await dispatch(setProfilePicture(body.profilePicture));
+		return await dispatch(setProfilePicture(body.profilePicture as string));
 	} catch (err) {
 		return err;
 	} finally {

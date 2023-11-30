@@ -16,7 +16,7 @@ export const getUserMe = async (cookie?: string): Promise<APIResponse<UserType>>
 export const getUser = async (id: string, cookie?: string): Promise<APIResponse<UserType>> => {
 	try {
 		const headers = getHeaders(cookie);
-		return await get(`${endpoint}/${id}`, { headers });
+		return await get(`${endpoint}/?id=${id}`, { headers });
 	} catch (error) {
 		return error as APIResponse<UserType>;
 	}

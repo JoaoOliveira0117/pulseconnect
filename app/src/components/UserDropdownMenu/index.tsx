@@ -22,7 +22,7 @@ export default function User({ userToken = '' }: UserProps) {
 	return (
 		<DropdownMenu trigger={<UserPill userToken={userToken} />}>
 			<DropdownItem>
-				<Link href="/home/user-settings" className="block w-full p-2 px-4 hover:bg-bgsecondary">
+				<Link href="/home/user/me" className="block w-full p-2 px-4 hover:bg-bgsecondary">
 					User Settings
 				</Link>
 			</DropdownItem>

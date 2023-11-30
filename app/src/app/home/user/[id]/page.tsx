@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
-import UserSettings from '@/views/userSettings';
+import User from '@/views/user';
 
 export default function Page() {
 	const userToken = cookies().get('jwt')?.value;
-	return <UserSettings userToken={userToken} />;
+	return <User userToken={userToken} />;
 }
