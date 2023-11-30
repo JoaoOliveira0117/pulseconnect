@@ -5,8 +5,8 @@ class GetUser extends UserBase {
   async response() {
     try {
       const { id } = this.req.query
-      const user = await this.getUser({ id })
-      this.success({user})
+      const result = await this.getUser({ id })
+      this.success(result)
     } catch (err) {
       this.fail(err)
     }

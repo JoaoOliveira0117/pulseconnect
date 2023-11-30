@@ -13,8 +13,8 @@ class UpdateUser extends UserBase {
         body.profilePicture = data.thumb.url
       }
 
-      const response = this.updateUser(user.id, body)
-      this.success(response)
+      const result = this.updateUser(user.id, body)
+      this.success(result)
     } catch (err) {
       this.fail(err)
     }
