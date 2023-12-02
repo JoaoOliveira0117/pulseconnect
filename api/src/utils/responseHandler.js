@@ -1,4 +1,4 @@
-export const data = (req, body = {}, statusCode = 200) => {
+export const data = (req, body, statusCode = 200) => {
   const reqData = {
     params: req.params,
     query: req.query,
@@ -13,11 +13,9 @@ export const data = (req, body = {}, statusCode = 200) => {
 }
 
 export const error = (req, err, statusCode = 400) => {
-  const errors = Array.isArray(err.errors) && err.errors.map(( { msg, message } ) => msg || message)
+  const errors = Array.isArray(err) ? err.map(( { msg, message } ) => msg || message) : []
   return {
     ...data(req, {}, statusCode),
-    errors: {
-      msg: errors || [err.message || err]
-    }
+    errors:  errors.length ? errors : [err]
   }
 }

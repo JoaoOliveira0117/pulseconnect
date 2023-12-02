@@ -1,5 +1,5 @@
+import Controller from '../controllers/controller.js'
 import { query, check, matchedData, validationResult, param } from 'express-validator'
-import { error } from '../utils/responseHandler.js'
 
 import User from '../models/user.js'
 import Post from '../models/post.js'
@@ -12,11 +12,11 @@ export const validateExact = () => {
 
     if (!errors.isEmpty()) {
       const errorList = errors.array({ onlyFirstError: true, flatten: true })
-      return res.status(422).json(error(req, errorList, 422))
+      return new Controller(req, res).fail(errorList, 422)
     }
 
     if (Object.keys(data).length !== Object.keys(reqKeys).length) {
-      return res.status(400).json(error(req, 'Invalid Request Body', 400))
+      return new Controller(req, res).fail('Invalid request body', 422)
     }
 
     return next()

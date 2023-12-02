@@ -2,7 +2,6 @@ import express from 'express'
 import cors from 'cors'
 import { dbInit } from './config/db.js'
 import dotenv from 'dotenv'
-import validatorMiddleware from './middlewares/validator.js'
 import router from './routes/index.js'
 
 const app = express()
@@ -21,4 +20,4 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT} 🔥`)
 })
 
-app.use('/', validatorMiddleware, router)
+app.use('/', router)

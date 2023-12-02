@@ -1,4 +1,3 @@
-import { validationResult } from 'express-validator'
 import { data, error} from '../utils/responseHandler.js'
 
 class Controller {
@@ -14,19 +13,14 @@ class Controller {
   }
   
   success(body, statusCode = 201) {
-    const formattedResponse = data(this.req, body, statusCode)
+    const response = data(this.req, body, statusCode)
     this.res.status(statusCode)
-      .json(formattedResponse)
+      .json(response)
   }
 
   response() {}
 
   async send() {
-    const errors = validationResult(this.req)
-    if (!errors.isEmpty()) {
-      return this.fail({ errors: errors.array() }, 422)
-    }
-
     await this.response()
   }
 }
