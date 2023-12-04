@@ -15,16 +15,12 @@ export type Body = {
 	[key: string]: unknown;
 };
 
-export type Errors = {
-	msg?: string[];
-};
-
 export type APIResponse<T> = {
 	params: Params;
 	query: Query;
 	body: Body;
 	data: T;
-	errors?: Errors;
+	errors?: string[];
 	statusCode?: number;
 };
 

@@ -36,11 +36,8 @@ export default function LoginForm({ changeRegister }: LoginProps) {
 
 		const { data, errors } = await login(formValues);
 
-		if (errors?.msg?.length) {
-			return toastify(
-				errors.msg[0].map(({ msg }: { msg: string }) => msg),
-				'error',
-			);
+		if (errors?.length) {
+			return toastify(errors, 'error');
 		}
 
 		toastify('Login success', 'success');

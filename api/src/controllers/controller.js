@@ -7,6 +7,7 @@ class Controller {
   }
 
   fail(err, statusCode = 400) {
+    console.log(err)
     const formattedError = error(this.req, err, statusCode)
     this.res.status(statusCode)
       .json(formattedError)

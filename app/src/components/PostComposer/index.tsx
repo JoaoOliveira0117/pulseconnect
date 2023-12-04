@@ -27,12 +27,12 @@ export default function PostComposer({ userToken }: PostComposerProps) {
 	return (
 		<div
 			className="flex mx-auto min-w-[48rem] mt-4 mb-8
-      justify-evenly items-center gap-4"
+      justify-evenly items-start gap-4"
 		>
 			<UserImage src={userMe.profilePicture} size={64} />
 			<div
 				className={`w-full bg-bgtertiary rounded-tl-lg rounded-3xl 
-      flex items-center justify-between py-2 `}
+      flex self-center items-center justify-between py-2 `}
 			>
 				<Input
 					variant="transparent"

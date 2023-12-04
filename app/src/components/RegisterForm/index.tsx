@@ -38,11 +38,8 @@ export default function RegisterForm({ changeLogin }: RegisterProps) {
 
 		const { data, errors } = await register(formValues);
 
-		if (errors?.msg?.length) {
-			return toastify(
-				errors.msg[0].map(({ msg }: { msg: string }) => msg),
-				'error',
-			);
+		if (errors?.length) {
+			return toastify(errors, 'error');
 		}
 
 		toastify('Login success', 'success');

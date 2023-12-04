@@ -18,16 +18,13 @@ export default function User({ userToken }: UserProps) {
 	const toast = useToast();
 
 	const getUserById = useCallback(async () => {
-		try {
-			const { data, errors } = await getUser(router.id as string);
-			if (errors) {
-				throw new Error(errors.msg[0].map(({ msg }) => msg));
-			}
-			setUser(data);
-		} catch (error) {
-			const err = error as Error;
-			toast(err.message, 'error');
+		const { data, errors } = await getUser(router.id as string);
+
+		if (errors?.length) {
+			return toast(errors, 'error');
 		}
+
+		setUser(data);
 	}, []);
 
 	useEffect(() => {

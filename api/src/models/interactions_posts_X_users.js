@@ -35,10 +35,7 @@ const Interactions = db.define(
 User.belongsToMany(Post, { through: Interactions })
 Post.belongsToMany(User, { through: Interactions })
 
-User.hasMany(Interactions)
-
-Post.hasMany(Interactions, { as: 'like_count', foreignKey: { defaultValue: 0 } })
-Post.hasMany(Interactions, { as: 'repost_count', foreignKey: { defaultValue: 0 }})
+Post.hasMany(Interactions, { as: 'interactions'})
 
 
 export default Interactions

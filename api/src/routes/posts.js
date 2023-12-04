@@ -8,6 +8,7 @@ import createLikeInteraction from '../controllers/interactions/createLikeInterac
 import createRepostInteraction from '../controllers/interactions/createRepostInteraction.js'
 import deleteLikeInteraction from '../controllers/interactions/deleteLikeInteraction.js'
 import deleteRepostInteraction from '../controllers/interactions/deleteRepostInteraction.js'
+import getInteractions from '../controllers/posts/getInteractions.js'
 
 const router = Router()
 
@@ -15,6 +16,7 @@ router.get('/', ...getPosts)
 router.post('/create', ...createPost)
 router.post('/create/:id', ...createReply)
 router.delete('/delete/:id', ...deletePost)
+router.get('/interactions', ...getInteractions)
 
 router.post('/like', ...createLikeInteraction)
 router.post('/repost', ...createRepostInteraction)

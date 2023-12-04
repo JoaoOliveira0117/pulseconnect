@@ -18,7 +18,7 @@ export default function Repost({ userToken, id, count, reposted }: RepostProps) 
 		reposted ? dispatch(removeRepostPostAction({ id }, userToken)) : dispatch(repostPostAction({ id }, userToken));
 
 	return (
-		<Tooltip content="Repost">
+		<Tooltip content="Repost" delayDuration={150}>
 			<div className="w-full">
 				<Button
 					variant="borderless"

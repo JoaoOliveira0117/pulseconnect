@@ -8,7 +8,7 @@ interface CommentProps {
 
 export default function Comment({ count }: CommentProps) {
 	return (
-		<Tooltip content="Comment">
+		<Tooltip content="Comment" delayDuration={150}>
 			<div className="w-full">
 				<Button variant="borderless" className="w-full py-2 m-auto flex items-center justify-center gap-2">
 					<FaRegComments />

@@ -1,9 +1,9 @@
 import Post from '../../models/post.js'
 import CrudBase from '../crud.js'
-import getPostsQuery from './queries/getPosts.js'
 import getPostRepliesQuery from './queries/getPostReplies.js'
 import { db } from '../../config/db.js'
 import buildGetPostById from './queries/getPostById.js'
+import Interactions from '../../models/interactions_posts_X_users.js'
 
 class PostBase extends CrudBase {
   constructor(req, res) {
@@ -17,9 +17,9 @@ class PostBase extends CrudBase {
       return post
     })
   }
-  
-  async getPosts(query) {
-    return await this.findAndCountAll(getPostsQuery(query, this.req.user.id, this.getPagination()))
+
+  async getInteractedPosts() {
+    return Post.findAndCountAll({ where: { userId: this.req.user.id }, ...this.getPagination(), include: [{ model: Interactions, as: 'interactions', where: { userId: this.req.user.id } }]})
   }
 
   async getPostReplies(query) {

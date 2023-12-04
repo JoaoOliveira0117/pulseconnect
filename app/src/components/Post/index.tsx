@@ -18,7 +18,9 @@ export default function Post({ userToken, post }: PostProps) {
 		<div className="min-w-[700px] max-w-2xl mx-auto">
 			<div className="flex gap-2">
 				<div className="min-w-[4rem] h-full">
-					<UserImage src={user.profilePicture} className="m-auto" size={48} />
+					<Link className="hover:underline" href={usernameLink}>
+						<UserImage src={user.profilePicture} className="m-auto" size={48} />
+					</Link>
 				</div>
 				<div className="w-full">
 					<div className="flex justify-between items-center h-[30px]">

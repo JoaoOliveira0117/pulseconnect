@@ -20,7 +20,7 @@ export default function Like({ userToken, id, count, liked }: LikeProps) {
 	};
 
 	return (
-		<Tooltip content="Like">
+		<Tooltip content="Like" delayDuration={150}>
 			<div className="w-full">
 				<Button
 					variant="borderless"
