@@ -1,29 +1,27 @@
-import { data, error} from '../utils/responseHandler.js'
+import { data, error } from '../utils/responseHandler.js';
 
 class Controller {
-  constructor(req, res) {
-    this.req = req
-    this.res = res
-  }
+	constructor(req, res) {
+		this.req = req;
+		this.res = res;
+	}
 
-  fail(err, statusCode = 400) {
-    console.log(err)
-    const formattedError = error(this.req, err, statusCode)
-    this.res.status(statusCode)
-      .json(formattedError)
-  }
-  
-  success(body, statusCode = 201) {
-    const response = data(this.req, body, statusCode)
-    this.res.status(statusCode)
-      .json(response)
-  }
+	fail(err, statusCode = 400) {
+		console.log(err);
+		const formattedError = error(this.req, err, statusCode);
+		this.res.status(statusCode).json(formattedError);
+	}
 
-  response() {}
+	success(body, statusCode = 201) {
+		const response = data(this.req, body, statusCode);
+		this.res.status(statusCode).json(response);
+	}
 
-  async send() {
-    await this.response()
-  }
+	response() {}
+
+	async send() {
+		await this.response();
+	}
 }
 
-export default Controller
+export default Controller;

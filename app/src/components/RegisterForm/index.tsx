@@ -10,10 +10,6 @@ import Input from '../Input';
 import AuthOptions from '../AuthOptions';
 import form from './form';
 
-interface RegisterProps {
-	changeLogin: () => void;
-}
-
 const DEFAULT_FORM_VALUES = {
 	name: '',
 	username: '',
@@ -22,7 +18,7 @@ const DEFAULT_FORM_VALUES = {
 	confirm_password: '',
 };
 
-export default function RegisterForm({ changeLogin }: RegisterProps) {
+export default function RegisterForm() {
 	const [formValues, setFormValues] = useState(DEFAULT_FORM_VALUES);
 
 	const toastify = useToast();
@@ -59,18 +55,6 @@ export default function RegisterForm({ changeLogin }: RegisterProps) {
 					onChange={handleChange}
 				/>
 			))}
-			<span className="font-light">
-				or you can
-				<Button
-					type="button"
-					variant="borderless"
-					className="font-bold text-secondary cursor-pointer px-2"
-					onClick={changeLogin}
-				>
-					login
-				</Button>
-				instead
-			</span>
 			<AuthOptions />
 			<hr className="w-[75%] border-bgsecondary border-y-1" />
 			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2" onClick={handleSubmit}>

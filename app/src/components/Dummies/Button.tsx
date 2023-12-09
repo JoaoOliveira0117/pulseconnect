@@ -16,9 +16,14 @@ export default function Button({ children, className, variant, active = false, .
 		<button
 			{...rest}
 			type="button"
-			className={`${className} outline-none flex-1 rounded-lg text-center cursor-pointer 
-      transition ease-out duration-75 ${variants[variant]}
-      active:scale-[0.95] active:opacity-75 ${active ? 'scale-[0.95] opacity-75 bg-bgsecondary' : ''}`}
+			className={`${className} outline-none flex-1 rounded-lg text-center
+      			transition ease-out duration-75 ${
+							rest.disabled
+								? 'cursor-not-allowed opacity-50'
+								: `${variants[variant]} cursor-pointer active:scale-[0.95] active:opacity-75 ${
+										active ? 'scale-[0.95] opacity-75 bg-bgsecondary' : ''
+								  }`
+						}`}
 		>
 			{children}
 		</button>

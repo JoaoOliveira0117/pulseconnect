@@ -1,7 +1,4 @@
-import { propExists } from '../index.js'
+import { propExists } from '../index.js';
 
-export default [
-  propExists('id')
-    .isUUID()
-    .withMessage('id must be valid')
-]
+export default [propExists('id').isUUID()
+.withMessage('id must be valid')];

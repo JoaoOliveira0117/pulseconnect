@@ -11,16 +11,12 @@ import Button from '../Dummies/Button';
 import Input from '../Input';
 import AuthOptions from '../AuthOptions';
 
-interface LoginProps {
-	changeRegister: () => void;
-}
-
 const DEFAULT_FORM_VALUES = {
 	email: '',
 	password: '',
 };
 
-export default function LoginForm({ changeRegister }: LoginProps) {
+export default function LoginForm() {
 	const [formValues, setFormValues] = useState(DEFAULT_FORM_VALUES);
 
 	const toastify = useToast();
@@ -49,18 +45,6 @@ export default function LoginForm({ changeRegister }: LoginProps) {
 		<form onSubmit={handleSubmit} className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8">
 			<Input variant="outline" name="email" label="Email" onChange={handleChange} />
 			<Input variant="outline" name="password" label="Password" type="password" onChange={handleChange} />
-			<span className="font-light">
-				or you can
-				<Button
-					type="button"
-					variant="borderless"
-					className="font-bold text-secondary cursor-pointer px-2"
-					onClick={changeRegister}
-				>
-					Register
-				</Button>
-				instead
-			</span>
 			<AuthOptions />
 			<hr className="w-[75%] border-bgsecondary border-y-1" />
 			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2" onClick={handleSubmit}>

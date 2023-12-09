@@ -9,6 +9,11 @@ services:
       - "5432:5432"
     volumes:
       - "pgdata:/var/lib/postgresql/data"
+  db_migrations:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: npm run db:migrate
   app:
     build:
       context: .
