@@ -1,9 +1,5 @@
-import PostComposer from '@/components/PostComposer';
+import Personal from '@/views/personal';
 
 export default function Page() {
-	return (
-		<div className="min-w-[1000px] flex flex-col gap-8">
-			<PostComposer />
-		</div>
-	);
+	return <Personal />;
 }

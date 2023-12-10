@@ -3,7 +3,7 @@ import PostBase from './base.js';
 class GetPostInteractions extends PostBase {
 	async response() {
 		try {
-			const result = await this.getInteractedPosts(this.req.user.id);
+			const result = await this.getInteractedPosts();
 			this.success(result);
 		} catch (err) {
 			this.fail(err);

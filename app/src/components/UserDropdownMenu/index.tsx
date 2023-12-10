@@ -6,12 +6,15 @@ import { useRouter } from 'next/navigation';
 import DropdownItem from '../DropdownMenu/dropdownItem';
 import DropdownMenu from '../DropdownMenu';
 import UserPill from '../UserPill';
+import { useAppSelector } from '@/hooks/useRedux';
+import UserImage from '../Dummies/UserImage';
 
-interface UserProps {
+interface UserDropdownProps {
 	userToken?: string;
 }
 
-export default function User({ userToken = '' }: UserProps) {
+export default function UserDropdown({ userToken = '' }: UserDropdownProps) {
+	const user = useAppSelector((state) => state.userMe.data);
 	const router = useRouter();
 
 	const handleLogout = () => {
@@ -20,10 +23,15 @@ export default function User({ userToken = '' }: UserProps) {
 	};
 
 	return (
-		<DropdownMenu trigger={<UserPill userToken={userToken} />}>
+		<DropdownMenu trigger={<UserPill user={user} userToken={userToken} />}>
+			<div className="flex flex-col items-center justify-center gap-2 pb-2 m-2 border-b border-b-secondary cursor-default">
+				<UserImage src={user.profilePicture} size={48} />
+				<p className="text-sm font-bold">{user.name}</p>
+				<p className="text-xs text-secondary">@{user.username}</p>
+			</div>
 			<DropdownItem>
 				<Link href="/home/user/me" className="block w-full p-2 px-4 hover:bg-bgsecondary">
-					User Settings
+					Settings
 				</Link>
 			</DropdownItem>
 			<DropdownItem>

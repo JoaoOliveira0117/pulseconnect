@@ -1,9 +1,8 @@
+import { db } from '../../config/db.js';
 import Post from '../../models/post.js';
 import CrudBase from '../crud.js';
-import getPostRepliesQuery from './queries/getPostReplies.js';
-import { db } from '../../config/db.js';
-import buildGetPostById from './queries/getPostById.js';
-import buildGetPostsQuery from './queries/getPosts.js';
+import queryGetPosts from './queries/queryGetPosts.js';
+import queryGetPostsInteractions from './queries/queryGetPostsInteractions.js';
 
 class PostBase extends CrudBase {
 	constructor(req, res) {
@@ -13,30 +12,21 @@ class PostBase extends CrudBase {
 	async createPost(query) {
 		return await db.transaction(async (transaction) => {
 			const createdPost = await this.create(query, { transaction });
-			const post = await this.findOne(buildGetPostById(createdPost.id, query.userId), { transaction });
+			const post = await this.findOne(queryGetPosts({ id: createdPost.id }, query.userId), { transaction });
 			return post;
 		});
 	}
 
-	async getPosts(query, userId) {
-		return this.findAndCountAll({
-			include: {
-				association: 'users',
-				attributes: ['id', 'name', 'username', 'profilePicture'],
-				through: { attributes: [] },
-			},
-		});
+	async getPosts(query) {
+		return this.findAndCountAll(queryGetPosts(query, this.getPagination()));
 	}
 
-	async getInteractedPosts(userId) {
-		return this.findAndCountAll({
-			include: { association: 'interactions', where: { userId } },
-			order: [['interactions', 'createdAt', 'DESC']],
-		});
+	async getPostReplies(query, userId) {
+		return await this.findAndCountAll(queryGetPosts(query, userId, this.getPagination()));
 	}
 
-	async getPostReplies(query) {
-		return await this.findAndCountAll(getPostRepliesQuery(query.id, this.getPagination()));
+	async getInteractedPosts() {
+		return this.findAndCountAll(queryGetPostsInteractions(this.getPagination()));
 	}
 }
 

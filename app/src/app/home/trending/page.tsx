@@ -1,5 +1,7 @@
 import Trending from '@/views/trending';
+import { cookies } from 'next/headers';
 
 export default function Page() {
-	return <Trending />;
+	const userToken = cookies().get('jwt')?.value;
+	return <Trending userToken={userToken} />;
 }

@@ -1,17 +1,13 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import UserView from '@/components/UserView';
+import User from '@/components/User';
 import { getUser } from '@/services/user';
 import { useCallback, useEffect, useState } from 'react';
 import { UserType } from '@/types';
 import useToast from '@/hooks/useToast';
 
-interface UserProps {
-	userToken?: string;
-}
-
-export default function User({ userToken }: UserProps) {
+export default function UserView() {
 	const [user, setUser] = useState<UserType | null>(null);
 
 	const router = useParams();
@@ -31,5 +27,9 @@ export default function User({ userToken }: UserProps) {
 		getUserById();
 	}, []);
 
-	return <>{user ? <UserView userToken={userToken} user={user} isUserMe={false} /> : <></>}</>;
+	if (!user) {
+		return <></>;
+	}
+
+	return <User user={user} />;
 }

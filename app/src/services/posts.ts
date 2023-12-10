@@ -14,6 +14,15 @@ export const getPosts = async (cookie?: string): Promise<APIResponse<PostType[]>
 	}
 };
 
+export const getPersonalPosts = async (cookie?: string): Promise<APIResponse<PostType[]>> => {
+	try {
+		const headers = await getHeaders(cookie);
+		return await get(`${endpoint}/interactions`, { headers });
+	} catch (error) {
+		return error as APIResponse<PostType[]>;
+	}
+};
+
 export const createPost = async (body: CreatePostProps, cookie?: string): Promise<APIResponse<PostType>> => {
 	try {
 		const headers = await getHeaders(cookie);

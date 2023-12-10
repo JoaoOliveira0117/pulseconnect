@@ -29,9 +29,10 @@ const Interactions = db.define('interactions_posts_x_users', {
 	},
 });
 
-User.belongsToMany(Post, { through: Interactions });
-Post.belongsToMany(User, { through: Interactions });
+User.belongsToMany(Post, { through: Interactions, as: 'post_interactions' });
+Post.belongsToMany(User, { through: Interactions, as: 'user_interactions' });
 
 Post.hasMany(Interactions, { as: 'interactions' });
+User.hasMany(Interactions, { as: 'interactions' });
 
 export default Interactions;

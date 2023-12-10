@@ -5,7 +5,7 @@ class GetPosts extends PostBase {
 	async response() {
 		try {
 			const { id } = this.req.params;
-			const result = await this.getPostReplies({ id });
+			const result = await this.getPostReplies({ replyTo: id }, this.req.user.id);
 			this.success(result);
 		} catch (err) {
 			this.fail(err);

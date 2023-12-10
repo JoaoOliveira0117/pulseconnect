@@ -1,14 +1,14 @@
 'use client';
 
-import UserView from '@/components/UserView';
+import UserMe from '@/components/UserMe';
 import { useAppSelector } from '@/hooks/useRedux';
 
 interface UserMeProps {
 	userToken?: string;
 }
 
-export default function UserMe({ userToken }: UserMeProps) {
+export default function UserMeView({ userToken }: UserMeProps) {
 	const user = useAppSelector((state) => state.userMe.data);
 
-	return <UserView userToken={userToken} user={user} isUserMe />;
+	return <UserMe userToken={userToken} user={user} />;
 }

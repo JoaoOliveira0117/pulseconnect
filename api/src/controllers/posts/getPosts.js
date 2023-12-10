@@ -3,7 +3,7 @@ import PostBase from './base.js';
 class GetPosts extends PostBase {
 	async response() {
 		try {
-			const result = await this.getPosts({ replyTo: null }, this.req.user.id);
+			const result = await this.getPosts({ replyTo: null });
 			this.success(result);
 		} catch (err) {
 			this.fail(err);

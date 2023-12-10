@@ -15,6 +15,7 @@ import {
 	repostPost as repostPostAPI,
 	removeLikePost,
 	removeRepostPost,
+	getPersonalPosts,
 } from '@/services/posts';
 import { CreatePostProps, PostInteractionProps } from '@/services/types/posts.types';
 
@@ -22,6 +23,22 @@ const getPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
 	dispatch(setLoadingPosts(true));
 	try {
 		const { data, errors } = await getPosts(cookie);
+		if (errors) {
+			throw errors;
+		}
+		return await dispatch(setPosts(data));
+	} catch (err) {
+		dispatch(setPosts([]));
+		return err;
+	} finally {
+		dispatch(setLoadingPosts(false));
+	}
+};
+
+const getPersonalPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
+	dispatch(setLoadingPosts(true));
+	try {
+		const { data, errors } = await getPersonalPosts(cookie);
 		if (errors) {
 			throw errors;
 		}
@@ -120,6 +137,7 @@ const removeRepostPostAction = (query: PostInteractionProps, cookie?: string) =>
 
 export {
 	getPostsAction,
+	getPersonalPostsAction,
 	createPostAction,
 	likePostAction,
 	repostPostAction,
