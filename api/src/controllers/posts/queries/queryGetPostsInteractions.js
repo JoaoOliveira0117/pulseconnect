@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 import { currentUserHasLiked, currentUserHasReposted, likes, reposts, comments } from './literals.js';
 
-function queryGetPostsInteractions(pagination) {
+function queryGetPostsInteractions(userId, pagination) {
 	return {
 		where: {
 			[Op.or]: {
@@ -19,8 +19,8 @@ function queryGetPostsInteractions(pagination) {
 			likes,
 			reposts,
 			comments,
-			currentUserHasLiked,
-			currentUserHasReposted,
+			currentUserHasLiked(userId),
+			currentUserHasReposted(userId),
 		],
 		include: [
 			{

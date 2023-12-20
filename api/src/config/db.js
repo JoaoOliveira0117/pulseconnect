@@ -11,9 +11,6 @@ export const dbInit = async () => {
 		console.log('Connecting to Database');
 		await db.authenticate();
 		console.log('Database connected');
-		//console.log('Syncing')
-		//await db.sync({ force: true })
-		console.log('DB SUCCESS');
 	} catch (error) {
 		console.log(error);
 	}

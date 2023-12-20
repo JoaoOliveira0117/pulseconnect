@@ -7,7 +7,6 @@ class UpdateUser extends UserBase {
 	async response() {
 		try {
 			const { body, file, user } = this.req;
-			console.log(this.req.file);
 			if (file) {
 				const { data } = await uploadImage(this.req.file);
 				body.profilePicture = data.thumb.url;

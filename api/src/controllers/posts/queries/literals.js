@@ -21,16 +21,16 @@ export const comments = [
 	'comments',
 ];
 
-export const currentUserHasLiked = [
+export const currentUserHasLiked = (userId) => [
 	Sequelize.literal(
-		'(SELECT COUNT(*) > 0 FROM "interactions_posts_x_users" AS "i" WHERE "i"."postId" = "posts"."id" AND "i"."type" = \'like\' AND "i"."userId" = "posts"."userId")',
+		`(SELECT COUNT(*) > 0 FROM "interactions_posts_x_users" AS "i" WHERE "i"."postId" = "posts"."id" AND "i"."type" = 'like' AND "i"."userId" = '${userId}')`,
 	),
 	'currentUserHasLiked',
 ];
 
-export const currentUserHasReposted = [
+export const currentUserHasReposted = (userId) => [
 	Sequelize.literal(
-		'(SELECT COUNT(*) > 0 FROM "interactions_posts_x_users" AS "i" WHERE "i"."postId" = "posts"."id" AND "i"."type" = \'repost\' AND "i"."userId" = "posts"."userId")',
+		`(SELECT COUNT(*) > 0 FROM "interactions_posts_x_users" AS "i" WHERE "i"."postId" = "posts"."id" AND "i"."type" = 'repost' AND "i"."userId" = '${userId}')`,
 	),
 	'currentUserHasReposted',
 ];

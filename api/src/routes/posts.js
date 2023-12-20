@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import getPosts from '../controllers/posts/getPosts.js';
-import getPostReplies from '../controllers/posts/getPostReplies.js';
+import getPostById from '../controllers/posts/getPostById.js';
 import createPost from '../controllers/posts/createPost.js';
 import createReply from '../controllers/posts/createReply.js';
 import deletePost from '../controllers/posts/deletePost.js';
@@ -24,6 +24,6 @@ router.post('/repost', ...createRepostInteraction);
 router.delete('/like', ...deleteLikeInteraction);
 router.delete('/repost', ...deleteRepostInteraction);
 
-router.get('/:id', ...getPostReplies);
+router.get('/:id', ...getPostById);
 
 export default router;

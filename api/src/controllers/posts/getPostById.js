@@ -1,11 +1,11 @@
 import PostBase from './base.js';
 import validation from '../../validation/posts/getPostReply.js';
 
-class GetPosts extends PostBase {
+class GetPostById extends PostBase {
 	async response() {
 		try {
 			const { id } = this.req.params;
-			const result = await this.getPostReplies({ replyTo: id }, this.req.user.id);
+			const result = await this.getPostById(id);
 			this.success(result);
 		} catch (err) {
 			this.fail(err);
@@ -13,5 +13,5 @@ class GetPosts extends PostBase {
 	}
 }
 
-const getPosts = (req, res) => new GetPosts(req, res).send();
+const getPosts = (req, res) => new GetPostById(req, res).send();
 export default [validation, getPosts];

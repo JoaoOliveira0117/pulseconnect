@@ -1,6 +1,6 @@
 import { currentUserHasLiked, currentUserHasReposted, likes, reposts, comments } from './literals.js';
 
-function queryGetPosts(query, userId, pagination) {
+function queryGetPostWithoutPagination(query, userId) {
 	return {
 		where: query,
 		attributes: [
@@ -27,10 +27,8 @@ function queryGetPosts(query, userId, pagination) {
 				attributes: [],
 			},
 		],
-		pagination,
-		group: ['posts.id', 'user.id', 'interactions.userId', 'interactions.postId', 'interactions.type'],
 		order: [['createdAt', 'DESC']],
 	};
 }
 
-export default queryGetPosts;
+export default queryGetPostWithoutPagination;

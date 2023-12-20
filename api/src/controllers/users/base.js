@@ -8,7 +8,6 @@ class UserBase extends CrudBase {
 
 	async getUser(body) {
 		const attributes = ['id', 'name', 'username', 'email', 'profilePicture'];
-		console.log(body);
 		const user = await this.findOne({ where: body, attributes });
 		return user;
 	}
