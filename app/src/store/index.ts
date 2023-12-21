@@ -1,11 +1,15 @@
 import { AnyAction, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import userMeReducer from './reducers/userMe.reducer';
-import postsReducer from './reducers/posts.reducer';
+import trendingPostsReducer from './reducers/trendingPosts.reducer';
+import personalPostsReducer from './reducers/personalPosts.reducer';
+import commentReducer from './reducers/comment.reducer';
 
 const store = configureStore({
 	reducer: {
 		userMe: userMeReducer,
-		posts: postsReducer,
+		trendingPosts: trendingPostsReducer,
+		personalPosts: personalPostsReducer,
+		comment: commentReducer,
 	},
 });
 

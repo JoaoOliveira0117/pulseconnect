@@ -7,7 +7,7 @@ export default function Header() {
 	const userToken = cookies().get('jwt')?.value;
 
 	return (
-		<div className="w-full min-w-[1000px] cursor-default select-none my-6">
+		<div className="w-full max-w-[1000px] cursor-default select-none my-6">
 			<div className="flex items-center justify-between">
 				<Logo />
 				<UserDropdownMenu userToken={userToken} />

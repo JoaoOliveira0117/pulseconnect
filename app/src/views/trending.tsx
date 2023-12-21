@@ -12,10 +12,10 @@ interface TrendingProps {
 
 export default function Trending({ userToken }: TrendingProps) {
 	const isUserLoading = useAppSelector((state) => state.userMe?.loading || !state.userMe?.data.id);
-	const isPostsLoading = useAppSelector((state) => state.userMe?.loading || !state.posts?.data.length);
+	const isPostsLoading = useAppSelector((state) => state.userMe?.loading || !state.trendingPosts?.data.length);
 
 	return (
-		<div className="min-w-[1000px] flex flex-col gap-8">
+		<div className="max-w-[1000px] flex flex-col items-center gap-8">
 			{isUserLoading && isPostsLoading ? (
 				<>
 					<PostComposerSkeleton />

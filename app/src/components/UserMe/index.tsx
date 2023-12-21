@@ -11,7 +11,7 @@ interface UserMeProps {
 
 export default function UserMe({ userToken, user }: UserMeProps) {
 	return (
-		<div className="min-w-[1000px]">
+		<div className="max-w-[1000px] flex flex-col items-center gap-8">
 			<div className="w-full mt-16 flex items-start justify-evenly">
 				<UserProfilePicture userToken={userToken} profilePicture={user.profilePicture} />
 				<div className="flex gap-8">

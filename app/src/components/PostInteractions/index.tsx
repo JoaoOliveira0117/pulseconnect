@@ -4,20 +4,28 @@ import Comment from './Comment';
 
 interface InteractionsProps {
 	userToken?: string;
-	id: string;
-	likes: string | number;
-	reposts: string | number;
-	comments: number;
-	liked: boolean;
-	reposted: boolean;
+	postId: string;
+	postLikes: string | number;
+	postReposts: string | number;
+	postComments: string | number;
+	currentUserHasLiked: boolean;
+	currentUserHasReposted: boolean;
 }
 
-export default function Interactions({ userToken, id, likes, reposts, comments, liked, reposted }: InteractionsProps) {
+export default function Interactions({
+	userToken,
+	postId,
+	postLikes,
+	postReposts,
+	postComments,
+	currentUserHasLiked,
+	currentUserHasReposted,
+}: InteractionsProps) {
 	return (
 		<div className="flex items-center justify-evenly">
-			<Like userToken={userToken} id={id} count={likes} liked={liked} />
-			<Repost userToken={userToken} id={id} count={reposts} reposted={reposted} />
-			<Comment count={comments} />
+			<Like userToken={userToken} id={postId} count={postLikes} liked={currentUserHasLiked} />
+			<Repost userToken={userToken} id={postId} count={postReposts} reposted={currentUserHasReposted} />
+			<Comment id={postId} count={postComments} />
 		</div>
 	);
 }

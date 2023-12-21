@@ -22,8 +22,6 @@ const config: Config = {
 				bgprimary: 'var(--bg-primary)',
 				bgsecondary: 'var(--bg-secondary)',
 				bgtertiary: 'var(--bg-tertiary)',
-				white: '#FFFFFF',
-				black: '#000000',
 			},
 			animation: {
 				fadeIn: 'fadeIn 0.4s ease-in',

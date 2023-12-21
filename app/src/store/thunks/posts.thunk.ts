@@ -4,10 +4,11 @@ import {
 	dislikePost,
 	likePost,
 	repostPost,
-	setLoadingPosts,
-	setPosts,
+	setLoadingTrendingPosts,
+	setTrendingPosts,
 	unrepostPost,
-} from '../reducers/posts.reducer';
+} from '../reducers/trendingPosts.reducer';
+import { setLoadingPersonalPosts, setPersonalPosts } from '../reducers/personalPosts.reducer';
 import {
 	createPost as createPostAPI,
 	getPosts,
@@ -19,40 +20,40 @@ import {
 } from '@/services/posts';
 import { CreatePostProps, PostInteractionProps } from '@/services/types/posts.types';
 
-const getPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
-	dispatch(setLoadingPosts(true));
+const getTrendingPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
+	dispatch(setLoadingTrendingPosts(true));
 	try {
 		const { data, errors } = await getPosts(cookie);
 		if (errors) {
 			throw errors;
 		}
-		return await dispatch(setPosts(data));
+		return await dispatch(setTrendingPosts(data));
 	} catch (err) {
-		dispatch(setPosts([]));
+		dispatch(setTrendingPosts([]));
 		return err;
 	} finally {
-		dispatch(setLoadingPosts(false));
+		dispatch(setLoadingTrendingPosts(false));
 	}
 };
 
 const getPersonalPostsAction = (cookie?: string) => async (dispatch: Dispatch) => {
-	dispatch(setLoadingPosts(true));
+	dispatch(setLoadingPersonalPosts(true));
 	try {
 		const { data, errors } = await getPersonalPosts(cookie);
 		if (errors) {
 			throw errors;
 		}
-		return await dispatch(setPosts(data));
+		return await dispatch(setPersonalPosts(data));
 	} catch (err) {
-		dispatch(setPosts([]));
+		dispatch(setPersonalPosts([]));
 		return err;
 	} finally {
-		dispatch(setLoadingPosts(false));
+		dispatch(setLoadingPersonalPosts(false));
 	}
 };
 
 const createPostAction = (body: CreatePostProps, cookie?: string) => async (dispatch: Dispatch) => {
-	dispatch(setLoadingPosts(true));
+	dispatch(setLoadingTrendingPosts(true));
 	try {
 		const { data, errors } = await createPostAPI(body, cookie);
 
@@ -64,12 +65,12 @@ const createPostAction = (body: CreatePostProps, cookie?: string) => async (disp
 	} catch (err) {
 		return err;
 	} finally {
-		dispatch(setLoadingPosts(false));
+		dispatch(setLoadingTrendingPosts(false));
 	}
 };
 
 const likePostAction = (query: PostInteractionProps, cookie?: string) => async (dispatch: Dispatch) => {
-	dispatch(setLoadingPosts(true));
+	dispatch(setLoadingTrendingPosts(true));
 	try {
 		const { errors } = await likePostAPI(query, cookie);
 
@@ -81,12 +82,12 @@ const likePostAction = (query: PostInteractionProps, cookie?: string) => async (
 	} catch (err) {
 		return err;
 	} finally {
-		dispatch(setLoadingPosts(false));
+		dispatch(setLoadingTrendingPosts(false));
 	}
 };
 
 const repostPostAction = (query: PostInteractionProps, cookie?: string) => async (dispatch: Dispatch) => {
-	dispatch(setLoadingPosts(true));
+	dispatch(setLoadingTrendingPosts(true));
 	try {
 		const { errors } = await repostPostAPI(query, cookie);
 		if (errors) {
@@ -97,12 +98,12 @@ const repostPostAction = (query: PostInteractionProps, cookie?: string) => async
 	} catch (err) {
 		return err;
 	} finally {
-		dispatch(setLoadingPosts(false));
+		dispatch(setLoadingTrendingPosts(false));
 	}
 };
 
 const removeLikePostAction = (query: PostInteractionProps, cookie?: string) => async (dispatch: Dispatch) => {
-	dispatch(setLoadingPosts(true));
+	dispatch(setLoadingTrendingPosts(true));
 	try {
 		const { errors } = await removeLikePost(query, cookie);
 
@@ -114,12 +115,12 @@ const removeLikePostAction = (query: PostInteractionProps, cookie?: string) => a
 	} catch (err) {
 		return err;
 	} finally {
-		dispatch(setLoadingPosts(false));
+		dispatch(setLoadingTrendingPosts(false));
 	}
 };
 
 const removeRepostPostAction = (query: PostInteractionProps, cookie?: string) => async (dispatch: Dispatch) => {
-	dispatch(setLoadingPosts(true));
+	dispatch(setLoadingTrendingPosts(true));
 	try {
 		const { errors } = await removeRepostPost(query, cookie);
 
@@ -131,12 +132,12 @@ const removeRepostPostAction = (query: PostInteractionProps, cookie?: string) =>
 	} catch (err) {
 		return err;
 	} finally {
-		dispatch(setLoadingPosts(false));
+		dispatch(setLoadingTrendingPosts(false));
 	}
 };
 
 export {
-	getPostsAction,
+	getTrendingPostsAction,
 	getPersonalPostsAction,
 	createPostAction,
 	likePostAction,

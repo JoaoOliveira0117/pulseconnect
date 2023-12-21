@@ -25,14 +25,10 @@ export default function PostComposer({ userToken }: PostComposerProps) {
 	};
 
 	return (
-		<div
-			className="flex mx-auto min-w-[48rem] mt-4 mb-8
-      justify-evenly items-start gap-4"
-		>
+		<div className="flex w-[48rem] mt-4 mb-8 justify-evenly items-start gap-4">
 			<UserImage src={userMe.profilePicture} size={64} />
 			<div
-				className={`w-full bg-bgtertiary rounded-tl-lg rounded-3xl 
-      flex self-center items-center justify-between py-2 `}
+				className={'w-full bg-bgtertiary rounded-tl-lg rounded-3xl flex self-center items-center justify-between py-2'}
 			>
 				<Input
 					variant="transparent"
@@ -49,9 +45,9 @@ export default function PostComposer({ userToken }: PostComposerProps) {
 						onClick={handleCreatePost}
 					>
 						<AiOutlinePlus
-							className={`text-bgprimary text-4xl bg-secondary
-          px-[0.5rem] hover:text-white transition-all 
-         duration-150 rounded-full`}
+							className={
+								'text-bgprimary text-4xl bg-secondary px-[0.5rem] hover:text-white transition-all  duration-150 rounded-full'
+							}
 						/>
 					</Button>
 				</Tooltip>

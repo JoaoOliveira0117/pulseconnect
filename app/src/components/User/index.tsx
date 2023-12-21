@@ -10,7 +10,7 @@ interface UserProps {
 
 export default function User({ user }: UserProps) {
 	return (
-		<div className="min-w-[1000px]">
+		<div className="max-w-[1000px] flex flex-col items-center gap-8">
 			<div className="w-full mt-16 flex items-start justify-evenly">
 				<UserImage size={240} src={user.profilePicture} />
 				<div className="flex gap-8">

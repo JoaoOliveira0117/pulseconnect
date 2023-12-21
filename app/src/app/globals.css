@@ -17,12 +17,12 @@
 }
 
 html {
-  max-width: calc(100vw - 16px);
+  max-width: 100vw;
 }
 
 body {
-  max-width: 1000px;
-  margin: auto;
+  margin: 0;
+  padding: 0;
   color: var(--white);
   background-color: var(--bg-primary);
 }

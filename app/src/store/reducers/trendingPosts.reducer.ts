@@ -7,7 +7,7 @@ const initialState: InitialStateType<PostType[]> = {
 };
 
 const reducers = {
-	setPosts: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType[]>) => {
+	setTrendingPosts: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType[]>) => {
 		state.data = action.payload;
 	},
 	addPost: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType>) => {
@@ -36,18 +36,26 @@ const reducers = {
 		state.data[postIndex].currentUserHasReposted = false;
 		state.data[postIndex].reposts = Number(state.data[postIndex].reposts) - 1;
 	},
-	setLoadingPosts: (state: InitialStateType<PostType[]>, action: PayloadAction<boolean>) => {
+	setLoadingTrendingPosts: (state: InitialStateType<PostType[]>, action: PayloadAction<boolean>) => {
 		state.loading = action.payload;
 	},
 };
 
 const postsSlice = createSlice({
-	name: 'posts',
+	name: 'trendingPosts',
 	initialState,
 	reducers,
 });
 
-export const { setPosts, addPost, setLoadingPosts, likePost, repostPost, dislikePost, unrepostPost, createPost } =
-	postsSlice.actions;
+export const {
+	setTrendingPosts,
+	addPost,
+	setLoadingTrendingPosts,
+	likePost,
+	repostPost,
+	dislikePost,
+	unrepostPost,
+	createPost,
+} = postsSlice.actions;
 
 export default postsSlice.reducer;
