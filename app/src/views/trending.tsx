@@ -11,8 +11,8 @@ interface TrendingProps {
 }
 
 export default function Trending({ userToken }: TrendingProps) {
-	const isUserLoading = useAppSelector((state) => state.userMe?.loading || !state.userMe?.data.id);
-	const isPostsLoading = useAppSelector((state) => state.userMe?.loading || !state.trendingPosts?.data.length);
+	const isUserLoading = useAppSelector((state) => state.userMe?.loading || !state.userMe?.data?.id);
+	const isPostsLoading = useAppSelector((state) => state.userMe?.loading || !state.trendingPosts?.data?.length);
 
 	return (
 		<div className="max-w-[1000px] flex flex-col items-center gap-8">

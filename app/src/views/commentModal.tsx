@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { getCommentsAction } from '@/store/thunks/comments.thunk';
 import { setComment } from '@/store/reducers/comment.reducer';
@@ -8,12 +8,14 @@ import { useRouter } from 'next/navigation';
 import CommentDialog from '@/components/CommentDialog';
 
 export default function CommentModal({ commentId }: { commentId: string }) {
+	const [isOpen, setIsOpen] = useState(false);
 	const comment = useAppSelector((state) => state.comment?.data || {});
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 
 	const handleChange = () => {
 		dispatch(setComment({} as PostType & { replies: PostType[] }));
+		setIsOpen(false);
 		router.back();
 	};
 
@@ -21,5 +23,11 @@ export default function CommentModal({ commentId }: { commentId: string }) {
 		dispatch(getCommentsAction(commentId));
 	}, []);
 
-	return <CommentDialog comment={comment} handleChange={handleChange} />;
+	useEffect(() => {
+		if (commentId) {
+			setIsOpen(true);
+		}
+	}, [commentId]);
+
+	return <CommentDialog isOpen={isOpen} comment={comment} handleChange={handleChange} />;
 }

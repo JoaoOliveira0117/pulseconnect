@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import Post from '../Post';
-import { getPersonalPostsAction, getTrendingPostsAction } from '@/store/thunks/posts.thunk';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { getPersonalPostsAction, getTrendingPostsAction } from '@/store/thunks/posts.thunk';
 
 interface PostContainerProps {
 	userToken?: string;

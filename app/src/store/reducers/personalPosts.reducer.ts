@@ -10,6 +10,9 @@ const reducers = {
 	setPersonalPosts: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType[]>) => {
 		state.data = action.payload;
 	},
+	createPost: (state: InitialStateType<PostType[]>, action: PayloadAction<PostType>) => {
+		state.data = [action.payload, ...state.data];
+	},
 	likePost: (state: InitialStateType<PostType[]>, action: PayloadAction<string>) => {
 		const postIndex = state.data.findIndex((p) => p.id === action.payload);
 		state.data[postIndex].currentUserHasLiked = true;
@@ -41,7 +44,14 @@ const personalPostsSlice = createSlice({
 	reducers,
 });
 
-export const { setPersonalPosts, setLoadingPersonalPosts, likePost, repostPost, dislikePost, unrepostPost } =
-	personalPostsSlice.actions;
+export const {
+	setPersonalPosts,
+	setLoadingPersonalPosts,
+	createPost,
+	likePost,
+	repostPost,
+	dislikePost,
+	unrepostPost,
+} = personalPostsSlice.actions;
 
 export default personalPostsSlice.reducer;

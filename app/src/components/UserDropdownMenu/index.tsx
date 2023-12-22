@@ -14,7 +14,7 @@ interface UserDropdownProps {
 }
 
 export default function UserDropdown({ userToken = '' }: UserDropdownProps) {
-	const user = useAppSelector((state) => state.userMe.data);
+	const user = useAppSelector((state) => state.userMe.data || {});
 	const router = useRouter();
 
 	const handleLogout = () => {

@@ -8,6 +8,7 @@ import { useAppSelector } from '@/hooks/useRedux';
 interface PostProps {
 	post: PostType;
 	userToken?: string;
+	isComment?: boolean;
 	showInteractions?: boolean;
 	showReplyTooltip?: boolean;
 	showDivider?: boolean;
@@ -16,6 +17,7 @@ interface PostProps {
 export default function Post({
 	userToken,
 	post,
+	isComment = false,
 	showInteractions = true,
 	showReplyTooltip = true,
 	showDivider = true,
@@ -53,6 +55,7 @@ export default function Post({
 						<div className="mt-4 cursor-default select-none">
 							<Interactions
 								userToken={userToken}
+								isComment={isComment}
 								postId={post.id}
 								postLikes={post.likes}
 								postComments={post.comments}
