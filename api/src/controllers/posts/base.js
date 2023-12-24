@@ -70,7 +70,7 @@ class PostBase extends CrudBase {
 	}
 
 	deletePostById(id) {
-		return this.delete({ id, userId: this.req.user.id });
+		return this.delete({ id, userId: this.user.id });
 	}
 }
 
