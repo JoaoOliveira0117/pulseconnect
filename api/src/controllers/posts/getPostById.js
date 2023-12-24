@@ -1,5 +1,6 @@
 import PostBase from './base.js';
 import validation from '../../validation/posts/getPostReply.js';
+import useController from '../../helpers/useController.js';
 
 class GetPostById extends PostBase {
 	response() {
@@ -7,5 +8,4 @@ class GetPostById extends PostBase {
 	}
 }
 
-const getPosts = (req, res) => new GetPostById(req, res).send();
-export default [validation, getPosts];
+export default useController(GetPostById, validation);

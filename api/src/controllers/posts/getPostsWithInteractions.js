@@ -1,10 +1,10 @@
+import useController from '../../helpers/useController.js';
 import PostBase from './base.js';
 
-class getPostsWithInteractions extends PostBase {
+class GetPostsWithInteractions extends PostBase {
 	response() {
 		return this.getPostsWithInteractions();
 	}
 }
 
-const getPostInteractions = (req, res) => new getPostsWithInteractions(req, res).send();
-export default [getPostInteractions];
+export default useController(GetPostsWithInteractions);

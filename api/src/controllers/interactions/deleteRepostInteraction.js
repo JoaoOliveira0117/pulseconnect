@@ -1,3 +1,4 @@
+import useController from '../../helpers/useController.js';
 import InteractionBase from './base.js';
 
 class DeleteRepostInteraction extends InteractionBase {
@@ -6,5 +7,4 @@ class DeleteRepostInteraction extends InteractionBase {
 	}
 }
 
-const deleteRepostInteraction = (req, res) => new DeleteRepostInteraction(req, res).send();
-export default [[], deleteRepostInteraction];
+export default useController(DeleteRepostInteraction);

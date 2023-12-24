@@ -1,5 +1,6 @@
 import PostBase from './base.js';
 import validation from '../../validation/posts/deletePost.js';
+import useController from '../../helpers/useController.js';
 
 class DeletePost extends PostBase {
 	response() {
@@ -7,5 +8,4 @@ class DeletePost extends PostBase {
 	}
 }
 
-const deletePost = (req, res) => new DeletePost(req, res).send();
-export default [validation, deletePost];
+export default useController(DeletePost, validation);

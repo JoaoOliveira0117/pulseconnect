@@ -1,5 +1,6 @@
 import PostBase from './base.js';
 import validation from '../../validation/posts/createPost.js';
+import useController from '../../helpers/useController.js';
 
 class CreatePost extends PostBase {
 	response() {
@@ -7,5 +8,4 @@ class CreatePost extends PostBase {
 	}
 }
 
-const createPost = (req, res) => new CreatePost(req, res).send();
-export default [validation, createPost];
+export default useController(CreatePost, validation);

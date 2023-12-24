@@ -1,5 +1,6 @@
 import UserBase from './base.js';
 import validation from '../../validation/users/authUser.js';
+import useController from '../../helpers/useController.js';
 
 class AuthUser extends UserBase {
 	async response() {
@@ -7,5 +8,4 @@ class AuthUser extends UserBase {
 	}
 }
 
-const authUser = (req, res) => new AuthUser(req, res).send();
-export default [validation, authUser];
+export default useController(AuthUser, validation);

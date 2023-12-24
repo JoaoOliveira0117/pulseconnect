@@ -1,5 +1,6 @@
 import UserBase from './base.js';
 import validation from '../../validation/users/getUser.js';
+import useController from '../../helpers/useController.js';
 
 class GetUser extends UserBase {
 	response() {
@@ -7,5 +8,4 @@ class GetUser extends UserBase {
 	}
 }
 
-const getUser = (req, res) => new GetUser(req, res).send();
-export default [validation, getUser];
+export default useController(GetUser, validation);

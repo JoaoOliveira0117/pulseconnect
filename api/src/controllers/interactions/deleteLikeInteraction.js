@@ -1,3 +1,4 @@
+import useController from '../../helpers/useController.js';
 import InteractionBase from './base.js';
 
 class DeleteLikeInteraction extends InteractionBase {
@@ -6,5 +7,4 @@ class DeleteLikeInteraction extends InteractionBase {
 	}
 }
 
-const deleteLikeInteraction = (req, res) => new DeleteLikeInteraction(req, res).send();
-export default [[], deleteLikeInteraction];
+export default useController(DeleteLikeInteraction);

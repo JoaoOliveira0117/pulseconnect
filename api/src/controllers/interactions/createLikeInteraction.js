@@ -1,3 +1,4 @@
+import useController from '../../helpers/useController.js';
 import validation from '../../validation/interactions/createLikeInteraction.js';
 import InteractionBase from './base.js';
 
@@ -7,5 +8,4 @@ class CreateLikeInteraction extends InteractionBase {
 	}
 }
 
-const createLikeInteraction = (req, res) => new CreateLikeInteraction(req, res).send();
-export default [validation, createLikeInteraction];
+export default useController(CreateLikeInteraction, validation);

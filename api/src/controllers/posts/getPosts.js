@@ -1,3 +1,4 @@
+import useController from '../../helpers/useController.js';
 import PostBase from './base.js';
 
 class GetPosts extends PostBase {
@@ -6,5 +7,4 @@ class GetPosts extends PostBase {
 	}
 }
 
-const getPosts = (req, res) => new GetPosts(req, res).send();
-export default [getPosts];
+export default useController(GetPosts);
