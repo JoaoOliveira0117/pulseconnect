@@ -1,8 +1,10 @@
+import { db } from '../config/db.js';
 import Controller from './controller.js';
 
 class CrudBase extends Controller {
 	constructor(req, res, Model) {
 		super(req, res);
+		this.dbInstance = db;
 		this.Model = Model;
 	}
 
@@ -13,26 +15,28 @@ class CrudBase extends Controller {
 		return { limit, offset };
 	}
 
-	async create(body) {
-		const items = await this.Model.create(body);
-		return items;
+	create(body) {
+		return this.Model.create(body);
 	}
 
-	async findOne(query) {
-		const items = await this.Model.findOne(query);
-		return items;
+	findOne(query) {
+		return this.Model.findOne(query);
 	}
 
-	async findAndCountAll(query) {
-		const items = await this.Model.findAll(query);
-		return items;
+	findAndCountAll(query) {
+		return this.Model.findAll(query);
 	}
 
-	async delete(query) {
-		const items = await this.Model.destroy({
-			where: query,
-		});
-		return items;
+	updateById(id, fields) {
+		return this.Model.update(fields, { where: { id } });
+	}
+
+	delete(where) {
+		return this.Model.destroy({ where });
+	}
+
+	deleteById(id) {
+		return this.Model.destroy({ where: { id } });
 	}
 }
 

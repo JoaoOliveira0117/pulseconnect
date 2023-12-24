@@ -6,4 +6,4 @@ function initMulter() {
 	return upload.single('file');
 }
 
-export default initMulter;
+export default () => initMulter;

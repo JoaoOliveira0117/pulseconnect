@@ -1,6 +1,13 @@
 import { currentUserHasLiked, currentUserHasReposted, likes, reposts, comments } from './literals.js';
 
 function queryGetPosts(query, userId, pagination) {
+	const aditionalOptions = {};
+
+	if (pagination && pagination.limit && pagination.offset) {
+		aditionalOptions.pagination = pagination;
+		aditionalOptions.group = ['posts.id', 'user.id', 'interactions.userId', 'interactions.postId', 'interactions.type'];
+	}
+
 	return {
 		where: query,
 		attributes: [
@@ -22,14 +29,19 @@ function queryGetPosts(query, userId, pagination) {
 				attributes: ['id', 'name', 'username', 'profilePicture'],
 			},
 			{
+				association: 'replies',
+				attributes: [],
+			},
+			{
 				association: 'interactions',
-				required: false,
 				attributes: [],
 			},
 		],
-		pagination,
-		group: ['posts.id', 'user.id', 'interactions.userId', 'interactions.postId', 'interactions.type'],
-		order: [['createdAt', 'DESC']],
+		order: [
+			['createdAt', 'DESC'],
+			['interactions', 'createdAt', 'DESC'],
+		],
+		...aditionalOptions,
 	};
 }
 

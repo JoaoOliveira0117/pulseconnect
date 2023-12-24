@@ -2,14 +2,8 @@ import PostBase from './base.js';
 import validation from '../../validation/posts/getPostReply.js';
 
 class GetPostById extends PostBase {
-	async response() {
-		try {
-			const { id } = this.req.params;
-			const result = await this.getPostById(id);
-			this.success(result);
-		} catch (err) {
-			this.fail(err);
-		}
+	response() {
+		return this.getPostWithRepliesById(this.params.id);
 	}
 }
 

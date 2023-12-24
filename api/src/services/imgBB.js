@@ -11,7 +11,6 @@ async function uploadImage(file) {
 
 		const response = await fetch(API_URL, {
 			method: 'POST',
-			// multipart form data
 			headers: { content_type: 'multipart/form-data' },
 			body: form,
 		});

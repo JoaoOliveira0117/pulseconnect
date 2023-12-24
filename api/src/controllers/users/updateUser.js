@@ -1,24 +1,12 @@
 import UserBase from './base.js';
 import validation from '../../validation/users/updateUser.js';
-import uploadImage from '../../services/imgBB.js';
-import initMulter from '../../config/multer.js';
+import multer from '../../config/multer.js';
 
 class UpdateUser extends UserBase {
-	async response() {
-		try {
-			const { body, file, user } = this.req;
-			if (file) {
-				const { data } = await uploadImage(this.req.file);
-				body.profilePicture = data.thumb.url;
-			}
-
-			const result = this.updateUser(user.id, body);
-			this.success(result);
-		} catch (err) {
-			this.fail(err);
-		}
+	response() {
+		return this.updateUserById(this.user.id, this.body);
 	}
 }
 
 const updateUser = (req, res) => new UpdateUser(req, res).send();
-export default [validation, initMulter(), updateUser];
+export default [validation, multer, updateUser];
