@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import auth from '../middlewares/auth.js';
+
 import getPosts from '../controllers/posts/getPosts.js';
 import getPostById from '../controllers/posts/getPostById.js';
 import createPost from '../controllers/posts/createPost.js';
@@ -11,6 +13,8 @@ import deleteRepostInteraction from '../controllers/interactions/deleteRepostInt
 import getPostsWithInteractions from '../controllers/posts/getPostsWithInteractions.js';
 
 const router = Router();
+
+router.use(auth);
 
 router.get('/', ...getPosts);
 router.post('/create', ...createPost);

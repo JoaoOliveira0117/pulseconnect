@@ -12,11 +12,11 @@ const strictValidation = (req, res, next) => {
 
 	if (!errors.isEmpty()) {
 		const errorList = errors.array({ onlyFirstError: true, flatten: true });
-		sendError(res, errorList, 422);
+		return sendError(res, errorList, 422);
 	}
 
 	if (Object.keys(data).length !== Object.keys(reqKeys).length) {
-		sendError(res, 'Invalid request body', 422);
+		return sendError(res, 'Invalid request body', 422);
 	}
 
 	return next();
