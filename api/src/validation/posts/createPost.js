@@ -1,7 +1,4 @@
-import { stringExists, validateExact } from '../index.js';
+import { postContent } from '../shared/postContent';
+import { strict } from '../shared/strict';
 
-export default [
-	stringExists('content').isLength({ min: 1, max: 300 })
-.withMessage('content should have less than 300 characters'),
-	validateExact(),
-];
+export default strict([postContent]);

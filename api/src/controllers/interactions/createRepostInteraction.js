@@ -1,5 +1,5 @@
 import useController from '../../helpers/useController.js';
-import validation from '../../validation/interactions/createRepostInteraction.js';
+import validation from '../../validation/interactions/createInteraction.js';
 import InteractionBase from './base.js';
 
 class CreateRepostInteraction extends InteractionBase {

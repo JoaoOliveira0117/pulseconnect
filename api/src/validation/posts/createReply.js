@@ -1,10 +1,6 @@
-import { postExistsWithProp, propExists, stringExists, validateExact } from '../index.js';
+import { param } from 'express-validator';
+import { strict } from '../shared/strict';
+import { postContent } from '../shared/postContent';
+import { postExists } from '../shared/postExists';
 
-export default [
-	stringExists('content').isLength({ min: 1, max: 300 })
-.withMessage('content should have less than 300 characters'),
-	propExists('id').isUUID()
-.withMessage('id should be valid'),
-	validateExact(),
-	postExistsWithProp('id'),
-];
+export default strict([postContent, param('id').notEmpty().isUUID().withMessage('id is invalid'), postExists('id')]);

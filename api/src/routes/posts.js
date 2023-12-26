@@ -8,7 +8,7 @@ import createLikeInteraction from '../controllers/interactions/createLikeInterac
 import createRepostInteraction from '../controllers/interactions/createRepostInteraction.js';
 import deleteLikeInteraction from '../controllers/interactions/deleteLikeInteraction.js';
 import deleteRepostInteraction from '../controllers/interactions/deleteRepostInteraction.js';
-import getPostInteractions from '../controllers/posts/getPostInteractions.js';
+import getPostsWithInteractions from '../controllers/posts/getPostsWithInteractions.js';
 
 const router = Router();
 
@@ -16,13 +16,13 @@ router.get('/', ...getPosts);
 router.post('/create', ...createPost);
 router.post('/create/:id', ...createReply);
 router.delete('/delete/:id', ...deletePost);
-router.get('/interactions', ...getPostInteractions);
+router.get('/interactions', ...getPostsWithInteractions);
 
 router.post('/like', ...createLikeInteraction);
 router.post('/repost', ...createRepostInteraction);
 
-router.delete('/like', ...deleteLikeInteraction);
-router.delete('/repost', ...deleteRepostInteraction);
+router.delete('/like/:id', ...deleteLikeInteraction);
+router.delete('/repost/:id', ...deleteRepostInteraction);
 
 router.get('/:id', ...getPostById);
 

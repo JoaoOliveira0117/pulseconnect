@@ -1,5 +1,4 @@
 import UserBase from './base.js';
-import validation from '../../validation/users/getMeUser.js';
 import useController from '../../helpers/useController.js';
 
 class GetMeUser extends UserBase {
@@ -8,4 +7,4 @@ class GetMeUser extends UserBase {
 	}
 }
 
-export default useController(GetMeUser, validation);
+export default useController(GetMeUser);

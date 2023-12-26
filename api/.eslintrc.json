@@ -18,12 +18,6 @@
 		"ident": 0,
 		"quotes": ["warn", "single"],
 		"semi": 0,
-		"no-multi-spaces": ["error"],
-		"newline-per-chained-call": [
-			"error",
-			{
-				"ignoreChainWithDepth": 2
-			}
-		]
+		"no-multi-spaces": ["error"]
 	}
 }

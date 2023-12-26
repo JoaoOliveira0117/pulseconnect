@@ -1,5 +1,5 @@
 import PostBase from './base.js';
-import validation from '../../validation/posts/deletePost.js';
+import validation from '../../validation/posts/delete.js';
 import useController from '../../helpers/useController.js';
 
 class DeletePost extends PostBase {
