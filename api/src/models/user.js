@@ -42,12 +42,22 @@ const User = db.define(
 				}
 			},
 		},
+		defaultScope: {
+			attributes: {
+				exclude: ['password'],
+			},
+		},
+		scopes: {
+			withPassword: {
+				attributes: {},
+			},
+		},
 	},
 );
 
 User.prototype.validPassword = async function (password) {
-	const isValid = await compareHash(password, this.password);
-	return isValid;
+	const user = await User.scope('withPassword').findByPk(this.id);
+	return compareHash(password, user.getDataValue('password'));
 };
 
 export default User;

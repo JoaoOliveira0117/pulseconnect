@@ -18,13 +18,13 @@ router.use(auth);
 
 router.get('/', ...getPosts);
 router.post('/create', ...createPost);
-router.post('/create/:id', ...createReply);
-router.delete('/delete/:id', ...deletePost);
 router.get('/interactions', ...getPostsWithInteractions);
 
-router.post('/like', ...createLikeInteraction);
-router.post('/repost', ...createRepostInteraction);
+router.post('/create/:id', ...createReply);
+router.delete('/delete/:id', ...deletePost);
 
+router.post('/like/:id', ...createLikeInteraction);
+router.post('/repost/:id', ...createRepostInteraction);
 router.delete('/like/:id', ...deleteLikeInteraction);
 router.delete('/repost/:id', ...deleteRepostInteraction);
 

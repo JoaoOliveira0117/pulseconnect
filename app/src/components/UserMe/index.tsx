@@ -13,7 +13,7 @@ export default function UserMe({ userToken, user }: UserMeProps) {
 	return (
 		<div className="max-w-[1000px] flex flex-col items-center gap-8">
 			<div className="w-full mt-16 flex items-start justify-evenly">
-				<UserProfilePicture userToken={userToken} profilePicture={user.profilePicture} />
+				<UserProfilePicture userToken={userToken} profilePicture={user?.profilePicture} />
 				<div className="flex gap-8">
 					<div className="flex flex-col gap-2">
 						<Input variant="outline" label="Username" value={user.username} disabled />

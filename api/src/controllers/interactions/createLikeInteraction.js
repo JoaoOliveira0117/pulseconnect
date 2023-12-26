@@ -4,7 +4,7 @@ import InteractionBase from './base.js';
 
 class CreateLikeInteraction extends InteractionBase {
 	response() {
-		return this.createLike(this.query.id);
+		return this.createLike(this.params.id);
 	}
 }
 

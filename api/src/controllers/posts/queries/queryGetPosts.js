@@ -8,6 +8,8 @@ function queryGetPosts(query, userId, pagination) {
 		aditionalOptions.group = ['posts.id', 'user.id', 'interactions.userId', 'interactions.postId', 'interactions.type'];
 	}
 
+	console.log(userId);
+
 	return {
 		where: query,
 		attributes: [
@@ -26,7 +28,6 @@ function queryGetPosts(query, userId, pagination) {
 		include: [
 			{
 				association: 'user',
-				attributes: ['id', 'name', 'username', 'profilePicture'],
 			},
 			{
 				association: 'replies',

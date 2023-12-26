@@ -28,7 +28,7 @@ class Controller {
 	async send() {
 		try {
 			const response = await this.response();
-			this.success({ response });
+			this.success(response);
 		} catch (err) {
 			this.fail(err);
 		}

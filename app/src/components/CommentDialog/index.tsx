@@ -14,6 +14,7 @@ interface CommentDialogProps {
 }
 
 export default function CommentDialog({ isOpen, comment, userToken, handleChange }: CommentDialogProps) {
+	console.log(comment);
 	return (
 		<Dialog open={isOpen} handleChange={handleChange}>
 			<>

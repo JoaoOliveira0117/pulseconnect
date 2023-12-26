@@ -4,7 +4,7 @@ import InteractionBase from './base.js';
 
 class CreateRepostInteraction extends InteractionBase {
 	response() {
-		return this.createRepost(this.query.id);
+		return this.createRepost(this.params.id);
 	}
 }
 

@@ -25,7 +25,7 @@ export default function UserDropdown({ userToken = '' }: UserDropdownProps) {
 	return (
 		<DropdownMenu trigger={<UserPill user={user} userToken={userToken} />}>
 			<div className="flex flex-col items-center justify-center gap-2 pb-2 m-2 border-b border-b-secondary cursor-default">
-				<UserImage src={user.profilePicture} size={48} />
+				<UserImage src={user?.profilePicture} size={48} />
 				<p className="text-sm font-bold">{user.name}</p>
 				<p className="text-xs text-secondary">@{user.username}</p>
 			</div>

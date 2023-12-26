@@ -5,6 +5,7 @@ import multer from '../../config/multer.js';
 
 class UpdateUser extends UserBase {
 	response() {
+		console.log('asdasdasd');
 		return this.updateUserById(this.user.id, this.body);
 	}
 }

@@ -26,7 +26,7 @@ export default function UserPill({ user, userToken }: UserPillProps) {
 			className="flex items-center justify-between cursor-pointer gap-2 p-2 px-4
     hover:bg-bgsecondary rounded-full transition ease-out bg-bgprimary duration-200"
 		>
-			<UserImage src={user.profilePicture || ''} size={24} />
+			<UserImage src={user?.profilePicture || ''} size={24} />
 			<h2 className="block w-full max-w-[8rem] overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-light text-end">
 				@{user.username}
 			</h2>

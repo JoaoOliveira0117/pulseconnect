@@ -51,7 +51,7 @@ export const createPost = async (
 export const likePost = async (query: PostInteractionProps, cookie?: string): Promise<APIResponse<PostType>> => {
 	try {
 		const headers = await getHeaders(cookie);
-		return await post(`${endpoint}/like?id=${query.id}`, {}, { headers });
+		return await post(`${endpoint}/like/${query.id}`, {}, { headers });
 	} catch (error) {
 		return error as APIResponse<PostType>;
 	}
@@ -60,7 +60,7 @@ export const likePost = async (query: PostInteractionProps, cookie?: string): Pr
 export const repostPost = async (query: PostInteractionProps, cookie?: string): Promise<APIResponse<PostType>> => {
 	try {
 		const headers = await getHeaders(cookie);
-		return await post(`${endpoint}/repost?id=${query.id}`, {}, { headers });
+		return await post(`${endpoint}/repost/${query.id}`, {}, { headers });
 	} catch (error) {
 		return error as APIResponse<PostType>;
 	}
@@ -72,7 +72,7 @@ export const removeLikePost = async (
 ): Promise<APIResponse<{ deleted: number }>> => {
 	try {
 		const headers = await getHeaders(cookie);
-		return await destroy(`${endpoint}/like?id=${query.id}`, { headers });
+		return await destroy(`${endpoint}/like/${query.id}`, { headers });
 	} catch (error) {
 		return error as APIResponse<{ deleted: number }>;
 	}
@@ -84,7 +84,7 @@ export const removeRepostPost = async (
 ): Promise<APIResponse<{ deleted: number }>> => {
 	try {
 		const headers = await getHeaders(cookie);
-		return await destroy(`${endpoint}/repost?id=${query.id}`, { headers });
+		return await destroy(`${endpoint}/repost/${query.id}`, { headers });
 	} catch (error) {
 		return error as APIResponse<{ deleted: number }>;
 	}

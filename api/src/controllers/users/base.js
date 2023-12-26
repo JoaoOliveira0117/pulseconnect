@@ -15,14 +15,11 @@ class UserBase extends CrudBase {
 
 		const { data } = await uploadImage(this.file);
 
-		return {
-			imageUrl: data.thumb.url,
-		};
+		return data.thumb.url;
 	}
 
 	#findUser(where) {
-		const attributes = ['id', 'name', 'username', 'email', 'profilePicture'];
-		return this.findOne({ where, attributes });
+		return this.findOne({ where });
 	}
 
 	getUserById(id) {
@@ -34,7 +31,7 @@ class UserBase extends CrudBase {
 	}
 
 	async getUserAndAuthenticate(body) {
-		const user = await this.#findUser({ where: { email: body.email } });
+		const user = await this.#findUser({ email: body.email });
 		const isPasswordValid = await user.validPassword(body.password);
 
 		if (!isPasswordValid) {
@@ -51,8 +48,8 @@ class UserBase extends CrudBase {
 		return { user, token };
 	}
 
-	updateUserById(userId, fields) {
-		fields.profilePicture = this.#uploadFile().imageUrl;
+	async updateUserById(userId, fields) {
+		fields.profilePicture = await this.#uploadFile();
 
 		return this.updateById(userId, fields);
 	}
