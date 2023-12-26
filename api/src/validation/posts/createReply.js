@@ -1,6 +1,6 @@
 import { param } from 'express-validator';
-import { strict } from '../shared/strict';
-import { postContent } from '../shared/postContent';
-import { postExists } from '../shared/postExists';
+import { strict } from '../shared/strict.js';
+import { postContent } from '../shared/postContent.js';
+import { postExists } from '../shared/postExists.js';
 
-export default strict([postContent, param('id').notEmpty().isUUID().withMessage('id is invalid'), postExists('id')]);
+export default strict([postContent, param('id').notEmpty().isUUID().withMessage('id is invalid'), postExists]);

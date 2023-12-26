@@ -1,4 +1,4 @@
-import { postContent } from '../shared/postContent';
-import { strict } from '../shared/strict';
+import { postContent } from '../shared/postContent.js';
+import { strict } from '../shared/strict.js';
 
 export default strict([postContent]);

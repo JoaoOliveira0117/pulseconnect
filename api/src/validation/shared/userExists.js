@@ -1,5 +1,5 @@
 import { param } from 'express-validator';
-import User from '../../models/user';
+import User from '../../models/user.js';
 
 export const userExists = param('id').custom(async (id) => {
 	const user = await User.findOne({ where: { id } });

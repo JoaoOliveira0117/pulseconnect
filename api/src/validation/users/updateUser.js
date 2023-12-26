@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
-import { usernameExists } from '../shared/usernameExists';
-import { emailExists } from '../shared/emailExists';
-import { strict } from '../shared/strict';
+import { usernameExists } from '../shared/usernameExists.js';
+import { emailExists } from '../shared/emailExists.js';
+import { strict } from '../shared/strict.js';
 
 export default strict([
 	body('name').optional().isLength({ min: 5, max: 50 }).withMessage('Name should have between 5 and 50 characters'),

@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from 'express-validator';
-import { handleError } from '../../utils/responseHandler';
+import { handleError } from '../../utils/responseHandler.js';
 
 const sendError = (res, errors, statusCode) => {
 	res.status(statusCode).json(handleError(errors, statusCode));
@@ -23,5 +23,5 @@ const strictValidation = (req, res, next) => {
 };
 
 export const strict = (validation) => {
-	return [...validation, strictValidation()];
+	return [...validation, strictValidation];
 };

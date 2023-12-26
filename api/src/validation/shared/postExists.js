@@ -1,5 +1,5 @@
 import { param } from 'express-validator';
-import Post from '../../models/post';
+import Post from '../../models/post.js';
 
 export const postExists = param('id').custom(async (id) => {
 	const post = await Post.findOne({ where: { id } });

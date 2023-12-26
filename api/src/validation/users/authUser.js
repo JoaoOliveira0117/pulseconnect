@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
-import { emailNotExists } from '../shared/emailNotExists';
-import { strict } from '../shared/strict';
+import { emailNotExists } from '../shared/emailNotExists.js';
+import { strict } from '../shared/strict.js';
 
 export default strict([
 	body('password')
