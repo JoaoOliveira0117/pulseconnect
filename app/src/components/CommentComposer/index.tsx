@@ -5,16 +5,17 @@ import { useState } from 'react';
 import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
 import UserImage from '../Dummies/ProfilePicture';
-import Input from '../Input';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { createCommentAction } from '@/store/thunks/comments.thunk';
+import Input from '../Dummies/Input';
+import useAuth from '@/hooks/useAuth';
 
 interface CommentComposer {
-	userToken?: string;
 	commentId: string;
 }
 
-export default function CommentComposer({ userToken, commentId }: CommentComposer) {
+export default function CommentComposer({ commentId }: CommentComposer) {
+	const { accessToken } = useAuth();
 	const userMe = useAppSelector((state) => state.userMe?.data);
 	const [content, setContent] = useState('');
 
@@ -22,7 +23,7 @@ export default function CommentComposer({ userToken, commentId }: CommentCompose
 
 	const handleCreateComment = async () => {
 		setContent('');
-		await dispatch(createCommentAction({ content }, commentId, userToken));
+		await dispatch(createCommentAction({ content }, commentId, accessToken));
 	};
 
 	return (

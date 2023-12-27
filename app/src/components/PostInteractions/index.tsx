@@ -3,7 +3,6 @@ import Repost from './Repost';
 import Comment from './Comment';
 
 interface InteractionsProps {
-	userToken?: string;
 	isComment?: boolean;
 	isPersonalPage?: boolean;
 	postId: string;
@@ -15,7 +14,6 @@ interface InteractionsProps {
 }
 
 export default function Interactions({
-	userToken,
 	isComment,
 	postId,
 	postLikes,
@@ -26,14 +24,8 @@ export default function Interactions({
 }: InteractionsProps) {
 	return (
 		<div className="flex items-center justify-evenly cursor-default select-none">
-			<Like userToken={userToken} id={postId} count={postLikes} liked={currentUserHasLiked} isComment={isComment} />
-			<Repost
-				userToken={userToken}
-				id={postId}
-				count={postReposts}
-				reposted={currentUserHasReposted}
-				isComment={isComment}
-			/>
+			<Like id={postId} count={postLikes} liked={currentUserHasLiked} isComment={isComment} />
+			<Repost id={postId} count={postReposts} reposted={currentUserHasReposted} isComment={isComment} />
 			<Comment id={postId} count={postComments} isComment={isComment} />
 		</div>
 	);

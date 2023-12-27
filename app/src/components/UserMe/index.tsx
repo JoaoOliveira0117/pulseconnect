@@ -5,14 +5,13 @@ import { UserType } from '@/types';
 import Input from '../Dummies/Input';
 
 interface UserMeProps {
-	userToken?: string;
 	user: UserType;
 }
 
-export default function UserMe({ userToken, user }: UserMeProps) {
+export default function UserMe({ user }: UserMeProps) {
 	return (
 		<div className="w-full mt-16 flex items-start justify-evenly">
-			<UserProfilePicture userToken={userToken} profilePicture={user?.profilePicture} />
+			<UserProfilePicture profilePicture={user?.profilePicture} />
 			<div className="flex gap-8">
 				<div className="flex flex-col gap-2">
 					<Input variant="outline" label="Username" value={user.username} disabled />

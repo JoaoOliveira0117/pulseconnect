@@ -4,23 +4,24 @@ import Tooltip from '../Dummies/Tooltip';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { likePostAction, removeLikePostAction } from '@/store/thunks/posts.thunk';
 import { likeReplyAction, removeLikeReplyAction } from '@/store/thunks/comments.thunk';
+import useAuth from '@/hooks/useAuth';
 
 interface LikeProps {
-	userToken?: string;
 	id: string;
 	count: string | number;
 	liked: boolean;
 	isComment?: boolean;
 }
 
-export default function Like({ userToken, id, count, liked, isComment }: LikeProps) {
+export default function Like({ id, count, liked, isComment }: LikeProps) {
 	const dispatch = useAppDispatch();
+	const { accessToken } = useAuth();
 
 	const likeAction = isComment ? likeReplyAction : likePostAction;
 	const removeLikeAction = isComment ? removeLikeReplyAction : removeLikePostAction;
 
 	const handleClick = () =>
-		liked ? dispatch(removeLikeAction({ id }, userToken)) : dispatch(likeAction({ id }, userToken));
+		liked ? dispatch(removeLikeAction({ id }, accessToken)) : dispatch(likeAction({ id }, accessToken));
 
 	return (
 		<Tooltip content="Like" delayDuration={150}>

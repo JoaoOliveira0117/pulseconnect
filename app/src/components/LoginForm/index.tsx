@@ -8,7 +8,7 @@ import useToast from '@/hooks/useToast';
 import { login } from '@/services/admin';
 
 import Button from '../Dummies/Button';
-import Input from '../Input';
+import Input from '../Dummies/Input';
 import AuthOptions from '../AuthOptions';
 
 const DEFAULT_FORM_VALUES = {

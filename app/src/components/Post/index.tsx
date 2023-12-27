@@ -7,19 +7,12 @@ import { useAppSelector } from '@/hooks/useRedux';
 
 interface PostProps {
 	post: PostType;
-	userToken?: string;
 	isComment?: boolean;
 	showInteractions?: boolean;
 	showReplyTooltip?: boolean;
 }
 
-export default function Post({
-	userToken,
-	post,
-	isComment = false,
-	showInteractions = true,
-	showReplyTooltip = true,
-}: PostProps) {
+export default function Post({ post, isComment = false, showInteractions = true, showReplyTooltip = true }: PostProps) {
 	const userMe = useAppSelector((state) => state.userMe.data);
 	const { user, content, createdAt, replyTo } = post;
 	const usernameLink = userMe?.id === user?.id ? '/home/user/me' : `/home/user/${user?.id}`;
@@ -50,7 +43,6 @@ export default function Post({
 					<p className="my-2 font-light">{content}</p>
 					{showInteractions && (
 						<Interactions
-							userToken={userToken}
 							isComment={isComment}
 							postId={post.id}
 							postLikes={post.likes}

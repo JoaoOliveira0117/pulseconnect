@@ -6,7 +6,7 @@ import useToast from '@/hooks/useToast';
 import { register } from '@/services/admin';
 
 import Button from '../Dummies/Button';
-import Input from '../Input';
+import Input from '../Dummies/Input';
 import AuthOptions from '../AuthOptions';
 import form from './form';
 
@@ -26,12 +26,12 @@ export default function RegisterForm() {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
+		console.log(e.target);
 		setFormValues({ ...formValues, [name]: value });
 	};
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
-
 		const { data, errors } = await register(formValues);
 
 		if (errors?.length) {

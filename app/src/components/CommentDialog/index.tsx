@@ -9,7 +9,6 @@ import { MdClose } from 'react-icons/md';
 type CommentDialogProps = {
 	isOpen: boolean;
 	comment: PostType & { replies: PostType[] };
-	userToken?: string;
 	handleChange: () => void;
 };
 
@@ -25,7 +24,7 @@ const commentLine = [
 	'after:z-[-1]',
 ];
 
-export default function CommentDialog({ isOpen, comment, userToken, handleChange }: CommentDialogProps) {
+export default function CommentDialog({ isOpen, comment, handleChange }: CommentDialogProps) {
 	if (!comment) {
 		return <Dialog open={isOpen} handleChange={handleChange} />;
 	}
@@ -37,17 +36,15 @@ export default function CommentDialog({ isOpen, comment, userToken, handleChange
 					<MdClose />
 				</Button>
 				<div className={`${commentLine.join(' ')} relative flex flex-col gap-4 m-4`}>
-					<Post userToken={userToken} post={comment} showInteractions={false} showReplyTooltip={false} />
-					<CommentComposer userToken={userToken} commentId={comment?.id} />
+					<Post post={comment} showInteractions={false} showReplyTooltip={false} />
+					<CommentComposer commentId={comment?.id} />
 				</div>
 				<div className="text-sm font-thin text-primary text-center">
 					<p className="mb-2">{comment?.replies?.length ? 'Other Replies' : 'No Replies For This Post Yet'}</p>
 					<hr className="border-bgsecondary border-y-1" />
 				</div>
 				<div className="flex flex-col items-center justify-center mt-8 mx-8 gap-4">
-					{comment?.replies?.map((reply) => (
-						<Post userToken={userToken} post={reply} showReplyTooltip={false} isComment />
-					))}
+					{comment?.replies?.map((reply) => <Post post={reply} showReplyTooltip={false} isComment />)}
 				</div>
 			</div>
 		</Dialog>

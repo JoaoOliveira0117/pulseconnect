@@ -24,6 +24,10 @@ export type APIResponse<T> = {
 	statusCode?: number;
 };
 
+export type AuthType = {
+	accessToken: string;
+};
+
 export type UserType = {
 	id: string;
 	name: string;

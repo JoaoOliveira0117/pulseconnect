@@ -4,20 +4,21 @@ import { useAppDispatch } from '@/hooks/useRedux';
 import { getUserMeAction } from '@/store/thunks/userMe.thunk';
 import UserImage from '../Dummies/ProfilePicture';
 import { UserType } from '@/types';
+import useAuth from '@/hooks/useAuth';
 
 interface UserPillProps {
 	user?: UserType;
-	userToken?: string;
 }
 
-export default function UserPill({ user, userToken }: UserPillProps) {
+export default function UserPill({ user }: UserPillProps) {
 	const router = useRouter();
 	const dispatch = useAppDispatch();
+	const { accessToken } = useAuth();
 
 	useEffect(() => {
-		dispatch(getUserMeAction(userToken));
+		dispatch(getUserMeAction(accessToken));
 		router.refresh();
-	}, [dispatch, userToken, router]);
+	}, [dispatch, router]);
 
 	if (!user) {
 		return <></>;

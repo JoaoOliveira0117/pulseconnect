@@ -17,10 +17,10 @@ function Input({ name, label, variant, className, ...rest }: InputProps) {
 	return label ? (
 		<label htmlFor={name} className="flex flex-col text-primary group-focus-within:text-secondary text-sm mb-4">
 			<span>{label}</span>
-			<input {...rest} className={`${defaults} ${variants[variant]} ${className} `} />
+			<input {...rest} name={name} className={`${defaults} ${variants[variant]} ${className} `} />
 		</label>
 	) : (
-		<input {...rest} className={`${defaults} ${variants[variant]} ${className} `} />
+		<input {...rest} name={name} className={`${defaults} ${variants[variant]} ${className} `} />
 	);
 }
 

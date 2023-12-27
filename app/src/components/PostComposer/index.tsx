@@ -9,12 +9,9 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { createPostAction } from '@/store/thunks/posts.thunk';
 import PostComposerSkeleton from '../Dummies/PostComposerSkeleton';
 import TextArea from '../Dummies/TextArea';
+import useAuth from '@/hooks/useAuth';
 
-interface PostComposerProps {
-	userToken?: string;
-}
-
-export default function PostComposer({ userToken }: PostComposerProps) {
+export default function PostComposer() {
 	const isUserLoading = useAppSelector((state) => state.userMe?.loading);
 	const userMe = useAppSelector((state) => state.userMe?.data);
 	const [content, setContent] = useState('');
@@ -23,7 +20,8 @@ export default function PostComposer({ userToken }: PostComposerProps) {
 
 	const handleCreatePost = async () => {
 		setContent('');
-		await dispatch(createPostAction({ content }, userToken));
+		const { accessToken } = useAuth();
+		await dispatch(createPostAction({ content }, accessToken));
 	};
 
 	if (isUserLoading || !userMe.id) {

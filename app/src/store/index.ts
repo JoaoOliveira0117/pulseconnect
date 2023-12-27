@@ -3,9 +3,11 @@ import userMeReducer from './reducers/userMe.reducer';
 import trendingPostsReducer from './reducers/trendingPosts.reducer';
 import personalPostsReducer from './reducers/personalPosts.reducer';
 import commentReducer from './reducers/comment.reducer';
+import authReducer from './reducers/auth.reducer';
 
 const store = configureStore({
 	reducer: {
+		auth: authReducer,
 		userMe: userMeReducer,
 		trendingPosts: trendingPostsReducer,
 		personalPosts: personalPostsReducer,
