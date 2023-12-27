@@ -1,32 +1,41 @@
-import { forwardRef } from 'react';
-import { InputProps } from '../Input/input.types';
+import useAutosizeTextArea from '@/hooks/useAutosizeTextArea';
+import { useRef, useState } from 'react';
 
-interface TextAreaProps extends InputProps {
+type TextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
 	className?: string;
 	variant: 'transparent' | 'outline' | 'filled';
 	resize?: boolean;
 	rows?: number;
-}
+};
 
-const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
-	const resize = props.resize ? 'resize' : 'resize-none';
-	const vFilled = 'bg-bgtertiary rounded-full';
-	const vOutline = 'py-2 bg-transparent border border-secondary rounded-full';
-	const vTransparent = 'bg-transparent';
-	const variants = {
-		transparent: vTransparent,
-		outline: vOutline,
-		filled: vFilled,
+const defaults = 'px-6 font-light caret-white outline-none placeholder:italic placeholder:text-gray-200 rounded-full';
+
+const variants = {
+	transparent: 'bg-transparent',
+	outline: 'py-2 bg-transparent border border-secondary',
+	filled: 'bg-bgtertiary',
+	resizable: (b: boolean) => (b ? 'resize' : 'resize-none'),
+};
+
+export default function TextArea({ className, variant, resize, onChange, ...rest }: TextAreaProps) {
+	const [value, setValue] = useState('');
+	const currentRef = useRef<HTMLTextAreaElement>(null);
+
+	useAutosizeTextArea(currentRef.current, value);
+
+	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setValue(e.target.value);
+		if (onChange) onChange(e);
 	};
+
 	return (
 		<textarea
-			{...props}
-			ref={ref}
-			className={`px-6 font-light caret-white outline-none ${variants[props.variant]}
-       ${props.className} ${resize} placeholder:italic placeholder:text-gray-200 `}
+			{...rest}
+			ref={currentRef}
+			className={`${defaults} ${variants[variant]} ${variants.resizable(!!resize)} ${className}`}
+			onChange={handleChange}
+			rows={1}
+			maxLength={300}
 		/>
 	);
-});
-
-TextArea.displayName = 'TextArea';
-export default TextArea;
+}

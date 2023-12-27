@@ -17,7 +17,7 @@ export default function NavbarItem({ tooltip, children, href }: NavbarItemProps)
 	return (
 		<Tooltip content={tooltip}>
 			<Link href={href} className="w-full">
-				<Button variant="borderless" className="w-full py-2 m-auto [&>*]:m-auto" active={pathname === href}>
+				<Button variant="borderless" className="w-full py-2" active={pathname === href}>
 					{children}
 				</Button>
 			</Link>

@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import Post from '../Post';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { getPersonalPostsAction, getTrendingPostsAction } from '@/store/thunks/posts.thunk';
+import Post from '../Post';
 
 interface PostContainerProps {
 	userToken?: string;
@@ -20,7 +20,11 @@ export default function PostContainer({ userToken, isPersonalPage = false }: Pos
 		dispatch(getPostsDispatchAction(userToken));
 	}, [dispatch, userToken]);
 
-	return posts.map((post) => (
-		<Post key={post.id} userToken={userToken} post={post} showReplyTooltip={isPersonalPage} />
-	));
+	return (
+		<div className="flex flex-col gap-4 my-8 w-3/4 m-auto">
+			{posts.map((post) => (
+				<Post key={post.id} userToken={userToken} post={post} showReplyTooltip={isPersonalPage} />
+			))}
+		</div>
+	);
 }

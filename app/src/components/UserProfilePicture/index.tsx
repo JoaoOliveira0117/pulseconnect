@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import UserImage from '@/components/Dummies/UserImage';
+import UserImage from '@/components/Dummies/ProfilePicture';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { updateUserMeProfilePictureAction } from '@/store/thunks/userMe.thunk';
 import useToast from '@/hooks/useToast';

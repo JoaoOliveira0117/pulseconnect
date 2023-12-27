@@ -12,6 +12,10 @@ class PostBase extends CrudBase {
 		return this.findOne(queryGetPosts(query, this.user.id), options);
 	}
 
+	#findPosts(query, options) {
+		return this.findAll(queryGetPosts(query, this.user.id), options);
+	}
+
 	#findAndCountPosts(query, options) {
 		return this.findAndCountAll(queryGetPosts(query, this.user.id, this.getPagination()), options);
 	}
@@ -38,7 +42,7 @@ class PostBase extends CrudBase {
 	getPostWithRepliesById(postId) {
 		return this.dbInstance.transaction(async (transaction) => {
 			const post = await this.#findPostById(postId, { transaction });
-			const replies = await this.#findPost({ replyTo: post.getDataValue('id') }, { transaction });
+			const replies = await this.#findPosts({ replyTo: post.getDataValue('id') }, { transaction });
 
 			return { ...post.toJSON(), replies };
 		});

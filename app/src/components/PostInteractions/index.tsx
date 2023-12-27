@@ -25,7 +25,7 @@ export default function Interactions({
 	currentUserHasReposted,
 }: InteractionsProps) {
 	return (
-		<div className="flex items-center justify-evenly">
+		<div className="flex items-center justify-evenly cursor-default select-none">
 			<Like userToken={userToken} id={postId} count={postLikes} liked={currentUserHasLiked} isComment={isComment} />
 			<Repost
 				userToken={userToken}

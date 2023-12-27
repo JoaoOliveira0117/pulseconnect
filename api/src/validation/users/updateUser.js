@@ -19,7 +19,7 @@ export default strict([
 		.matches(/\d/)
 		.withMessage('Password should contain at least one number'),
 	body('confirm_password').custom((confirmPassword, { req }) => {
-		if (confirmPassword != req.body.password) throw new Error('passwords do not match');
+		if (confirmPassword !== req.body.password) throw new Error('passwords do not match');
 		return confirmPassword;
 	}),
 	usernameExists,

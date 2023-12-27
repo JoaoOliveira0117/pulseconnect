@@ -1,27 +1,26 @@
-import { InputProps } from '../Input/input.types';
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+	className?: string;
+	variant: 'transparent' | 'outline' | 'filled';
+	multiline?: boolean;
+	label?: string;
+};
 
-function Input(props: InputProps) {
-	const vFilled = 'px-4 py-2 bg-bgtertiary rounded-2xl rounded-tl-none';
-	const vOutline = 'py-2 bg-transparent border-b border-primary focus:border-secondary';
-	const vTransparent = 'bg-transparent';
-	const variants = {
-		transparent: vTransparent,
-		outline: vOutline,
-		filled: vFilled,
-	};
-	return (
-		<div className="group">
-			{props.label && (
-				<label htmlFor={props.name} className="block text-primary group-focus-within:text-secondary text-sm">
-					{props.label}
-				</label>
-			)}
-			<input
-				{...props}
-				className={`font-light caret-white outline-none text-sm ${variants[props.variant]}
-       ${props.className} placeholder:italic placeholder:text-gray-200 `}
-			/>
-		</div>
+const defaults = 'py-2 px-4 font-light caret-white outline-none text-sm placeholder:italic placeholder:text-gray-200 ';
+
+const variants = {
+	transparent: 'bg-transparent',
+	outline: 'bg-transparent border-b border-primary focus:border-secondary',
+	filled: 'bg-bgtertiary',
+};
+
+function Input({ name, label, variant, className, ...rest }: InputProps) {
+	return label ? (
+		<label htmlFor={name} className="flex flex-col text-primary group-focus-within:text-secondary text-sm mb-4">
+			<span>{label}</span>
+			<input {...rest} className={`${defaults} ${variants[variant]} ${className} `} />
+		</label>
+	) : (
+		<input {...rest} className={`${defaults} ${variants[variant]} ${className} `} />
 	);
 }
 

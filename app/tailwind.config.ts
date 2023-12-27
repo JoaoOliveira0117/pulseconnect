@@ -58,6 +58,9 @@ const config: Config = {
 		{
 			pattern: /^opacity-.+$/,
 		},
+		{
+			pattern: /^max-w?-.+$/,
+		},
 	],
 	plugins: [],
 };

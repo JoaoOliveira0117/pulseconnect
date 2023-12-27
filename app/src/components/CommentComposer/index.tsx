@@ -4,7 +4,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useState } from 'react';
 import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
-import UserImage from '../Dummies/UserImage';
+import UserImage from '../Dummies/ProfilePicture';
 import Input from '../Input';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { createCommentAction } from '@/store/thunks/comments.thunk';
@@ -26,19 +26,20 @@ export default function CommentComposer({ userToken, commentId }: CommentCompose
 	};
 
 	return (
-		<div className="flex mt-4 w-full max-w-[44rem] justify-evenly items-start gap-2">
-			<UserImage className="mx-2" src={userMe.profilePicture} size={48} />
+		<div className="flex gap-2">
+			<UserImage src={userMe.profilePicture} size={48} />
 			<div
-				className={`w-full bg-bgtertiary rounded-tl-lg rounded-3xl 
-      flex self-center items-center justify-between py-1 text-sm`}
+				className={
+					'w-full bg-bgtertiary rounded-tl-lg rounded-3xl flex self-center items-center justify-between py-1 text-sm'
+				}
 			>
 				<Input
 					variant="transparent"
 					className="w-full"
 					placeholder={`What are your thoughts about the post above ${userMe.name}?`}
-					multiline
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
+					multiline
 				/>
 				<Tooltip content={<span>Create a new Post</span>}>
 					<Button
@@ -47,9 +48,9 @@ export default function CommentComposer({ userToken, commentId }: CommentCompose
 						onClick={handleCreateComment}
 					>
 						<AiOutlinePlus
-							className={`text-bgprimary text-4xl bg-secondary
-          px-[0.5rem] hover:text-white transition-all 
-         duration-150 rounded-full`}
+							className={
+								'text-bgprimary text-4xl bg-secondary px-[0.5rem] hover:text-white transition-all duration-150 rounded-full'
+							}
 						/>
 					</Button>
 				</Tooltip>

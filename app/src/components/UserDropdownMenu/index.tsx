@@ -7,11 +7,13 @@ import DropdownItem from '../DropdownMenu/dropdownItem';
 import DropdownMenu from '../DropdownMenu';
 import UserPill from '../UserPill';
 import { useAppSelector } from '@/hooks/useRedux';
-import UserImage from '../Dummies/UserImage';
+import UserImage from '../Dummies/ProfilePicture';
 
-interface UserDropdownProps {
+type UserDropdownProps = {
 	userToken?: string;
-}
+};
+
+const defaults = 'w-full p-2 text-center hover:bg-secondary outline-none transition-all duration-150';
 
 export default function UserDropdown({ userToken = '' }: UserDropdownProps) {
 	const user = useAppSelector((state) => state.userMe.data || {});
@@ -24,21 +26,21 @@ export default function UserDropdown({ userToken = '' }: UserDropdownProps) {
 
 	return (
 		<DropdownMenu trigger={<UserPill user={user} userToken={userToken} />}>
-			<div className="flex flex-col items-center justify-center gap-2 pb-2 m-2 border-b border-b-secondary cursor-default">
-				<UserImage src={user?.profilePicture} size={48} />
-				<p className="text-sm font-bold">{user.name}</p>
-				<p className="text-xs text-secondary">@{user.username}</p>
+			<div className="bg-bgsecondary pt-4 rounded-lg shadow-xl w-32">
+				<div className="flex flex-col items-center justify-center gap-2 pb-2 mx-2 cursor-default">
+					<UserImage src={user?.profilePicture} size={48} />
+					<p className="text-sm font-bold">{user.name}</p>
+					<p className="text-xs text-secondary">@{user.username}</p>
+				</div>
+				<DropdownItem className={`${defaults}`}>
+					<Link href="/home/user/me">Settings</Link>
+				</DropdownItem>
+				<DropdownItem className={`${defaults} rounded-b-md`}>
+					<button type="button" onClick={handleLogout}>
+						Logout
+					</button>
+				</DropdownItem>
 			</div>
-			<DropdownItem>
-				<Link href="/home/user/me" className="block w-full p-2 px-4 hover:bg-bgsecondary">
-					Settings
-				</Link>
-			</DropdownItem>
-			<DropdownItem>
-				<button type="button" className="block w-full p-2 px-4 hover:bg-bgsecondary" onClick={handleLogout}>
-					Logout
-				</button>
-			</DropdownItem>
 		</DropdownMenu>
 	);
 }

@@ -23,6 +23,10 @@ class CrudBase extends Controller {
 		return this.Model.findOne(query);
 	}
 
+	findAll(query) {
+		return this.Model.findAll(query);
+	}
+
 	findAndCountAll(query) {
 		return this.Model.findAll(query);
 	}

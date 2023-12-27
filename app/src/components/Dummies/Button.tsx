@@ -1,29 +1,33 @@
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	variant: 'borderless' | 'outline' | 'filled';
 	active?: boolean;
-}
+};
 
-export default function Button({ children, className, variant, active = false, ...rest }: ButtonProps) {
-	const vBorderless = 'hover:bg-bgsecondary bg-bgprimary text-secondary';
-	const vOutline = 'hover:bg-bgsecondary bg-bgprimary text-secondary border-2 border-bgsecondary';
-	const vFilled = 'hover:bg-secondary hover:text-white bg-bgsecondary text-secondary ';
-	const variants = {
-		borderless: vBorderless,
-		outline: vOutline,
-		filled: vFilled,
-	};
+const defaults = 'hover:bg-bgsecondary text-secondary cursor-pointer rounded-xl';
+
+const variants = {
+	borderless: 'bg-bgprimary',
+	outline: '$bg-bgprimary border-2 border-bgsecondary',
+	filled: 'hover:text-white bg-bgsecondary',
+	disabled: (b?: boolean) => !!b && 'cursor-not-allowed opacity-50',
+	active: (b?: boolean) => !!b && 'text-white font-bold',
+};
+
+export default function Button({
+	children,
+	className,
+	variant,
+	active = false,
+	disabled = false,
+	...rest
+}: ButtonProps) {
 	return (
 		<button
 			{...rest}
 			type="button"
-			className={`${className} outline-none flex-1 rounded-lg text-center
-      			transition ease-out duration-75 ${
-							rest.disabled
-								? 'cursor-not-allowed opacity-50'
-								: `${variants[variant]} cursor-pointer active:scale-[0.95] active:opacity-75 ${
-										active ? 'scale-[0.95] opacity-75 bg-bgsecondary' : ''
-								  }`
-						}`}
+			className={`${defaults} ${variants[variant]} ${variants.disabled(disabled)} ${variants.active(
+				active,
+			)} ${className}`}
 		>
 			{children}
 		</button>

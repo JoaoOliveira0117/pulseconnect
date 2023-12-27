@@ -6,59 +6,50 @@ import Post from '../Post';
 import Button from '../Dummies/Button';
 import { MdClose } from 'react-icons/md';
 
-interface CommentDialogProps {
+type CommentDialogProps = {
 	isOpen: boolean;
 	comment: PostType & { replies: PostType[] };
 	userToken?: string;
 	handleChange: () => void;
-}
+};
+
+const commentLine = [
+	'after:absolute',
+	'after:content-[""]',
+	'after:w-[48px]',
+	'after:h-full',
+	'after:top-0',
+	'after:left-[1.4rem]',
+	'after:border-l-2',
+	'after:border-bgsecondary',
+	'after:z-[-1]',
+];
 
 export default function CommentDialog({ isOpen, comment, userToken, handleChange }: CommentDialogProps) {
-	console.log(comment);
+	if (!comment) {
+		return <Dialog open={isOpen} handleChange={handleChange} />;
+	}
+
 	return (
 		<Dialog open={isOpen} handleChange={handleChange}>
-			<>
-				{!!comment.id && (
-					<div className="m-auto mb-[10rem] translate-y-[10vh] bg-bgprimary rounded-lg max-w-[800px] px-4 pt-4 pb-2 shadow-xl scale-105">
-						<div className="ml-auto w-10">
-							<Button
-								variant="borderless"
-								className="w-10 flex justify-center items-center py-2"
-								onClick={handleChange}
-							>
-								<MdClose />
-							</Button>
-						</div>
-						<div className="relative after:absolute after:content-[''] after:w-[48px] after:h-full after:top-0 after:left-8 after:border-l-2 after:border-bgsecondary after:z-[-1]">
-							<Post
-								userToken={userToken}
-								post={comment}
-								showInteractions={false}
-								showReplyTooltip={false}
-								showDivider={false}
-							/>
-							<CommentComposer userToken={userToken} commentId={comment?.id} />
-						</div>
-						<div className="mt-8">
-							<div className="w-full text-sm font-thin text-primary text-center mb-4">
-								<p className="mb-2">{comment?.replies?.length ? 'Other Replies' : 'No Replies For This Post Yet'}</p>
-								<hr className="border-bgsecondary border-y-1" />
-							</div>
-							<div className="flex flex-col gap-4 items-center justify-center py-2">
-								{comment?.replies?.map((reply, i) => (
-									<Post
-										userToken={userToken}
-										post={reply}
-										showReplyTooltip={false}
-										showDivider={i != comment.replies.length - 1}
-										isComment
-									/>
-								))}
-							</div>
-						</div>
-					</div>
-				)}
-			</>
+			<div className="m-auto mb-[10rem] translate-y-[10vh] bg-bgprimary rounded-lg max-w-3xl p-4 shadow-xl scale-105 relative">
+				<Button variant="borderless" className="absolute top-0 right-0 p-2" onClick={handleChange}>
+					<MdClose />
+				</Button>
+				<div className={`${commentLine.join(' ')} relative flex flex-col gap-4 m-4`}>
+					<Post userToken={userToken} post={comment} showInteractions={false} showReplyTooltip={false} />
+					<CommentComposer userToken={userToken} commentId={comment?.id} />
+				</div>
+				<div className="text-sm font-thin text-primary text-center">
+					<p className="mb-2">{comment?.replies?.length ? 'Other Replies' : 'No Replies For This Post Yet'}</p>
+					<hr className="border-bgsecondary border-y-1" />
+				</div>
+				<div className="flex flex-col items-center justify-center mt-8 mx-8 gap-4">
+					{comment?.replies?.map((reply) => (
+						<Post userToken={userToken} post={reply} showReplyTooltip={false} isComment />
+					))}
+				</div>
+			</div>
 		</Dialog>
 	);
 }

@@ -4,16 +4,18 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useState } from 'react';
 import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
-import UserImage from '../Dummies/UserImage';
-import Input from '../Input';
+import UserImage from '../Dummies/ProfilePicture';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { createPostAction } from '@/store/thunks/posts.thunk';
+import PostComposerSkeleton from '../Dummies/PostComposerSkeleton';
+import TextArea from '../Dummies/TextArea';
 
 interface PostComposerProps {
 	userToken?: string;
 }
 
 export default function PostComposer({ userToken }: PostComposerProps) {
+	const isUserLoading = useAppSelector((state) => state.userMe?.loading);
 	const userMe = useAppSelector((state) => state.userMe?.data);
 	const [content, setContent] = useState('');
 
@@ -24,31 +26,28 @@ export default function PostComposer({ userToken }: PostComposerProps) {
 		await dispatch(createPostAction({ content }, userToken));
 	};
 
+	if (isUserLoading || !userMe.id) {
+		return <PostComposerSkeleton />;
+	}
+
 	return (
-		<div className="flex w-[48rem] mt-4 mb-8 justify-evenly items-start gap-4">
+		<div className="flex w-full">
 			<UserImage src={userMe.profilePicture} size={64} />
-			<div
-				className={'w-full bg-bgtertiary rounded-tl-lg rounded-3xl flex self-center items-center justify-between py-2'}
-			>
-				<Input
+			<div className={'w-full bg-bgtertiary rounded-3xl rounded-tl-lg flex self-center py-2 ml-2'}>
+				<TextArea
 					variant="transparent"
-					className="w-full pr-2"
+					className="w-full self-center"
 					placeholder={`What are you thinking today ${userMe.name}?`}
-					multiline
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 				/>
-				<Tooltip content="Create a new post">
+				<Tooltip content={<span>Create a new post</span>}>
 					<Button
 						variant="borderless"
-						className="bg-transparent hover:bg-transparent mr-2 mt-auto"
+						className="bg-secondary hover:bg-secondary rounded-full p-2 mr-2 mt-auto text-lg text-black hover:text-white transition-all duration-150"
 						onClick={handleCreatePost}
 					>
-						<AiOutlinePlus
-							className={
-								'text-bgprimary text-4xl bg-secondary px-[0.5rem] hover:text-white transition-all  duration-150 rounded-full'
-							}
-						/>
+						<AiOutlinePlus />
 					</Button>
 				</Tooltip>
 			</div>
