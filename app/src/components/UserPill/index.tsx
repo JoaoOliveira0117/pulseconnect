@@ -1,27 +1,21 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '@/hooks/useRedux';
-import { getUserMeAction } from '@/store/thunks/userMe.thunk';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { getCurrentUser } from '@/store/thunks/currentUser.thunk';
 import UserImage from '../Dummies/ProfilePicture';
-import { UserType } from '@/types';
-import useAuth from '@/hooks/useAuth';
 
-interface UserPillProps {
-	user?: UserType;
-}
-
-export default function UserPill({ user }: UserPillProps) {
+export default function UserPill() {
+	const user = useAppSelector((state) => state.currentUser.data);
 	const router = useRouter();
 	const dispatch = useAppDispatch();
-	const { accessToken } = useAuth();
 
 	useEffect(() => {
-		dispatch(getUserMeAction(accessToken));
+		getCurrentUser(dispatch);
 		router.refresh();
 	}, [dispatch, router]);
 
 	if (!user) {
-		return <></>;
+		return null;
 	}
 
 	return (

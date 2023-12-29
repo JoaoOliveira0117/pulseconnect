@@ -1,14 +1,14 @@
-import React, { FormEvent, useState } from 'react';
+import { useState } from 'react';
 
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import useToast from '@/hooks/useToast';
-import { register } from '@/services/admin';
 
 import Button from '../Dummies/Button';
 import Input from '../Dummies/Input';
 import AuthOptions from '../AuthOptions';
 import form from './form';
+import { registerUser } from '@/store/thunks/auth.thunk';
+import { useDispatch } from 'react-redux';
 
 const DEFAULT_FORM_VALUES = {
 	name: '',
@@ -21,30 +21,28 @@ const DEFAULT_FORM_VALUES = {
 export default function RegisterForm() {
 	const [formValues, setFormValues] = useState(DEFAULT_FORM_VALUES);
 
-	const toastify = useToast();
+	const toast = useToast();
 	const router = useRouter();
+	const dispatch = useDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		console.log(e.target);
 		setFormValues({ ...formValues, [name]: value });
 	};
 
-	const handleSubmit = async (e: FormEvent) => {
-		e.preventDefault();
-		const { data, errors } = await register(formValues);
-
-		if (errors?.length) {
-			return toastify(errors, 'error');
-		}
-
-		toastify('Login success', 'success');
-		Cookies.set('jwt', data.token, { expires: 1 });
-		return router.push('/home');
-	};
+	const handleSubmit = () =>
+		registerUser(dispatch, formValues)
+			.then(() => {
+				toast('Redirecting...', 'success');
+				router.push('/home');
+			})
+			.catch((err) => {
+				console.log(err.errors);
+				toast(err.errors, 'error');
+			});
 
 	return (
-		<form onSubmit={handleSubmit} className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8 ">
+		<form className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8 ">
 			{form.map((input) => (
 				<Input
 					key={input.name}

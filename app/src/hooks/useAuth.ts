@@ -1,19 +1,10 @@
-import { setAccessToken } from '@/store/reducers/auth.reducer';
+import { setAccessToken } from '@/store/reducers/auth.reducers';
 import { useAppDispatch, useAppSelector } from './useRedux';
 import getAuth from '@/utils/getAuth';
 
-function getCurrentToken() {
-	const currentToken = getAuth();
-
-	if (!currentToken) {
-		return useAppSelector((state) => state.auth.data.accessToken);
-	}
-
-	return currentToken;
-}
-
 export default function useAuth() {
-	const accessToken = getCurrentToken();
+	const appToken = useAppSelector((state) => state.auth.data.accessToken);
+	const accessToken = getAuth(appToken);
 
 	const dispatch = useAppDispatch();
 

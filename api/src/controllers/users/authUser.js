@@ -3,7 +3,7 @@ import validation from '../../validation/users/authUser.js';
 import useController from '../../helpers/useController.js';
 
 class AuthUser extends UserBase {
-	async response() {
+	response() {
 		return this.getUserAndAuthenticate(this.body);
 	}
 }

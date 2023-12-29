@@ -1,5 +1,6 @@
 export type InitialStateType<T> = {
 	loading: boolean;
+	fetching: boolean;
 	data: T;
 };
 
@@ -24,6 +25,17 @@ export type APIResponse<T> = {
 	statusCode?: number;
 };
 
+export type LoginType = {
+	email: string;
+	password: string;
+};
+
+export type RegisterType = LoginType & {
+	username: string;
+	name: string;
+	confirm_password: string;
+};
+
 export type AuthType = {
 	accessToken: string;
 };
@@ -36,14 +48,18 @@ export type UserType = {
 	profilePicture?: string;
 };
 
+export type CreatePostType = {
+	content: string;
+};
+
 export type PostType = {
 	id: string;
 	user: UserType;
 	content: string;
 	createdAt: string;
-	likes: string | number;
+	likes: number;
 	comments: number;
-	reposts: string | number;
+	reposts: number;
 	currentUserHasLiked: boolean;
 	currentUserHasReposted: boolean;
 	image?: string;
@@ -52,4 +68,11 @@ export type PostType = {
 		id: string;
 		user: UserType;
 	};
+};
+
+export type Interactions = 'like' | 'dislike' | 'repost' | 'disrepost';
+
+export type HandleInteraction = {
+	id: string;
+	type: Interactions;
 };

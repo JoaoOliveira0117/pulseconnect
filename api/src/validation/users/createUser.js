@@ -2,6 +2,7 @@ import { strict } from '../shared/strict.js';
 import { body } from 'express-validator';
 import { usernameExists } from '../shared/usernameExists.js';
 import { emailExists } from '../shared/emailExists.js';
+import { mountErrorMessage } from '../../utils/responseHandler.js';
 
 export default strict([
 	body('name')
@@ -26,7 +27,7 @@ export default strict([
 		.exists()
 		.withMessage('Password confirmation is required')
 		.custom((confirmPassword, { req }) => {
-			if (confirmPassword != req.body.password) throw new Error('passwords do not match');
+			if (confirmPassword != req.body.password) throw mountErrorMessage('passwords do not match', 400);
 			return confirmPassword;
 		}),
 	usernameExists,

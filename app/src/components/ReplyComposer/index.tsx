@@ -4,31 +4,28 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useState } from 'react';
 import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
-import UserImage from '../Dummies/ProfilePicture';
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
-import { createCommentAction } from '@/store/thunks/comments.thunk';
+import { useAppDispatch } from '@/hooks/useRedux';
+import { createReply } from '@/store/thunks/replies.thunk';
 import Input from '../Dummies/Input';
-import useAuth from '@/hooks/useAuth';
+import UserMeProfilePicture from '../Dummies/UserMeProfilePicture';
 
-interface CommentComposer {
-	commentId: string;
-}
+type ReplyComposerProps = {
+	postId: string;
+};
 
-export default function CommentComposer({ commentId }: CommentComposer) {
-	const { accessToken } = useAuth();
-	const userMe = useAppSelector((state) => state.userMe?.data);
+export default function ReplyComposer({ postId }: ReplyComposerProps) {
 	const [content, setContent] = useState('');
 
 	const dispatch = useAppDispatch();
 
 	const handleCreateComment = async () => {
 		setContent('');
-		await dispatch(createCommentAction({ content }, commentId, accessToken));
+		createReply(dispatch, { content }, postId);
 	};
 
 	return (
 		<div className="flex gap-2">
-			<UserImage src={userMe.profilePicture} size={48} />
+			<UserMeProfilePicture size={48} />
 			<div
 				className={
 					'w-full bg-bgtertiary rounded-tl-lg rounded-3xl flex self-center items-center justify-between py-1 text-sm'
@@ -37,7 +34,7 @@ export default function CommentComposer({ commentId }: CommentComposer) {
 				<Input
 					variant="transparent"
 					className="w-full"
-					placeholder={`What are your thoughts about the post above ${userMe.name}?`}
+					placeholder="What are your thoughts?"
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 					multiline

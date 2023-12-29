@@ -1,41 +1,19 @@
-import { SlLike } from 'react-icons/sl';
-import Button from '../Dummies/Button';
-import Tooltip from '../Dummies/Tooltip';
 import { useAppDispatch } from '@/hooks/useRedux';
-import { likePostAction, removeLikePostAction } from '@/store/thunks/posts.thunk';
-import { likeReplyAction, removeLikeReplyAction } from '@/store/thunks/comments.thunk';
-import useAuth from '@/hooks/useAuth';
+import LikeButton from '../Dummies/LikeButton';
+import { interactWithPost } from '@/store/thunks/posts.thunk';
 
 interface LikeProps {
 	id: string;
-	count: string | number;
+	count: number;
 	liked: boolean;
-	isComment?: boolean;
 }
 
-export default function Like({ id, count, liked, isComment }: LikeProps) {
+export default function Like({ id, count, liked }: LikeProps) {
 	const dispatch = useAppDispatch();
-	const { accessToken } = useAuth();
 
-	const likeAction = isComment ? likeReplyAction : likePostAction;
-	const removeLikeAction = isComment ? removeLikeReplyAction : removeLikePostAction;
+	const type = liked ? 'dislike' : 'like';
 
-	const handleClick = () =>
-		liked ? dispatch(removeLikeAction({ id }, accessToken)) : dispatch(likeAction({ id }, accessToken));
+	const handleClick = () => interactWithPost(dispatch, { id, type });
 
-	return (
-		<Tooltip content="Like" delayDuration={150}>
-			<div className="w-full">
-				<Button
-					variant="borderless"
-					className="w-full py-2 m-auto flex items-center justify-center gap-2"
-					onClick={handleClick}
-					active={liked}
-				>
-					<SlLike />
-					{count}
-				</Button>
-			</div>
-		</Tooltip>
-	);
+	return <LikeButton count={count} active={liked} dispatch={handleClick} />;
 }

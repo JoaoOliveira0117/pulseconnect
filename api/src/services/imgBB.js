@@ -1,4 +1,5 @@
 import fetch, { FormData } from 'node-fetch';
+import { mountErrorMessage } from '../utils/responseHandler.js';
 
 const API_KEY = process.env.IMG_BB_API_KEY || '';
 const API_URL = `https://api.imgbb.com/1/upload?key=${API_KEY}`;
@@ -17,7 +18,7 @@ async function uploadImage(file) {
 
 		return await response.json();
 	} catch (err) {
-		throw new Error(err);
+		throw mountErrorMessage('Invalid Password', 403);
 	}
 }
 

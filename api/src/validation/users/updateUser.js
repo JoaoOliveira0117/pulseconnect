@@ -2,6 +2,7 @@ import { body } from 'express-validator';
 import { usernameExists } from '../shared/usernameExists.js';
 import { emailExists } from '../shared/emailExists.js';
 import { strict } from '../shared/strict.js';
+import { mountErrorMessage } from '../../utils/responseHandler.js';
 
 export default strict([
 	body('name').optional().isLength({ min: 5, max: 50 }).withMessage('Name should have between 5 and 50 characters'),
@@ -19,7 +20,7 @@ export default strict([
 		.matches(/\d/)
 		.withMessage('Password should contain at least one number'),
 	body('confirm_password').custom((confirmPassword, { req }) => {
-		if (confirmPassword !== req.body.password) throw new Error('passwords do not match');
+		if (confirmPassword !== req.body.password) throw mountErrorMessage('passwords do not match', 400);
 		return confirmPassword;
 	}),
 	usernameExists,

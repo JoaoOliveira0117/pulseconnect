@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import UserImage from '@/components/Dummies/ProfilePicture';
 import { useAppDispatch } from '@/hooks/useRedux';
-import { updateUserMeProfilePictureAction } from '@/store/thunks/userMe.thunk';
+import { updateUserMeProfilePictureAction } from '@/store/thunks/currentUser.thunk';
 import useToast from '@/hooks/useToast';
 import useAuth from '@/hooks/useAuth';
 

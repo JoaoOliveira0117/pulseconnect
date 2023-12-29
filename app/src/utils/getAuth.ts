@@ -1,13 +1,14 @@
 import Cookies from 'js-cookie';
 
-const getAuth = (jwt?: string) => {
-	let cookie: string | undefined = jwt;
+function getAuth(token?: string) {
+	const currentToken = Cookies.get('jwt');
 
-	if (!cookie) {
-		cookie = Cookies.get('jwt');
+	if (!currentToken && token) {
+		Cookies.set('jwt', token);
+		return token;
 	}
 
-	return cookie;
-};
+	return currentToken;
+}
 
 export default getAuth;

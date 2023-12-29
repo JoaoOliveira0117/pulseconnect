@@ -11,6 +11,10 @@ class Controller {
 		this.res = res;
 	}
 
+	mountError(errors, statusCode) {
+		return { errors, statusCode };
+	}
+
 	#sendResponse(body, status = 500) {
 		this.res.status(status).json(body);
 	}
@@ -30,7 +34,7 @@ class Controller {
 			const response = await this.response();
 			this.success(response);
 		} catch (err) {
-			this.fail(err);
+			this.fail(err, err.statusCode);
 		}
 	}
 }

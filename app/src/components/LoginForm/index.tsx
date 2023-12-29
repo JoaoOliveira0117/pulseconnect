@@ -1,11 +1,9 @@
-'use client';
-
-import React, { FormEvent, useState } from 'react';
-
-import Cookies from 'js-cookie';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/hooks/useRedux';
 import useToast from '@/hooks/useToast';
-import { login } from '@/services/admin';
+
+import { authenticateUser } from '@/store/thunks/auth.thunk';
 
 import Button from '../Dummies/Button';
 import Input from '../Dummies/Input';
@@ -19,30 +17,27 @@ const DEFAULT_FORM_VALUES = {
 export default function LoginForm() {
 	const [formValues, setFormValues] = useState(DEFAULT_FORM_VALUES);
 
-	const toastify = useToast();
 	const router = useRouter();
+	const dispatch = useAppDispatch();
+	const toast = useToast();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
 	};
 
-	const handleSubmit = async (e: FormEvent) => {
-		e.preventDefault();
-
-		const { data, errors } = await login(formValues);
-
-		if (errors?.length) {
-			return toastify(errors, 'error');
-		}
-
-		toastify('Login success', 'success');
-		Cookies.set('jwt', data.token, { expires: 1 });
-		return router.push('/home');
-	};
+	const handleSubmit = () =>
+		authenticateUser(dispatch, formValues)
+			.then(() => {
+				toast('Redirecting...', 'success');
+				router.push('/home');
+			})
+			.catch((err) => {
+				toast(err.errors, 'error');
+			});
 
 	return (
-		<form onSubmit={handleSubmit} className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8">
+		<form className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8">
 			<Input variant="outline" name="email" label="Email" onChange={handleChange} />
 			<Input variant="outline" name="password" label="Password" type="password" onChange={handleChange} />
 			<AuthOptions />

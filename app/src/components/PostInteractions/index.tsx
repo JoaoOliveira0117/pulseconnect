@@ -1,32 +1,18 @@
 import Like from './Like';
 import Repost from './Repost';
-import Comment from './Comment';
+import ReplyButton from '../Dummies/ReplyButton';
+import { PostType } from '@/types';
 
-interface InteractionsProps {
-	isComment?: boolean;
-	isPersonalPage?: boolean;
-	postId: string;
-	postLikes: string | number;
-	postReposts: string | number;
-	postComments: string | number;
-	currentUserHasLiked: boolean;
-	currentUserHasReposted: boolean;
+interface PostInteractionsProps {
+	post: PostType;
 }
 
-export default function Interactions({
-	isComment,
-	postId,
-	postLikes,
-	postReposts,
-	postComments,
-	currentUserHasLiked,
-	currentUserHasReposted,
-}: InteractionsProps) {
+export default function PostInteractions({ post }: PostInteractionsProps) {
 	return (
 		<div className="flex items-center justify-evenly cursor-default select-none">
-			<Like id={postId} count={postLikes} liked={currentUserHasLiked} isComment={isComment} />
-			<Repost id={postId} count={postReposts} reposted={currentUserHasReposted} isComment={isComment} />
-			<Comment id={postId} count={postComments} isComment={isComment} />
+			<Like id={post.id} count={post.likes} liked={post.currentUserHasLiked} />
+			<Repost id={post.id} count={post.reposts} reposted={post.currentUserHasReposted} />
+			<ReplyButton replyId={post.id} count={post.comments} />
 		</div>
 	);
 }

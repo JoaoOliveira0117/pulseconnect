@@ -1,8 +1,9 @@
 import { matchedData, validationResult } from 'express-validator';
-import { handleError } from '../../utils/responseHandler.js';
+import { handleError, mountErrorMessage } from '../../utils/responseHandler.js';
 
 const sendError = (res, errors, statusCode) => {
-	res.status(statusCode).json(handleError(errors, statusCode));
+	const error = mountErrorMessage(errors, statusCode);
+	res.status(statusCode).json(handleError(error, statusCode));
 };
 
 const strictValidation = (req, res, next) => {

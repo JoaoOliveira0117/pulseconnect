@@ -1,6 +1,7 @@
 import { generateToken } from '../../config/auth.js';
 import User from '../../models/user.js';
 import uploadImage from '../../services/imgBB.js';
+import { mountErrorMessage } from '../../utils/responseHandler.js';
 import CrudBase from '../crud.js';
 
 class UserBase extends CrudBase {
@@ -35,7 +36,7 @@ class UserBase extends CrudBase {
 		const isPasswordValid = await user.validPassword(body.password);
 
 		if (!isPasswordValid) {
-			return this.fail('Invalid password', 403);
+			throw mountErrorMessage('Invalid Password', 403);
 		}
 
 		const token = generateToken({ id: user.id });

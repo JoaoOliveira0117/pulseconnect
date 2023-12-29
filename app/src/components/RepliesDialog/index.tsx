@@ -1,14 +1,16 @@
 'use client';
-import { PostType } from '@/types';
-import CommentComposer from '../CommentComposer';
-import Dialog from '../Dummies/Dialog';
-import Post from '../Post';
-import Button from '../Dummies/Button';
-import { MdClose } from 'react-icons/md';
 
-type CommentDialogProps = {
+import Dialog from '../Dummies/Dialog';
+import Button from '../Dummies/Button';
+import { useAppSelector } from '@/hooks/useRedux';
+
+import { MdClose } from 'react-icons/md';
+import RepliesContainer from '../RepliesContainer';
+import ReplyComposer from '../ReplyComposer';
+import Post from '../Post';
+
+type RepliesDialogProps = {
 	isOpen: boolean;
-	comment: PostType & { replies: PostType[] };
 	handleChange: () => void;
 };
 
@@ -24,9 +26,17 @@ const commentLine = [
 	'after:z-[-1]',
 ];
 
-export default function CommentDialog({ isOpen, comment, handleChange }: CommentDialogProps) {
-	if (!comment) {
+export default function RepliesDialog({ isOpen, handleChange }: RepliesDialogProps) {
+	const isFetching = useAppSelector((state) => state.replies.fetching);
+	const post = useAppSelector((state) => state.replies.data.post);
+
+	if (!isFetching) {
 		return <Dialog open={isOpen} handleChange={handleChange} />;
+	}
+
+	if (!post) {
+		handleChange();
+		return null;
 	}
 
 	return (
@@ -36,16 +46,10 @@ export default function CommentDialog({ isOpen, comment, handleChange }: Comment
 					<MdClose />
 				</Button>
 				<div className={`${commentLine.join(' ')} relative flex flex-col gap-4 m-4`}>
-					<Post post={comment} showInteractions={false} showReplyTooltip={false} />
-					<CommentComposer commentId={comment?.id} />
+					<Post data={post} showReplyTooltip={false} />
+					<ReplyComposer postId={post.id} />
 				</div>
-				<div className="text-sm font-thin text-primary text-center">
-					<p className="mb-2">{comment?.replies?.length ? 'Other Replies' : 'No Replies For This Post Yet'}</p>
-					<hr className="border-bgsecondary border-y-1" />
-				</div>
-				<div className="flex flex-col items-center justify-center mt-8 mx-8 gap-4">
-					{comment?.replies?.map((reply) => <Post post={reply} showReplyTooltip={false} isComment />)}
-				</div>
+				<RepliesContainer />
 			</div>
 		</Dialog>
 	);
