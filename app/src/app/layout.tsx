@@ -8,6 +8,8 @@ import Providers from '@/contexts/ReduxContext';
 // Styles
 import './globals.css';
 
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const workSans = WorkSans({
 	subsets: ['latin'],

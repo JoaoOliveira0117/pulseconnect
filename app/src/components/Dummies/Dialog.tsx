@@ -10,7 +10,7 @@ export default function Dialog({ open, handleChange, children }: DialogProps) {
 	return (
 		<Root open={open} onOpenChange={handleChange}>
 			<Portal>
-				<Overlay className="bg-black/20 fixed inset-0 overflow-y-auto" onClick={console.log}>
+				<Overlay className="bg-black/20 fixed inset-0 overflow-y-auto">
 					<Content>{children}</Content>
 				</Overlay>
 			</Portal>

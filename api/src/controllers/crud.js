@@ -19,8 +19,8 @@ class CrudBase extends Controller {
 		return this.Model.create(body);
 	}
 
-	findOne(query) {
-		return this.Model.findOne(query);
+	findOne(query, options = {}) {
+		return this.Model.findOne(query, options);
 	}
 
 	findAll(query) {
@@ -31,8 +31,8 @@ class CrudBase extends Controller {
 		return this.Model.findAll(query);
 	}
 
-	updateById(id, fields) {
-		return this.Model.update(fields, { where: { id } });
+	updateById(id, fields, options = {}) {
+		return this.Model.update(fields, { where: { id } }, options);
 	}
 
 	delete(where) {

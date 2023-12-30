@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '@/hooks/useRedux';
 import useToast from '@/hooks/useToast';
@@ -26,7 +26,8 @@ export default function LoginForm() {
 		setFormValues({ ...formValues, [name]: value });
 	};
 
-	const handleSubmit = () =>
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		authenticateUser(dispatch, formValues)
 			.then(() => {
 				toast('Redirecting...', 'success');
@@ -35,14 +36,15 @@ export default function LoginForm() {
 			.catch((err) => {
 				toast(err.errors, 'error');
 			});
+	};
 
 	return (
-		<form className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8">
+		<form className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8" onSubmit={handleSubmit}>
 			<Input variant="outline" name="email" label="Email" onChange={handleChange} />
 			<Input variant="outline" name="password" label="Password" type="password" onChange={handleChange} />
 			<AuthOptions />
 			<hr className="w-[75%] border-bgsecondary border-y-1" />
-			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2" onClick={handleSubmit}>
+			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2">
 				Login
 			</Button>
 		</form>

@@ -8,8 +8,6 @@ function queryGetPosts(query, userId, pagination) {
 		aditionalOptions.group = ['posts.id', 'user.id', 'interactions.userId', 'interactions.postId', 'interactions.type'];
 	}
 
-	console.log(userId);
-
 	return {
 		where: query,
 		attributes: [

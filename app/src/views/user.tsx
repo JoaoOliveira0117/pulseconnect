@@ -6,8 +6,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { UserType } from '@/types';
 import useToast from '@/hooks/useToast';
 import { users } from '@/services';
+import { useAppSelector } from '@/hooks/useRedux';
+import UserMe from '@/components/UserMe';
 
 export default function UserView() {
+	const userMe = useAppSelector((state) => state.currentUser.data);
 	const [user, setUser] = useState<UserType | null>(null);
 
 	const router = useParams();
@@ -29,6 +32,10 @@ export default function UserView() {
 
 	if (!user) {
 		return <></>;
+	}
+
+	if (user.id === userMe?.id) {
+		return <UserMe />;
 	}
 
 	return <User user={user} />;

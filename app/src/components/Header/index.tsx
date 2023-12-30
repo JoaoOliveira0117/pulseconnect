@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Header() {
 	return (
-		<header className="max-w-[1000px] m-auto py-4 flex flex-col gap-4">
+		<header className="w-full py-4 flex flex-col gap-4">
 			<div className="flex items-center justify-between">
 				<Link href={'/home'}>
 					<Logo />

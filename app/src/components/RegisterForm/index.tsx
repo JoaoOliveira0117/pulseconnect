@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import useToast from '@/hooks/useToast';
@@ -30,19 +30,20 @@ export default function RegisterForm() {
 		setFormValues({ ...formValues, [name]: value });
 	};
 
-	const handleSubmit = () =>
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		registerUser(dispatch, formValues)
 			.then(() => {
 				toast('Redirecting...', 'success');
 				router.push('/home');
 			})
 			.catch((err) => {
-				console.log(err.errors);
 				toast(err.errors, 'error');
 			});
+	};
 
 	return (
-		<form className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8 ">
+		<form className="absolute left-0 min-w-[300px] flex flex-col items-center gap-8 " onSubmit={handleSubmit}>
 			{form.map((input) => (
 				<Input
 					key={input.name}
@@ -55,7 +56,7 @@ export default function RegisterForm() {
 			))}
 			<AuthOptions />
 			<hr className="w-[75%] border-bgsecondary border-y-1" />
-			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2" onClick={handleSubmit}>
+			<Button type="submit" variant="filled" className="text-sm py-3 px-8 my-2">
 				Register
 			</Button>
 		</form>

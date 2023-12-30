@@ -25,7 +25,7 @@ export default function ReplyComposer({ postId }: ReplyComposerProps) {
 
 	return (
 		<div className="flex gap-2">
-			<UserMeProfilePicture size={48} />
+			<UserMeProfilePicture className="basis-12 h-fit" size={48} />
 			<div
 				className={
 					'w-full bg-bgtertiary rounded-tl-lg rounded-3xl flex self-center items-center justify-between py-1 text-sm'

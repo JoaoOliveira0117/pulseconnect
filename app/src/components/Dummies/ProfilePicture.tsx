@@ -7,13 +7,13 @@ type ProfilePictureProps = {
 	size?: number;
 };
 
-const defaults = 'aspect-square rounded-full';
+const defaults = 'w-full aspect-square rounded-full';
 
 export default function ProfilePicture({ className, src, size = 24 }: ProfilePictureProps) {
 	if (!src) {
 		return (
 			<div
-				className={`w-full border-secondary text-secondary border flex items-center justify-center ${defaults} ${className}`}
+				className={`${defaults} bg-bgprimary border-secondary text-secondary border flex items-center justify-center ${className}`}
 			>
 				<BiSolidUser className={'w-3/4 h-3/4'} />
 			</div>
@@ -24,7 +24,7 @@ export default function ProfilePicture({ className, src, size = 24 }: ProfilePic
 		<Image
 			width={size}
 			height={size}
-			className={`${defaults} ${className} h-min object-cover`}
+			className={`${defaults} object-cover ${className} `}
 			src={src}
 			alt="Profile Picture"
 		/>

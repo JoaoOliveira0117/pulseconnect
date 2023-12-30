@@ -11,7 +11,7 @@ export default function RepliesContainer() {
 				<hr className="border-bgsecondary border-y-1" />
 			</div>
 			<div className="flex flex-col items-center justify-center mt-8 mx-8 gap-4">
-				{replies?.map((reply) => <Reply data={reply} />)}
+				{replies?.map((reply) => <Reply key={reply.id} data={reply} />)}
 			</div>
 		</>
 	);

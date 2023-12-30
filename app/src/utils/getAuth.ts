@@ -3,12 +3,12 @@ import Cookies from 'js-cookie';
 function getAuth(token?: string) {
 	const currentToken = Cookies.get('jwt');
 
-	if (!currentToken && token) {
+	if (token) {
 		Cookies.set('jwt', token);
-		return token;
+		return `Bearer ${token}`;
 	}
 
-	return currentToken;
+	return `Bearer ${currentToken}`;
 }
 
 export default getAuth;

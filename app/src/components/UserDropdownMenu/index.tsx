@@ -1,45 +1,42 @@
 'use client';
 
 import Link from 'next/link';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
+import useAuth from '@/hooks/useAuth';
+import { useAppSelector } from '@/hooks/useRedux';
+import UserMeProfilePicture from '../Dummies/UserMeProfilePicture';
 import DropdownItem from '../DropdownMenu/dropdownItem';
 import DropdownMenu from '../DropdownMenu';
 import UserPill from '../UserPill';
-import { useAppSelector } from '@/hooks/useRedux';
-import UserMeProfilePicture from '../Dummies/UserMeProfilePicture';
 
-const defaults = 'w-full p-2 text-center hover:bg-secondary outline-none transition-all duration-150';
+const defaults = 'w-full p-2 text-center hover:bg-secondary outline-none rounded-lg transition-all duration-150';
 
 export default function UserDropdown() {
+	const { dispatchLogout } = useAuth();
+	const isLoading = useAppSelector((state) => state.currentUser.fetching || state.currentUser.loading);
 	const user = useAppSelector((state) => state.currentUser.data);
-	const router = useRouter();
 
 	const handleLogout = () => {
-		Cookies.remove('jwt');
-		router.replace('/auth');
+		dispatchLogout();
 	};
 
-	if (!user) {
-		return null;
+	if (isLoading || !user) {
+		return <div className="bg-bgsecondary py-4 rounded-full shadow-xl w-48 animate-pulse" />;
 	}
 
 	return (
-		<DropdownMenu trigger={<UserPill />}>
-			<div className="bg-bgsecondary pt-4 rounded-lg shadow-xl w-32">
+		<DropdownMenu trigger={<UserPill user={user} />}>
+			<div className="bg-bgsecondary py-4 px-8 rounded-lg shadow-xl min-w-fit">
 				<div className="flex flex-col items-center justify-center gap-2 pb-2 mx-2 cursor-default">
-					<UserMeProfilePicture size={48} />
-					<p className="text-sm font-bold">{user.name}</p>
-					<p className="text-xs text-secondary">@{user.username}</p>
+					<UserMeProfilePicture size={64} />
+					<p className="text-md font-bold">{user.name}</p>
+					<p className="text-sm text-secondary">@{user.username}</p>
 				</div>
-				<DropdownItem className={`${defaults}`}>
-					<Link href="/home/user/me">Settings</Link>
-				</DropdownItem>
-				<DropdownItem className={`${defaults} rounded-b-md`}>
-					<button type="button" onClick={handleLogout}>
-						Logout
-					</button>
-				</DropdownItem>
+				<Link href={`/home/user/${user.id}`}>
+					<DropdownItem className={defaults}>Account</DropdownItem>
+				</Link>
+				<button type="button" className={defaults} onClick={handleLogout}>
+					<DropdownItem>Logout</DropdownItem>
+				</button>
 			</div>
 		</DropdownMenu>
 	);

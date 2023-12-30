@@ -41,11 +41,12 @@ export type AuthType = {
 };
 
 export type UserType = {
+	[key: string]: string;
 	id: string;
 	name: string;
 	username: string;
 	email: string;
-	profilePicture?: string;
+	profilePicture: string;
 };
 
 export type CreatePostType = {

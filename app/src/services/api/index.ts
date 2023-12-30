@@ -4,7 +4,7 @@ import { APIResponse } from '@/types';
 type RequestMethods = 'get' | 'post' | 'put' | 'delete';
 
 type RequestOptions = {
-	body?: { [key: string]: unknown };
+	body?: unknown;
 	query?: { [key: string]: unknown };
 	headers?: RawAxiosRequestHeaders;
 };

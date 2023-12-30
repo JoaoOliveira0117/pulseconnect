@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { PostType } from '@/types';
-import UserImage from '../Dummies/ProfilePicture';
+import ProfilePicture from '../Dummies/ProfilePicture';
 import Link from 'next/link';
 import PostInteractions from '../PostInteractions';
 
@@ -11,11 +11,12 @@ interface PostProps {
 
 export default function Post({ data, showReplyTooltip }: PostProps) {
 	const targetLink = `/home/user/${data.user?.id}`;
+
 	return (
-		<div className="w-full">
+		<div className="w-full p-4 rounded-2xl">
 			<div className="flex gap-2">
-				<Link className="shrink-0" href={targetLink}>
-					<UserImage src={data.user?.profilePicture} size={48} />
+				<Link className="basis-8" href={targetLink}>
+					<ProfilePicture src={data.user?.profilePicture} size={64} />
 				</Link>
 				<div className="w-full">
 					<div className="flex justify-between items-center">
@@ -24,7 +25,7 @@ export default function Post({ data, showReplyTooltip }: PostProps) {
 								<span>{data.user?.name} </span>
 								<span className="font-light text-secondary">@{data.user?.username}</span>
 							</Link>{' '}
-							{showReplyTooltip && (
+							{showReplyTooltip && data.replyTo && (
 								<Link href={`reply/${data.replyTo}`}>
 									<span className="text-sm text-primary font-light">as a reply to other post</span>
 								</Link>

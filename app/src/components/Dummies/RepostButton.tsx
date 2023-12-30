@@ -14,12 +14,14 @@ export default function RepostButton({ count, active, dispatch }: RepostButtonPr
 			<div className="w-full">
 				<Button
 					variant="borderless"
-					className="w-full py-2 m-auto flex items-center justify-center gap-2"
+					className="w-full py-2 m-auto flex items-center justify-center gap-2 transition-all duration-150"
 					onClick={dispatch}
 					active={active}
 				>
-					<AiOutlineRetweet />
-					{count}
+					<AiOutlineRetweet
+						className={`${active ? 'bg-white rounded-sm text-bgprimary' : ''} transition-all duration-75`}
+					/>
+					<span className="w-4">{count}</span>
 				</Button>
 			</div>
 		</Tooltip>

@@ -7,7 +7,7 @@ import { useAppSelector } from '@/hooks/useRedux';
 import { MdClose } from 'react-icons/md';
 import RepliesContainer from '../RepliesContainer';
 import ReplyComposer from '../ReplyComposer';
-import Post from '../Post';
+import Reply from '../Reply';
 
 type RepliesDialogProps = {
 	isOpen: boolean;
@@ -22,7 +22,7 @@ const commentLine = [
 	'after:top-0',
 	'after:left-[1.4rem]',
 	'after:border-l-2',
-	'after:border-bgsecondary',
+	'after:border-secondary',
 	'after:z-[-1]',
 ];
 
@@ -30,12 +30,11 @@ export default function RepliesDialog({ isOpen, handleChange }: RepliesDialogPro
 	const isFetching = useAppSelector((state) => state.replies.fetching);
 	const post = useAppSelector((state) => state.replies.data.post);
 
-	if (!isFetching) {
+	if (isFetching) {
 		return <Dialog open={isOpen} handleChange={handleChange} />;
 	}
 
 	if (!post) {
-		handleChange();
 		return null;
 	}
 
@@ -46,7 +45,7 @@ export default function RepliesDialog({ isOpen, handleChange }: RepliesDialogPro
 					<MdClose />
 				</Button>
 				<div className={`${commentLine.join(' ')} relative flex flex-col gap-4 m-4`}>
-					<Post data={post} showReplyTooltip={false} />
+					<Reply data={post} />
 					<ReplyComposer postId={post.id} />
 				</div>
 				<RepliesContainer />

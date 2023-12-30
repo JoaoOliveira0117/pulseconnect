@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { PostType } from '@/types';
-import UserImage from '../Dummies/ProfilePicture';
+import ProfilePicture from '../Dummies/ProfilePicture';
 import Link from 'next/link';
 import ReplyInteractions from '../ReplyInteractions';
 
@@ -14,8 +14,8 @@ export default function Reply({ data }: PostProps) {
 	return (
 		<div className="w-full">
 			<div className="flex gap-2">
-				<Link className="shrink-0" href={targetLink}>
-					<UserImage src={data.user?.profilePicture} size={48} />
+				<Link className="basis-12" href={targetLink}>
+					<ProfilePicture src={data.user?.profilePicture} size={64} />
 				</Link>
 				<div className="w-full">
 					<div className="flex justify-between items-center">

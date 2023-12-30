@@ -13,7 +13,7 @@ export default (req, res, next) => {
 		const decoded = validateToken(splitted);
 		req.user = decoded;
 	} catch (err) {
-		return res.status(403).json(handleError('Authentication failed, ' + err, 403));
+		return res.status(403).json(handleError('Authentication failed, ' + err.message, 403));
 	}
 
 	return next();

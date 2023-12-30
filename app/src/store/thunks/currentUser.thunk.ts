@@ -1,6 +1,5 @@
 import users from '@/services/users';
 import { setCurrentUser, setFetchingCurrentUser, setLoadingCurrentUser } from '../reducers/currentUser.reducers';
-import { UserType } from '@/types';
 
 import dispatchHelper from '@/utils/dispatchHelper';
 
@@ -19,7 +18,7 @@ export const removeCurrentUser = dispatchHelper(async (dispatch) => {
 }, setLoadingCurrentUser);
 
 export const updateCurrentUser = dispatchHelper(
-	async (dispatch, body: UserType & { file: FormData }) => {
+	async (dispatch, body: FormData) => {
 		const { data } = await users.update(body);
 
 		dispatch(setCurrentUser(data));

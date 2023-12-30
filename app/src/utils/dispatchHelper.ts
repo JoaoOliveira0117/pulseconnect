@@ -12,7 +12,7 @@ const dispatchHelper =
 		dispatch(setLoading(true));
 		setFetching && dispatch(setFetching(true));
 		try {
-			return fn(dispatch, ...rest);
+			return await fn(dispatch, ...rest);
 		} finally {
 			dispatch(setLoading(false));
 			setFetching && dispatch(setFetching(false));

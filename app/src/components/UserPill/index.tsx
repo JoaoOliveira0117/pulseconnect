@@ -1,28 +1,20 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
-import { getCurrentUser } from '@/store/thunks/currentUser.thunk';
-import UserImage from '../Dummies/ProfilePicture';
+import { UserType } from '@/types';
+import UserMeProfilePicture from '../Dummies/UserMeProfilePicture';
+import { AiOutlineDown } from 'react-icons/ai';
 
-export default function UserPill() {
-	const user = useAppSelector((state) => state.currentUser.data);
-	const router = useRouter();
-	const dispatch = useAppDispatch();
+type UserPillProps = {
+	user: UserType;
+};
 
-	useEffect(() => {
-		getCurrentUser(dispatch);
-		router.refresh();
-	}, [dispatch, router]);
-
-	if (!user) {
-		return null;
-	}
-
+export default function UserPill({ user }: UserPillProps) {
 	return (
 		<div className="flex items-center justify-between cursor-pointer gap-2 p-2 px-4 hover:bg-bgsecondary rounded-full transition ease-out bg-bgprimary duration-200">
-			<UserImage src={user?.profilePicture} size={24} />
-			<h2 className="block w-full max-w-[8rem] overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-light text-end">
-				@{user.username}
+			<UserMeProfilePicture className="basis-10" size={16} />
+			<h2 className="flex items-center justify-between w-[8rem] overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-light text-start">
+				<span>@{user.username}</span>
+				<span className="text-secondary">
+					<AiOutlineDown />
+				</span>
 			</h2>
 		</div>
 	);

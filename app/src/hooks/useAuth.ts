@@ -1,14 +1,31 @@
-import { setAccessToken } from '@/store/reducers/auth.reducers';
+import { setAccessToken as setAccessTokenReducer } from '@/store/reducers/auth.reducers';
 import { useAppDispatch, useAppSelector } from './useRedux';
+import { useEffect, useState } from 'react';
+import { removeCurrentUser } from '@/store/thunks/currentUser.thunk';
+import { useRouter } from 'next/navigation';
 import getAuth from '@/utils/getAuth';
+import Cookies from 'js-cookie';
 
 export default function useAuth() {
+	const [accessToken, setAccessToken] = useState('');
 	const appToken = useAppSelector((state) => state.auth.data.accessToken);
-	const accessToken = getAuth(appToken);
 
 	const dispatch = useAppDispatch();
+	const router = useRouter();
 
-	const dispatchAccessToken = (token: string) => dispatch(setAccessToken(token));
+	const dispatchAccessToken = (token: string) => dispatch(setAccessTokenReducer(token));
 
-	return { accessToken, dispatchAccessToken };
+	const dispatchLogout = () => {
+		removeCurrentUser(dispatch);
+		dispatch(setAccessTokenReducer(''));
+		Cookies.remove('jwt');
+		router.replace('/auth');
+	};
+
+	useEffect(() => {
+		const token = getAuth(appToken) || '';
+		setAccessToken(token);
+	}, [appToken]);
+
+	return { accessToken, dispatchAccessToken, dispatchLogout };
 }

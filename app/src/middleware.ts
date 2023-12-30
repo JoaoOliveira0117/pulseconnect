@@ -5,7 +5,6 @@ import type { NextRequest } from 'next/server';
 // eslint-disable-next-line consistent-return
 export function middleware(request: NextRequest) {
 	const cookie = request.cookies.get('jwt');
-
 	if (!cookie) {
 		return NextResponse.redirect(new URL('/auth', request.url));
 	}

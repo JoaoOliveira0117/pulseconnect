@@ -19,8 +19,13 @@ class UserBase extends CrudBase {
 		return data.thumb.url;
 	}
 
-	#findUser(where) {
-		return this.findOne({ where });
+	#findUser(where, options) {
+		return this.findOne({ where }, options);
+	}
+
+	async #updateUser(id, fields, options) {
+		await this.updateById(id, fields, options);
+		return this.#findUser({ id }, options);
 	}
 
 	getUserById(id) {
@@ -52,7 +57,7 @@ class UserBase extends CrudBase {
 	async updateUserById(userId, fields) {
 		fields.profilePicture = await this.#uploadFile();
 
-		return this.updateById(userId, fields);
+		return this.dbInstance.transaction((transaction) => this.#updateUser(userId, fields, { transaction }));
 	}
 }
 

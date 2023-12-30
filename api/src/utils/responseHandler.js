@@ -16,8 +16,9 @@ export const handleData = (body, statusCode = 200) => {
 };
 
 export const handleError = (err, statusCode = 400) => {
+	console.log(err);
 	return {
 		...handleData({}, statusCode),
-		errors: err.errors,
+		errors: err.errors?.length ? err.errors : [err],
 	};
 };

@@ -4,7 +4,7 @@ import useController from '../../helpers/useController.js';
 
 class GetUser extends UserBase {
 	response() {
-		return this.getUser(this.params.id);
+		return this.getUserById(this.params.id);
 	}
 }
 
