@@ -16,10 +16,10 @@ export default function useAuth() {
 	const dispatchAccessToken = (token: string) => dispatch(setAccessTokenReducer(token));
 
 	const dispatchLogout = () => {
+		router.replace('/auth');
+		Cookies.remove('jwt');
 		removeCurrentUser(dispatch);
 		dispatch(setAccessTokenReducer(''));
-		Cookies.remove('jwt');
-		router.replace('/auth');
 	};
 
 	useEffect(() => {

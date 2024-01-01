@@ -52,7 +52,10 @@ export default function UserMe() {
 		});
 
 		updateCurrentUser(dispatch, formData)
-			.then(() => toast('User update successfull!'))
+			.then(() => {
+				toast('User update successfull!');
+				setHasChanges(false);
+			})
 			.catch((err) => toast(err.errors, 'error'));
 	};
 

@@ -1,5 +1,5 @@
-import CommentModal from '@/views/repliesModal';
+import RepliesModal from '@/views/repliesModal';
 
 export default function Page({ params }: { params: { id: string } }) {
-	return <CommentModal commentId={params.id} />;
+	return <RepliesModal id={params.id} />;
 }

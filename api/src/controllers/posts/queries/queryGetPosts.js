@@ -33,6 +33,7 @@ function queryGetPosts(query, userId, pagination) {
 			},
 			{
 				association: 'interactions',
+				order: ['createdAt', 'DESC'],
 				attributes: [],
 			},
 		],

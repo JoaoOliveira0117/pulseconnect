@@ -6,8 +6,8 @@ import Button from '../Dummies/Button';
 import Tooltip from '../Dummies/Tooltip';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { createReply } from '@/store/thunks/replies.thunk';
-import Input from '../Dummies/Input';
 import UserMeProfilePicture from '../Dummies/UserMeProfilePicture';
+import TextArea from '../Dummies/TextArea';
 
 type ReplyComposerProps = {
 	postId: string;
@@ -24,33 +24,26 @@ export default function ReplyComposer({ postId }: ReplyComposerProps) {
 	};
 
 	return (
-		<div className="flex gap-2">
-			<UserMeProfilePicture className="basis-12 h-fit" size={48} />
-			<div
-				className={
-					'w-full bg-bgtertiary rounded-tl-lg rounded-3xl flex self-center items-center justify-between py-1 text-sm'
-				}
-			>
-				<Input
+		<div className="flex w-full">
+			<UserMeProfilePicture className="max-w-[3rem] self-end" />
+			<div className={'w-full bg-bgtertiary rounded-2xl flex self-center py-2 ml-2'}>
+				<TextArea
 					variant="transparent"
-					className="w-full"
-					placeholder="What are your thoughts?"
+					className="w-full self-center"
+					placeholder={'What are you thinking today?'}
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
-					multiline
 				/>
-				<Tooltip content={<span>Create a new Post</span>}>
-					<Button
-						variant="borderless"
-						className="bg-transparent hover:bg-transparent mr-1 mt-auto"
-						onClick={handleCreateComment}
-					>
-						<AiOutlinePlus
-							className={
-								'text-bgprimary text-4xl bg-secondary px-[0.5rem] hover:text-white transition-all duration-150 rounded-full'
-							}
-						/>
-					</Button>
+				<Tooltip content={<span>Create a new post</span>} delayDuration={150}>
+					<div className="mt-auto">
+						<Button
+							variant="borderless"
+							className="bg-secondary hover:bg-secondary rounded-lg p-2 mr-2 mt-auto text-lg"
+							onClick={handleCreateComment}
+						>
+							<AiOutlinePlus className="text-bgsecondary hover:text-white transition-all duration-150" />
+						</Button>
+					</div>
 				</Tooltip>
 			</div>
 		</div>

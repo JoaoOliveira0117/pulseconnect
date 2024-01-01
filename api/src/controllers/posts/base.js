@@ -29,14 +29,14 @@ class PostBase extends CrudBase {
 	}
 
 	getPostsWithInteractions() {
-		const options = {
+		const query = {
 			[Op.or]: {
 				'$interactions.type$': { [Op.ne]: null },
 				replyTo: { [Op.ne]: null },
 			},
 		};
 
-		return this.#findAndCountPosts(options);
+		return this.#findAndCountPosts(query);
 	}
 
 	getPostWithRepliesById(postId) {

@@ -45,7 +45,7 @@ export default function RepliesDialog({ isOpen, handleChange }: RepliesDialogPro
 					<MdClose />
 				</Button>
 				<div className={`${commentLine.join(' ')} relative flex flex-col gap-4 m-4`}>
-					<Reply data={post} />
+					<Reply data={post} isCurrentPost />
 					<ReplyComposer postId={post.id} />
 				</div>
 				<RepliesContainer />

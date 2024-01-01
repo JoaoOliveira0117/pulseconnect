@@ -1,18 +1,17 @@
 import { UserType } from '@/types';
 
-import api from './api';
 import getAuth from '@/utils/getAuth';
+import init from './api';
 
-const instance = api('users').addHeaders({ Authorization: getAuth() });
-
-const headers = {
-	'Content-Type': 'multipart/form-data',
-};
+const api = init('users').addHeaders({ Authorization: getAuth() });
 
 const users = {
-	getCurrent: () => instance.get<UserType>('/me'),
-	getById: (id: string) => instance.get<UserType>(`/${id}`),
-	update: (body: FormData) => instance.post<UserType>('/update', { body, headers }),
+	getCurrent: () => api.get<UserType>('/me', { cache: 'no-cache' }),
+	getById: (id: string) => api.get<UserType>(`/${id}`),
+	update: (body: FormData) =>
+		api.post<UserType>('/update', {
+			body,
+		}),
 };
 
 export default users;

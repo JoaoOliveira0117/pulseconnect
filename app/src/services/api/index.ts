@@ -1,88 +1,52 @@
-import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
 import { APIResponse } from '@/types';
 
 type RequestMethods = 'get' | 'post' | 'put' | 'delete';
 
+type RequestObject = { [key: string]: unknown };
+
 type RequestOptions = {
 	body?: unknown;
-	query?: { [key: string]: unknown };
-	headers?: RawAxiosRequestHeaders;
+	query?: RequestObject;
+	headers?: RequestObject;
+	cache?: RequestCache;
 };
 
-class Service {
-	#instance: AxiosInstance;
+const config = {
+	baseUrl: 'http://localhost:3000',
+	headers: {},
+};
 
-	constructor(url: string) {
-		this.#instance = this.#createInstance(url);
-		this.#instance.interceptors.response.use(
-			(response) => response.data,
-			(error) => Promise.reject(error.response.data),
-		);
-	}
+const _mountOptions = (options: RequestOptions, config?: RequestOptions) => {
+	return {
+		...options,
+		...(options.body ? { body: options.body } : {}),
+		...(config?.headers ? { headers: { ...config.headers, ...options.headers } } : {}),
+	};
+};
 
-	#createInstance(url: string) {
-		return axios.create({
-			baseURL: `http://localhost:3000/${url}`,
-			params: {},
-			timeout: 10000,
-			headers: {
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*',
-			},
-			validateStatus: (status) => status >= 200 && status < 300,
-		});
-	}
+const _send = <T>(method: RequestMethods, url: string, options: RequestOptions): Promise<APIResponse<T>> =>
+	fetch(url, { method, ...options } as RequestInit).then((response) => response.json());
 
-	#mountUrl(url: string, query?: { [key: string]: unknown }) {
-		if (query) {
-			return Object.keys(query)
-				.map((key) => `${key}=${query[key]}`)
-				.join('&');
-		}
+function init(endpoint: string) {
+	const mountRequest = (url: string, options: RequestOptions = {}): [string, RequestOptions] => [
+		`${config.baseUrl}/${endpoint}${url}`,
+		_mountOptions(options, config),
+	];
 
-		return url;
-	}
+	return {
+		addHeaders: function (headers: RequestObject) {
+			config.headers = {
+				...headers,
+			};
 
-	#mountRequestOptions(options?: RequestOptions) {
-		if (options) {
-			return [
-				...(options.body ? [options.body] : []),
-				{
-					headers: options.headers,
-				},
-			];
-		}
+			return this;
+		},
 
-		return [];
-	}
-
-	#useRequestInstance<R>(method: RequestMethods, url: string, options?: RequestOptions): Promise<APIResponse<R>> {
-		return this.#instance[method](this.#mountUrl(url, options?.query), ...this.#mountRequestOptions(options));
-	}
-
-	addHeaders(headers: RawAxiosRequestHeaders) {
-		Object.keys(headers).forEach((key) => {
-			this.#instance.defaults.headers.common[key] = headers[key];
-		});
-
-		return this;
-	}
-
-	get<R>(url: string, options?: RequestOptions) {
-		return this.#useRequestInstance<R>('get', url, options);
-	}
-
-	post<R>(url: string, options?: RequestOptions) {
-		return this.#useRequestInstance<R>('post', url, options);
-	}
-
-	put<R>(url: string, options?: RequestOptions) {
-		return this.#useRequestInstance<R>('put', url, options);
-	}
-
-	delete<R>(url: string, options?: RequestOptions) {
-		return this.#useRequestInstance<R>('delete', url, options);
-	}
+		get: <T>(url: string, options?: RequestOptions) => _send<T>('get', ...mountRequest(url, options)),
+		post: <T>(url: string, options?: RequestOptions) => _send<T>('post', ...mountRequest(url, options)),
+		put: <T>(url: string, options?: RequestOptions) => _send<T>('put', ...mountRequest(url, options)),
+		delete: <T>(url: string, options?: RequestOptions) => _send<T>('delete', ...mountRequest(url, options)),
+	};
 }
 
-export default (url: string) => new Service(url);
+export default init;

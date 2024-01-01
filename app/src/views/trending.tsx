@@ -8,9 +8,11 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { getAllPosts } from '@/store/thunks/posts.thunk';
 import { useEffect } from 'react';
 
+export const revalidate = '0';
+
 export default function Trending() {
 	const isUserLoading = useAppSelector((state) => state.currentUser.loading || state.currentUser.fetching);
-	const isPostsLoading = useAppSelector((state) => state.posts.loading || state.posts.fetching);
+	const isPostsFetching = useAppSelector((state) => state.posts.fetching);
 	const posts = useAppSelector((state) => state.posts.data);
 
 	const dispatch = useAppDispatch();
@@ -22,7 +24,7 @@ export default function Trending() {
 	return (
 		<div className="w-full max-w-3xl m-auto">
 			{isUserLoading ? <PostComposerSkeleton /> : <PostComposer />}
-			{isPostsLoading ? <PostSkeleton /> : <PostContainer posts={posts} showReplyTooltip={false} />}
+			{isPostsFetching ? <PostSkeleton /> : <PostContainer posts={posts} showReplyTooltip={false} />}
 		</div>
 	);
 }

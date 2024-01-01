@@ -8,6 +8,7 @@ import {
 	setFetchingReplies,
 	setLoadingReplies,
 	setPost,
+	setReplies,
 } from '../reducers/replies.reducers';
 
 import dispatchHelper from '@/utils/dispatchHelper';
@@ -15,8 +16,8 @@ import dispatchHelper from '@/utils/dispatchHelper';
 export const getReplies = dispatchHelper(
 	async (dispatch, id: string) => {
 		const { data } = await posts.getById(id);
-
 		dispatch(setPost(data));
+		dispatch(setReplies(data.replies));
 	},
 	setLoadingReplies,
 	setFetchingReplies,

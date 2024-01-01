@@ -6,9 +6,10 @@ import ReplyInteractions from '../ReplyInteractions';
 
 interface PostProps {
 	data: PostType;
+	isCurrentPost?: boolean;
 }
 
-export default function Reply({ data }: PostProps) {
+export default function Reply({ data, isCurrentPost = false }: PostProps) {
 	const targetLink = `/home/user/${data.user?.id}`;
 
 	return (
@@ -28,7 +29,7 @@ export default function Reply({ data }: PostProps) {
 						<p className="text-xs font-light text-secondary pt-0.5">{dayjs(data.createdAt).format('DD MMM YY')}</p>
 					</div>
 					<p className="my-2 font-light">{data.content}</p>
-					<ReplyInteractions reply={data} />
+					<ReplyInteractions reply={data} isPost={isCurrentPost} />
 				</div>
 			</div>
 		</div>
